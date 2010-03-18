@@ -362,7 +362,7 @@ div.clear {
 }
 
 #monitors li{
- border:6px solid #000066;
+ border:2px solid #000066;
  margin:10px;
  width:150px;
  float:left;
@@ -370,7 +370,7 @@ div.clear {
 
 #monitors p{
  margin:0;
- line-height:10px;
+ line-height:13px;
  padding:0;
 }
 

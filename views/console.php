@@ -262,22 +262,35 @@ $image = 'Zones'.$monitor['Id'].'.jpg';
 ?>
      <li id="monitor_<?php echo $monitor['Id'] ?>">
       <img src="<?= ZM_DIR_IMAGES.'/'.$image ?>" alt="zones" width="100%" height="100%" border="0"/>
-      <p><?= makePopupLink( '?view=watch&mid='.$monitor['Id'], 'zmWatch'.$monitor['Id'], array( 'watch', reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ) ), $monitor['Name'], $running && ($monitor['Function'] != 'None') && canView( 'Stream' ) ) ?></p>
-      <p><?= makePopupLink( '?view=function&mid='.$monitor['Id'], 'zmFunction', 'function', '<span class="'.$fclass.'">'.$monitor['Function'].'</span>', canEdit( 'Monitors' ) ) ?></p>
+      <p><?= makePopupLink( '?view=watch&mid='.$monitor['Id'], 'zmWatch'.$monitor['Id'], array( 'watch', reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ) ), $monitor['Name'], $running && ($monitor['Function'] != 'None') && canView( 'Stream' ) ) ?> (<?php echo $monitor['Id'] ?>)</p>
+      <p>Function: <?= makePopupLink( '?view=function&mid='.$monitor['Id'], 'zmFunction', 'function', '<span class="'.$fclass.'">'.$monitor['Function'].'</span>', canEdit( 'Monitors' ) ) ?></p>
+<p>Source:
 <?php if ( $monitor['Type'] == "Local" ) { ?>
-            <p><?= makePopupLink( '?view=monitor&mid='.$monitor['Id'], 'zmMonitor'.$monitor['Id'], 'monitor', '<span class="'.$dclass.'">'.$monitor['Device'].' ('.$monitor['Channel'].')</span>', canEdit( 'Monitors' ) ) ?></p>
+            <?= makePopupLink( '?view=monitor&mid='.$monitor['Id'], 'zmMonitor'.$monitor['Id'], 'monitor', '<span class="'.$dclass.'">'.$monitor['Device'].' ('.$monitor['Channel'].')</span>', canEdit( 'Monitors' ) ) ?>
 <?php } elseif ( $monitor['Type'] == "Remote" ) { ?>
-            <p><?= makePopupLink( '?view=monitor&mid='.$monitor['Id'], 'zmMonitor'.$monitor['Id'], 'monitor', '<span class="'.$dclass.'">'.preg_replace( '/^.*@/', '', $monitor['Host'] ).'</span>', canEdit( 'Monitors' ) ) ?></p>
+            <?= makePopupLink( '?view=monitor&mid='.$monitor['Id'], 'zmMonitor'.$monitor['Id'], 'monitor', '<span class="'.$dclass.'">'.preg_replace( '/^.*@/', '', $monitor['Host'] ).'</span>', canEdit( 'Monitors' ) ) ?>
 <?php } elseif ( $monitor['Type'] == "File" ) { ?>
-            <p><?= makePopupLink( '?view=monitor&mid='.$monitor['Id'], 'zmMonitor'.$monitor['Id'], 'monitor', '<span class="'.$dclass.'">'.preg_replace( '/^.*\//', '', $monitor['Path'] ).'</span>', canEdit( 'Monitors' ) ) ?></p>
+            <?= makePopupLink( '?view=monitor&mid='.$monitor['Id'], 'zmMonitor'.$monitor['Id'], 'monitor', '<span class="'.$dclass.'">'.preg_replace( '/^.*\//', '', $monitor['Path'] ).'</span>', canEdit( 'Monitors' ) ) ?>
 <?php } elseif ( $monitor['Type'] == "Ffmpeg" ) { ?>
-            <p><?= makePopupLink( '?view=monitor&mid='.$monitor['Id'], 'zmMonitor'.$monitor['Id'], 'monitor', '<span class="'.$dclass.'">'.preg_replace( '/^.*\//', '', $monitor['Path'] ).'</span>', canEdit( 'Monitors' ) ) ?></p>
+            <?= makePopupLink( '?view=monitor&mid='.$monitor['Id'], 'zmMonitor'.$monitor['Id'], 'monitor', '<span class="'.$dclass.'">'.preg_replace( '/^.*\//', '', $monitor['Path'] ).'</span>', canEdit( 'Monitors' ) ) ?>
 <?php } else { ?>
             <p>&nbsp;</p>
 <?php
 }
 ?>
-            <p><?= makePopupLink( '?view=zones&mid='.$monitor['Id'], 'zmZones', array( 'zones', $monitor['Width'], $monitor['Height'] ), $monitor['ZoneCount'], canView( 'Monitors' ) ) ?> <?= $SLANG['Zones'] ?></p>
+</p>
+            <p>Zones: <?= makePopupLink( '?view=zones&mid='.$monitor['Id'], 'zmZones', array( 'zones', $monitor['Width'], $monitor['Height'] ), $monitor['ZoneCount'], canView( 'Monitors' ) ) ?></p>
+	 <p>Delete:
+<?php
+    if ( canEdit('Monitors') )
+    {
+?>
+<?php
+    }
+?>
+            <input type="checkbox" name="markMids[]" value="<?= $monitor['Id'] ?>" onclick="setButtonStates( this )"<?php if ( !canEdit( 'Monitors' ) || $user['MonitorIds'] ) {?> disabled="disabled"<?php } ?>/>
+
+	</p>
 
 <dl>
 <?php
@@ -301,16 +314,13 @@ $image = 'Zones'.$monitor['Id'].'.jpg';
 <?php
     }
 ?>
-            <td class="colMark"><input type="checkbox" name="markMids[]" value="<?= $monitor['Id'] ?>" onclick="setButtonStates( this )"<?php if ( !canEdit( 'Monitors' ) || $user['MonitorIds'] ) {?> disabled="disabled"<?php } ?>/></td>
-          </tr>
- </tr>
 <tfoot>
 <?php
 for ( $i = 0; $i < count($eventCounts); $i++ )
 {
     parseFilter( $eventCounts[$i]['filter'] );
 ?>
-    <!--        <td class="colEvents"><?= makePopupLink( '?view='.$eventsView.'&page=1'.$eventCounts[$i]['filter']['query'], $eventsWindow, $eventsView, $eventCounts[$i]['total'], canView( 'Events' ) ) ?></td>-->
+<!--        <td class="colEvents"><?= makePopupLink( '?view='.$eventsView.'&page=1'.$eventCounts[$i]['filter']['query'], $eventsWindow, $eventsView, $eventCounts[$i]['total'], canView( 'Events' ) ) ?></td>-->
 <?php
 }
 ?>
@@ -319,12 +329,12 @@ for ( $i = 0; $i < count($eventCounts); $i++ )
               <input type="button" value="<?= $SLANG['Refresh'] ?>" onclick="location.reload(true);"/>
               <?= makePopupButton( '?view=monitor', 'zmMonitor0', 'monitor', $SLANG['AddNewMonitor'], (canEdit( 'Monitors' ) && !$user['MonitorIds']) ) ?>
               <?= makePopupButton( '?view=filter&filter[terms][0][attr]=DateTime&filter[terms][0][op]=%3c&filter[terms][0][val]=now', 'zmFilter', 'filter', $SLANG['Filters'], canView( 'Events' ) ) ?>
+            <input type="button" name="deleteBtn" value="<?= $SLANG['Delete'] ?>" onclick="deleteMonitor( this )"/>
             </td>
           </tr>
         </tfoot>
 </table>
     </div>
-            <input type="button" name="deleteBtn" value="<?= $SLANG['Delete'] ?>" onclick="deleteMonitor( this )" disabled="disabled"/>
     </form>
   </div>
 </body>
