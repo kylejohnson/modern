@@ -256,12 +256,13 @@ else
 ?>
 <ul id="monitors">
 <?php
+$scale = "20%";
 foreach( $displayMonitors as $monitor )
 {
-$image = 'Zones'.$monitor['Id'].'.jpg';
+$streamSrc = getStreamSrc( array( "mode=single", "monitor=".$monitor['Id'], "scale=".$scale ) );
 ?>
      <li id="monitor_<?php echo $monitor['Id'] ?>">
-      <img src="<?= ZM_DIR_IMAGES.'/'.$image ?>" alt="zones" width="100%" height="100%" border="0"/>
+<?php outputImageStill( "liveStream", $streamSrc, reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ), $monitor['Name'] ); ?>
       <p><?= makePopupLink( '?view=watch&mid='.$monitor['Id'], 'zmWatch'.$monitor['Id'], array( 'watch', reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ) ), $monitor['Name'], $running && ($monitor['Function'] != 'None') && canView( 'Stream' ) ) ?> (<?php echo $monitor['Id'] ?>)</p>
       <p>Function: <?= makePopupLink( '?view=function&mid='.$monitor['Id'], 'zmFunction', 'function', '<span class="'.$fclass.'">'.$monitor['Function'].'</span>', canEdit( 'Monitors' ) ) ?></p>
 <p>Source:
