@@ -19,13 +19,6 @@
 
 $eventCounts = array(
     array(
-        "title" => $SLANG['Name'],
-        "filter" => array(
-            "terms" => array(
-            )
-        ),
-    ),
-    array(
         "title" => $SLANG['Events'],
         "filter" => array(
             "terms" => array(
