@@ -228,6 +228,12 @@ else
     </div>
     <div id="content">
 <?php
+    $scale = max( reScale( SCALE_BASE, $monitor['DefaultScale'], ZM_WEB_DEFAULT_SCALE ), SCALE_BASE );
+?>
+<ul id="monitors">
+<?php
+$scale = "20%";
+foreach( $displayMonitors as $monitor ){
     if ( !$monitor['zmc'] )
         $dclass = "errorText";
     else
@@ -245,13 +251,6 @@ else
         $fclass = "infoText";
     if ( !$monitor['Enabled'] )
         $fclass .= " disabledText";
-    $scale = max( reScale( SCALE_BASE, $monitor['DefaultScale'], ZM_WEB_DEFAULT_SCALE ), SCALE_BASE );
-?>
-<ul id="monitors">
-<?php
-$scale = "20%";
-foreach( $displayMonitors as $monitor )
-{
 ?>
      <li id="monitor_<?php echo $monitor['Id'] ?>">
 <?php
