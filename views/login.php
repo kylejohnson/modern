@@ -23,7 +23,7 @@ xhtmlHeaders(__FILE__, $SLANG['Login'] );
 <body>
   <div id="page">
     <div id="header">
-	<h1><img src="/graphics/traffipax_logo.jpg" alt="Traffipax" /></h1>
+	<h1>ZoneMinder</h1>
     </div>
     <div id="content">
       <form name="loginForm" id="loginForm" method="post" action="<?= $_SERVER['PHP_SELF'] ?>">
