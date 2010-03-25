@@ -23,7 +23,7 @@
 
 body {
     font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 10px;
+    font-size: 11px;
     color: #333333;
     font-weight: normal;
     text-align: center;
@@ -290,9 +290,11 @@ div.clear {
 }
 
 #header {
-    width: 96%;
+    background-color:#cccccc;
+    border-bottom:2px solid #336699;
     line-height: 24px;
-    margin: 8px auto;
+    margin:0 auto;
+    padding:0 10px;
     text-align: left;
 }
 
@@ -357,8 +359,14 @@ div.clear {
 }
 
 #footer {
-    width: 96%;
-    margin: 8px auto;
+ clear:both;
+ margin: 8px auto;
+ height:50px;
+ background-image:url('/skins/new/graphics/footer-gradient.png');
+ background-repeat:repeat-x;
+}
+
+#monitors{
 }
 
 #monitors li{

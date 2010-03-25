@@ -313,6 +313,8 @@ foreach( $displayMonitors as $monitor ){
 </li>
 <?php } ?>
 </ul>
+
+<!--<h2>Event History</h2>
 <table style="clear:both;">
 <?php
     if ( canEdit('Monitors') )
@@ -327,22 +329,21 @@ for ( $i = 0; $i < count($eventCounts); $i++ )
 {
     parseFilter( $eventCounts[$i]['filter'] );
 ?>
-<!--        <td class="colEvents"><?= makePopupLink( '?view='.$eventsView.'&page=1'.$eventCounts[$i]['filter']['query'], $eventsWindow, $eventsView, $eventCounts[$i]['total'], canView( 'Events' ) ) ?></td>-->
+        <td class="colEvents"><?= makePopupLink( '?view='.$eventsView.'&page=1'.$eventCounts[$i]['filter']['query'], $eventsWindow, $eventsView, $eventCounts[$i]['total'], canView( 'Events' ) ) ?></td>
 <?php
 }
 ?>
-          <tr>
-            <td class="colLeftButtons" colspan="3">
+        </tfoot>
+</table>-->
+  </div>
+<div id="footer">
+
               <input type="button" value="<?= $SLANG['Refresh'] ?>" onclick="location.reload(true);"/>
               <?= makePopupButton( '?view=monitor', 'zmMonitor0', 'monitor', $SLANG['AddNewMonitor'], (canEdit( 'Monitors' ) && !$user['MonitorIds']) ) ?>
               <?= makePopupButton( '?view=filter&filter[terms][0][attr]=DateTime&filter[terms][0][op]=%3c&filter[terms][0][val]=now', 'zmFilter', 'filter', $SLANG['Filters'], canView( 'Events' ) ) ?>
             <input type="button" name="deleteBtn" value="<?= $SLANG['Delete'] ?>" onclick="deleteMonitor( this )"/>
-            </td>
-          </tr>
-        </tfoot>
-</table>
+</div>
     </div>
     </form>
-  </div>
 </body>
 </html>
