@@ -362,8 +362,6 @@ div.clear {
  clear:both;
  margin: 8px auto;
  height:50px;
- background-image:url('/skins/new/graphics/footer-gradient.png');
- background-repeat:repeat-x;
 }
 
 #monitors{
