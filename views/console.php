@@ -179,6 +179,20 @@ $seqDownFile = getSkinFile( 'graphics/seq-d.gif' );
 xhtmlHeaders( __FILE__, $SLANG['Console'] );
 ?>
 <body>
+<script type="text/javascript" src="skins/new/js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="skins/new/js/jquery-ui-1.8rc3.custom.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+        $(function() {
+                $("#monitors").sortable({ opacity: 0.6, cursor: 'move', update: function() {
+                        var order = $(this).sortable("serialize") + '&action=sequence';
+                                $.post("skins/new/includes/updateSequence.php", order, function(theResponse){});
+                }
+                });
+        });
+
+});
+</script>
   <div id="page">
     <form name="monitorForm" method="get" action="<?= $_SERVER['PHP_SELF'] ?>">
     <input type="hidden" name="view" value="<?= $view ?>"/>

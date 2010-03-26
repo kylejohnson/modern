@@ -63,20 +63,6 @@ function xhtmlHeaders( $file, $title )
   <script type="text/javascript" src="tools/mootools/mootools-1.2.1-core-nc.js"></script>
   <script type="text/javascript" src="tools/mootools/mootools-1.2-more-nc.js"></script>
   <script type="text/javascript" src="js/mootools.ext.js"></script>
-<script type="text/javascript" src="skins/new/js/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="skins/new/js/jquery-ui-1.8rc3.custom.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){ 
-        $(function() {
-                $("#monitors").sortable({ opacity: 0.6, cursor: 'move', update: function() {
-                        var order = $(this).sortable("serialize") + '&action=sequence';
-                                $.post("skins/new/includes/updateSequence.php", order, function(theResponse){});
-                }
-                });
-        });
-
-});
-</script>
 <?php
     if ( $skinJsPhpFile )
     {
