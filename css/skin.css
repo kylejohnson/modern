@@ -22,9 +22,9 @@
  */
 
 body {
+    color: #333333;
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 11px;
-    color: #333333;
     font-weight: normal;
     text-align: center;
 }
@@ -167,6 +167,7 @@ ul.tabList li.active a {
 /*
  * Major league table for multiple inputs or presentation
  */
+
 
 #content table.major {
     margin: 4px auto;
@@ -317,9 +318,8 @@ div.clear {
 }
 
 #content {
-    width: 96%;
-    margin: 8px auto;
     line-height: 130%;
+    margin:0 auto;
     text-align: center;
 }
 
@@ -359,17 +359,23 @@ div.clear {
 }
 
 #footer {
+ background-color:#cccccc;
+ border-top:2px solid #336699;
+ border-bottom:2px solid #336699;
  clear:both;
  margin: 8px auto;
- height:50px;
+ padding:8px 0;
 }
+
 
 #monitors{
 }
 
 #monitors li{
- border:2px solid #000066;
+ background-color:#eeeeee;
+ border:2px solid #336699;
  margin:10px;
+ padding:4px 0;
  width:150px;
  float:left;
 }
@@ -401,3 +407,15 @@ div.clear {
  text-align:left;
  width:70px;
 }
+
+/* Clearfix */
+ .clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    }
+
+.clearfix {display: inline-block;}  /* for IE/Mac */
+

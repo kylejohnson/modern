@@ -240,7 +240,7 @@ else
 }
 ?>&nbsp;<?= makePopupLink( '?view=bandwidth', 'zmBandwidth', 'bandwidth', $bwArray[$_COOKIE['zmBandwidth']], ($user && $user['MaxBandwidth'] != 'low' ) ) ?> <?= $SLANG['Bandwidth'] ?></h3>
     </div>
-    <div id="content">
+    <div id="content" class="clearfix">
 <?php
     $scale = max( reScale( SCALE_BASE, $monitor['DefaultScale'], ZM_WEB_DEFAULT_SCALE ), SCALE_BASE );
 ?>
@@ -327,27 +327,6 @@ foreach( $displayMonitors as $monitor ){
 <?php } ?>
 </ul>
 
-<!--<h2>Event History</h2>
-<table style="clear:both;">
-<?php
-    if ( canEdit('Monitors') )
-    {
-?>
-<?php
-    }
-?>
-<tfoot>
-<?php
-for ( $i = 0; $i < count($eventCounts); $i++ )
-{
-    parseFilter( $eventCounts[$i]['filter'] );
-?>
-        <td class="colEvents"><?= makePopupLink( '?view='.$eventsView.'&page=1'.$eventCounts[$i]['filter']['query'], $eventsWindow, $eventsView, $eventCounts[$i]['total'], canView( 'Events' ) ) ?></td>
-<?php
-}
-?>
-        </tfoot>
-</table>-->
   </div>
 <div id="footer">
 
