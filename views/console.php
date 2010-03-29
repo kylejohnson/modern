@@ -335,11 +335,11 @@ foreach( $displayMonitors as $monitor ){
 
 	</p>
 
-<dl>
+<dl class="events">
 <?php
     for ( $i = 0; $i < count($eventCounts); $i++ )
     {
-     echo "<dt>" . $eventCounts[$i]["title"] . ":</dt> ";
+     echo "<dt>" . makePopupLink( '?view='.$eventsView.'&page=1'.$monitor['eventCounts'][$i]['filter']['query'], $eventsWindow, $eventsView, $eventCounts[$i]["title"], canView( 'Events' ) ) . ":</dt> ";
 ?>
             <dd><?= makePopupLink( '?view='.$eventsView.'&page=1'.$monitor['eventCounts'][$i]['filter']['query'], $eventsWindow, $eventsView, $monitor['EventCount'.$i], canView( 'Events' ) ) ?></dd>
 <?php
