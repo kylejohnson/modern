@@ -306,7 +306,6 @@ foreach( $displayMonitors as $monitor ){
  
       <?= makePopupImage( '?view=watch&mid='.$monitor['Id'], 'zmWatch'.$monitor['Id'], array( 'watch', reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ) ), $streamSrc, $monitor['Name'], $running && ($monitor['Function'] != 'None') && canView( 'Stream' ) ) ?>
 
-      <p><?= makePopupLink( '?view=watch&mid='.$monitor['Id'], 'zmWatch'.$monitor['Id'], array( 'watch', reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ) ), $monitor['Name'], $running && ($monitor['Function'] != 'None') && canView( 'Stream' ) ) ?> (<?php echo $monitor['Id'] ?>)</p>
       <p>Function: <?= makePopupLink( '?view=function&mid='.$monitor['Id'], 'zmFunction', 'function', '<span class="'.$fclass.'">'.$monitor['Function'].'</span>', canEdit( 'Monitors' ) ) ?></p>
 <p>Source:
 <?php if ( $monitor['Type'] == "Local" ) { ?>
