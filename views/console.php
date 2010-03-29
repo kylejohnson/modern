@@ -177,6 +177,29 @@ $seqUpFile = getSkinFile( 'graphics/seq-u.gif' );
 $seqDownFile = getSkinFile( 'graphics/seq-d.gif' );
 
 xhtmlHeaders( __FILE__, $SLANG['Console'] );
+
+function makePopupImage( $url, $winName, $winSize, $label, $monitorName, $condition=1, $options="" )
+{
+    $string = "";
+    if ( $condition )
+    {
+        if ( is_array( $winSize ) )
+            $popupParms = "'".$url."', '".$winName."', '".$winSize[0]."', ".$winSize[1].", ".$winSize[2];
+        else
+            $popupParms = "'".$url."', '".$winName."', '".$winSize."'";
+
+        $string .= '<a href="'.$url.'" onclick="createPopup( '.$popupParms.' ); return( false );"'.($options?(' '.$options):'').'>';
+    }
+    $string .= '<img src="';
+    $string .= $label;
+    $string .= '" alt="'.$monitorName.'" />';
+    if ( $condition )
+    {
+        $string .= '</a>';
+    }
+    return( $string );
+}
+
 ?>
 <body>
 <script type="text/javascript" src="skins/new/js/jquery-1.4.2.min.js"></script>
@@ -279,9 +302,10 @@ foreach( $displayMonitors as $monitor ){
     $streamSrc = getStreamSrc( array( "mode=".$streamMode, "monitor=".$monitor['Id'], "scale=".$scale, "maxfps=".ZM_WEB_VIDEO_MAXFPS, "buffer=".$monitor['StreamReplayBuffer'] ) );
   }
  }
-  outputImageStill( "liveStream_" . $monitor['Id'], $streamSrc, reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ), $monitor['Name']  );
 ?>
  
+      <?= makePopupImage( '?view=watch&mid='.$monitor['Id'], 'zmWatch'.$monitor['Id'], array( 'watch', reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ) ), $streamSrc, $monitor['Name'], $running && ($monitor['Function'] != 'None') && canView( 'Stream' ) ) ?>
+
       <p><?= makePopupLink( '?view=watch&mid='.$monitor['Id'], 'zmWatch'.$monitor['Id'], array( 'watch', reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ) ), $monitor['Name'], $running && ($monitor['Function'] != 'None') && canView( 'Stream' ) ) ?> (<?php echo $monitor['Id'] ?>)</p>
       <p>Function: <?= makePopupLink( '?view=function&mid='.$monitor['Id'], 'zmFunction', 'function', '<span class="'.$fclass.'">'.$monitor['Function'].'</span>', canEdit( 'Monitors' ) ) ?></p>
 <p>Source:
