@@ -263,13 +263,23 @@ else
 }
 ?>&nbsp;<?= makePopupLink( '?view=bandwidth', 'zmBandwidth', 'bandwidth', $bwArray[$_COOKIE['zmBandwidth']], ($user && $user['MaxBandwidth'] != 'low' ) ) ?> <?= $SLANG['Bandwidth'] ?></h3>
     </div>
+    <div id="nav" class="clearfix">
+     <ul>
+      <li><a href="/">Cameras</a></li>
+      <li><a href="/?view=events&amp;page=1">Events</a></li>
+      <li><a href="/?view=timeline&amp;page=1">Timeline</a></li>
+      <li><a href="/?view=monitor">Add New Camera</a></li>
+      <li><a href="/?view=options">Options</a></li>
+      <li><a href="/?view=system">System</a></li>
+     </ul>
+    </div>
     <div id="content" class="clearfix">
 <?php
     $scale = max( reScale( SCALE_BASE, $monitor['DefaultScale'], ZM_WEB_DEFAULT_SCALE ), SCALE_BASE );
 ?>
 <ul id="monitors">
 <?php
-$scale = "20%";
+$scale = "35%";
 foreach( $displayMonitors as $monitor ){
     if ( !$monitor['zmc'] )
         $dclass = "errorText";
@@ -335,17 +345,6 @@ foreach( $displayMonitors as $monitor ){
 
 	</p>
 
-<dl class="events">
-<?php
-    for ( $i = 0; $i < count($eventCounts); $i++ )
-    {
-     echo "<dt>" . makePopupLink( '?view='.$eventsView.'&page=1'.$monitor['eventCounts'][$i]['filter']['query'], $eventsWindow, $eventsView, $eventCounts[$i]["title"], canView( 'Events' ) ) . ":</dt> ";
-?>
-            <dd><?= makePopupLink( '?view='.$eventsView.'&page=1'.$monitor['eventCounts'][$i]['filter']['query'], $eventsWindow, $eventsView, $monitor['EventCount'.$i], canView( 'Events' ) ) ?></dd>
-<?php
-    }
-?>
-</dl>
 </li>
 <?php } ?>
 </ul>
