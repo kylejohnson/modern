@@ -17,60 +17,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 
-$eventCounts = array(
-    array(
-        "title" => $SLANG['Events'],
-        "filter" => array(
-            "terms" => array(
-            )
-        ),
-    ),
-    array(
-        "title" => $SLANG['Hour'],
-        "filter" => array(
-            "terms" => array(
-                array( "attr" => "Archived", "op" => "=", "val" => "0" ),
-                array( "cnj" => "and", "attr" => "DateTime", "op" => ">=", "val" => "-1 hour" ),
-            )
-        ),
-    ),
-    array(
-        "title" => $SLANG['Day'],
-        "filter" => array(
-            "terms" => array(
-                array( "attr" => "Archived", "op" => "=", "val" => "0" ),
-                array( "cnj" => "and", "attr" => "DateTime", "op" => ">=", "val" => "-1 day" ),
-            )
-        ),
-    ),
-    array(
-        "title" => $SLANG['Week'],
-        "filter" => array(
-            "terms" => array(
-                array( "attr" => "Archived", "op" => "=", "val" => "0" ),
-                array( "cnj" => "and", "attr" => "DateTime", "op" => ">=", "val" => "-7 day" ),
-            )
-        ),
-    ),
-    array(
-        "title" => $SLANG['Month'],
-        "filter" => array(
-            "terms" => array(
-                array( "attr" => "Archived", "op" => "=", "val" => "0" ),
-                array( "cnj" => "and", "attr" => "DateTime", "op" => ">=", "val" => "-1 month" ),
-            )
-        ),
-    ),
-    array(
-        "title" => $SLANG['Archived'],
-        "filter" => array(
-            "terms" => array(
-                array( "attr" => "Archived", "op" => "=", "val" => "1" ),
-            )
-        ),
-    ),
-);
-
 $running = daemonCheck();
 $status = $running?$SLANG['Running']:$SLANG['Stopped'];
 
@@ -82,9 +28,6 @@ noCacheHeaders();
 $maxWidth = 0;
 $maxHeight = 0;
 $cycleCount = 0;
-$minSequence = 0;
-$maxSequence = 1;
-$seqIdList = array();
 $monitors = dbFetchAll( "select * from Monitors order by Sequence asc" );
 $displayMonitors = array();
 for ( $i = 0; $i < count($monitors); $i++ )
@@ -97,108 +40,17 @@ for ( $i = 0; $i < count($monitors); $i++ )
     {
         continue;
     }
-    $monitors[$i]['Show'] = true;
-    if ( empty($minSequence) || ($monitors[$i]['Sequence'] < $minSequence) )
-    {
-        $minSequence = $monitors[$i]['Sequence'];
-    }
-    if ( $monitors[$i]['Sequence'] > $maxSequence )
-    {
-        $maxSequence = $monitors[$i]['Sequence'];
-    }
     $monitors[$i]['zmc'] = zmcStatus( $monitors[$i] );
     $monitors[$i]['zma'] = zmaStatus( $monitors[$i] );
     $monitors[$i]['ZoneCount'] = dbFetchOne( "select count(Id) as ZoneCount from Zones where MonitorId = '".$monitors[$i]['Id']."'", "ZoneCount" );
-    $counts = array();
-    for ( $j = 0; $j < count($eventCounts); $j++ )
-    {
-        $filter = addFilterTerm( $eventCounts[$j]['filter'], count($eventCounts[$j]['filter']['terms']), array( "cnj" => "and", "attr" => "MonitorId", "op" => "=", "val" => $monitors[$i]['Id'] ) );
-        parseFilter( $filter );
-        $counts[] = "count(if(1".$filter['sql'].",1,NULL)) as EventCount$j";
-        $monitors[$i]['eventCounts'][$j]['filter'] = $filter;
-    }
-    $sql = "select ".join($counts,", ")." from Events as E where MonitorId = '".$monitors[$i]['Id']."'";
-    $counts = dbFetchOne( $sql );
-    if ( $monitors[$i]['Function'] != 'None' )
-    {
-        $cycleCount++;
-        $scaleWidth = reScale( $monitors[$i]['Width'], $monitors[$i]['DefaultScale'], ZM_WEB_DEFAULT_SCALE );
-        $scaleHeight = reScale( $monitors[$i]['Height'], $monitors[$i]['DefaultScale'], ZM_WEB_DEFAULT_SCALE );
-        if ( $maxWidth < $scaleWidth ) $maxWidth = $scaleWidth;
-        if ( $maxHeight < $scaleHeight ) $maxHeight = $scaleHeight;
-    }
-    $monitors[$i] = array_merge( $monitors[$i], $counts );
-    $seqIdList[] = $monitors[$i]['Id'];
     $displayMonitors[] = $monitors[$i];
-}
-$lastId = 0;
-$seqIdUpList = array();
-foreach ( $seqIdList as $seqId )
-{
-    if ( !empty($lastId) )
-        $seqIdUpList[$seqId] = $lastId;
-    else
-        $seqIdUpList[$seqId] = $seqId;
-    $lastId = $seqId;
-}
-$lastId = 0;
-$seqIdDownList = array();
-foreach ( array_reverse($seqIdList) as $seqId )
-{
-    if ( !empty($lastId) )
-        $seqIdDownList[$seqId] = $lastId;
-    else
-        $seqIdDownList[$seqId] = $seqId;
-    $lastId = $seqId;
 }
 
 $cycleWidth = $maxWidth;
 $cycleHeight = $maxHeight;
 
-$eventsView = ZM_WEB_EVENTS_VIEW;
-$eventsWindow = 'zm'.ucfirst(ZM_WEB_EVENTS_VIEW);
-
-$eventCount = 0;
-for ( $i = 0; $i < count($eventCounts); $i++ )
-{
-    $eventCounts[$i]['total'] = 0;
-}
-$zoneCount = 0;
-foreach( $displayMonitors as $monitor )
-{
-    for ( $i = 0; $i < count($eventCounts); $i++ )
-    {
-        $eventCounts[$i]['total'] += $monitor['EventCount'.$i];
-    }
-    $zoneCount += $monitor['ZoneCount'];
-}
-
-$seqUpFile = getSkinFile( 'graphics/seq-u.gif' );
-$seqDownFile = getSkinFile( 'graphics/seq-d.gif' );
 
 xhtmlHeaders( __FILE__, $SLANG['Console'] );
-
-function makePopupImage( $url, $winName, $winSize, $label, $monitorName, $condition=1, $options="" )
-{
-    $string = "";
-    if ( $condition )
-    {
-        if ( is_array( $winSize ) )
-            $popupParms = "'".$url."', '".$winName."', '".$winSize[0]."', ".$winSize[1].", ".$winSize[2];
-        else
-            $popupParms = "'".$url."', '".$winName."', '".$winSize."'";
-
-        $string .= '<a href="'.$url.'" onclick="createPopup( '.$popupParms.' ); return( false );"'.($options?(' '.$options):'').'>';
-    }
-    $string .= '<img src="';
-    $string .= $label;
-    $string .= '" alt="'.$monitorName.'" />';
-    if ( $condition )
-    {
-        $string .= '</a>';
-    }
-    return( $string );
-}
 
 ?>
 <body>
@@ -209,7 +61,7 @@ $(document).ready(function(){
         $(function() {
                 $("#monitors").sortable({ opacity: 0.6, cursor: 'move', update: function() {
                         var order = $(this).sortable("serialize") + '&action=sequence';
-                                $.post("skins/new/includes/updateSequence.php", order, function(theResponse){});
+                        $.post("skins/new/includes/updateSequence.php", order);
                 }
                 });
         });
@@ -222,7 +74,6 @@ $(document).ready(function(){
     <input type="hidden" name="action" value=""/>
     <div id="header">
       <h3 id="systemTime"><?= preg_match( '/%/', DATE_FMT_CONSOLE_LONG )?strftime( DATE_FMT_CONSOLE_LONG ):date( DATE_FMT_CONSOLE_LONG ) ?></h3>
-      <h3 id="systemStats"><?= $SLANG['Load'] ?>: <?= getLoad() ?> / <?= $SLANG['Disk'] ?>: <?= getDiskPercent() ?>%</h3>
       <h2 id="title"><a href="http://www.zoneminder.com" target="ZoneMinder">ZoneMinder</a> <?= $SLANG['Console'] ?> - <?= makePopupLink( '?view=state', 'zmState', 'state', $status, canEdit( 'System' ) ) ?> - <?= makePopupLink( '?view=version', 'zmVersion', 'version', "v".ZM_VERSION, canEdit( 'System' ) ) ?></h2>
       <div class="clear"></div>
       <div id="monitorSummary"><?= makePopupLink( '?view=groups', 'zmGroups', 'groups', sprintf( $CLANG['MonitorCount'], count($displayMonitors), zmVlang( $VLANG['Monitor'], count($displayMonitors) ) ).($group?' ('.$group['Name'].')':''), canView( 'System' ) ); ?></div>
@@ -237,18 +88,6 @@ if ( canView( 'System' ) )
 {
 ?>
       <div id="options"><?= makePopupLink( '?view=options', 'zmOptions', 'options', $SLANG['Options'] ) ?></div>
-<?php
-}
-if ( canView( 'Stream' ) && $cycleCount > 1 )
-{
-    $cycleGroup = isset($_COOKIE['zmGroup'])?$_COOKIE['zmGroup']:0;
-?>
-      <div id="cycleMontage"><?= makePopupLink( '?view=cycle&group='.$cycleGroup, 'zmCycle'.$cycleGroup, array( 'cycle', $cycleWidth, $cycleHeight ), $SLANG['Cycle'], $running ) ?>&nbsp;/&nbsp;<?= makePopupLink( '?view=montage&group='.$cycleGroup, 'zmMontage'.$cycleGroup, 'montage', $SLANG['Montage'], $running ) ?></div>
-<?php
-}
-else
-{
-?>
 <?php
 }
 ?>
@@ -274,9 +113,6 @@ else
      </ul>
     </div>
     <div id="content" class="clearfix">
-<?php
-    $scale = max( reScale( SCALE_BASE, $monitor['DefaultScale'], ZM_WEB_DEFAULT_SCALE ), SCALE_BASE );
-?>
 <ul id="monitors">
 <?php
 $scale = "35%";

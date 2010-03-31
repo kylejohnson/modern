@@ -32,6 +32,29 @@ function xhtmlHeaders( $file, $title )
     $viewJsPhpFile = getSkinFile( 'views/js/'.$basename.'.js.php' );
 
     extract( $GLOBALS, EXTR_OVERWRITE );
+
+function makePopupImage( $url, $winName, $winSize, $label, $monitorName, $condition=1, $options="" )
+{
+    $string = "";
+    if ( $condition )
+    {
+        if ( is_array( $winSize ) )
+            $popupParms = "'".$url."', '".$winName."', '".$winSize[0]."', ".$winSize[1].", ".$winSize[2];
+        else
+            $popupParms = "'".$url."', '".$winName."', '".$winSize."'";
+
+        $string .= '<a href="'.$url.'" onclick="createPopup( '.$popupParms.' ); return( false );"'.($options?(' '.$options):'').'>';
+    }
+    $string .= '<img src="';
+    $string .= $label;
+    $string .= '" alt="'.$monitorName.'" />';
+    if ( $condition )
+    {
+        $string .= '</a>';
+    }
+    return( $string );
+}
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
