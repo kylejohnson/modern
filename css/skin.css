@@ -427,7 +427,7 @@ div.clear {
 }
 
 #nav ul{
- padding-left:10px;
+ padding-left:0;
  margin-left:0;
  background-color:#036;
  color:#fff;
