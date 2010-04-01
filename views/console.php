@@ -59,7 +59,7 @@ xhtmlHeaders( __FILE__, $SLANG['Console'] );
 $(document).ready(function() {
     $("#monitors").load("/skins/new/views/monitors.php");
     var refreshId = setInterval(function() {
-       $("#monitors").load('/skins/new/views/monitors.php');
+       $("#monitors").load('/skins/new/views/monitors.php?randval='+ Math.random());
     }, 9000);
 });
 </script>
