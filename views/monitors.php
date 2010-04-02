@@ -67,6 +67,8 @@ foreach( $displayMonitors as $monitor ){
 ?>
 
 <li id="monitor_<?php echo $monitor['Id'] ?>">
- <?php outputImageStill( "liveStream", $streamSrc, reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ), $monitor['Name'] ); ?>
+ <a href="/?view=events&page=1&filter[terms][0][attr]=MonitorId&filter[terms][0][op]==&filter[terms][0][val]=<?php echo $monitor['Id'] ?>" >
+  <?php outputImageStill( "liveStream", $streamSrc, reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ), $monitor['Name'] ); ?>
+ </a>
 </li>
 <?php } ?>
