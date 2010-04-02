@@ -144,87 +144,28 @@ if ( $pagination )
 <?php
 }
 ?>
-        <p id="controls">
-          <a id="refreshLink" href="#" onclick="location.reload(true);"><?= $SLANG['Refresh'] ?></a>
-          <a id="filterLink" href="#" onclick="createPopup( '?view=filter&page=<?= $page ?><?= $filterQuery ?>', 'zmFilter', 'filter' );"><?= $SLANG['ShowFilterWindow'] ?></a>
-          <a id="timelineLink" href="#" onclick="createPopup( '?view=timeline<?= $filterQuery ?>', 'zmTimeline', 'timeline' );"><?= $SLANG['ShowTimeline'] ?></a>
-        </p>
-        <table id="contentTable" class="major" cellspacing="0"/>
-          <tbody>
+<ul id="monitorHistory">
 <?php
 $count = 0;
-foreach ( $events as $event )
-{
-    if ( ($count++%ZM_WEB_EVENTS_PER_PAGE) == 0 )
-    {
-?>
-            <tr>
-              <th class="colId"><a href="<?= sortHeader( 'Id' ) ?>"><?= $SLANG['Id'] ?><?= sortTag( 'Id' ) ?></a></th>
-              <th class="colName"><a href="<?= sortHeader( 'Name' ) ?>"><?= $SLANG['Name'] ?><?= sortTag( 'Name' ) ?></a></th>
-              <th class="colMonitor"><a href="<?= sortHeader( 'MonitorName' ) ?>"><?= $SLANG['Monitor'] ?><?= sortTag( 'MonitorName' ) ?></a></th>
-              <th class="colCause"><a href="<?= sortHeader( 'Cause' ) ?>"><?= $SLANG['Cause'] ?><?= sortTag( 'Cause' ) ?></a></th>
-              <th class="colTime"><a href="<?= sortHeader( 'StartTime' ) ?>"><?= $SLANG['Time'] ?><?= sortTag( 'StartTime' ) ?></a></th>
-              <th class="colDuration"><a href="<?= sortHeader( 'Length' ) ?>"><?= $SLANG['Duration'] ?><?= sortTag( 'Length' ) ?></a></th>
-              <th class="colFrames"><a href="<?= sortHeader( 'Frames' ) ?>"><?= $SLANG['Frames'] ?><?= sortTag( 'Frames' ) ?></a></th>
-              <th class="colAlarmFrames"><a href="<?= sortHeader( 'AlarmFrames' ) ?>"><?= $SLANG['AlarmBrFrames'] ?><?= sortTag( 'AlarmFrames' ) ?></a></th>
-              <th class="colTotScore"><a href="<?= sortHeader( 'TotScore' ) ?>"><?= $SLANG['TotalBrScore'] ?><?= sortTag( 'TotScore' ) ?></a></th>
-              <th class="colAvgScore"><a href="<?= sortHeader( 'AvgScore' ) ?>"><?= $SLANG['AvgBrScore'] ?><?= sortTag( 'AvgScore' ) ?></a></th>
-              <th class="colMaxScore"><a href="<?= sortHeader( 'MaxScore' ) ?>"><?= $SLANG['MaxBrScore'] ?><?= sortTag( 'MaxScore' ) ?></a></th>
-<?php
-        if ( ZM_WEB_LIST_THUMBS )
-        {
-?>
-              <th class="colThumbnail"><?= $SLANG['Thumbnail'] ?></th>
-<?php
-        }
-?>
-              <th class="colMark"><input type="checkbox" name="toggleCheck" value="1" onclick="toggleCheckbox( this, 'markEids' );"<?php if ( !canEdit( 'Events' ) ) { ?> disabled="disabled"<?php } ?>/></th>
-            </tr>
-<?php
-    }
-        $scale = max( reScale( SCALE_BASE, $event['DefaultScale'], ZM_WEB_DEFAULT_SCALE ), SCALE_BASE );
-?>
-            <tr>
-              <td class="colId"><?= makePopupLink( '?view=event&eid='.$event['Id'].$filterQuery.$sortQuery.'&page=1', 'zmEvent', array( 'event', reScale( $event['Width'], $scale ), reScale( $event['Height'], $scale ) ), $event['Id'].($event['Archived']?'*':'') ) ?></td>
-              <td class="colName"><?= makePopupLink( '?view=event&eid='.$event['Id'].$filterQuery.$sortQuery.'&page=1', 'zmEvent', array( 'event', reScale( $event['Width'], $event['DefaultScale'], ZM_WEB_DEFAULT_SCALE ), reScale( $event['Height'], $event['DefaultScale'], ZM_WEB_DEFAULT_SCALE ) ), validHtmlStr($event['Name']).($event['Archived']?'*':'' ) ) ?></td>
-              <td class="colMonitorName"><?= $event['MonitorName'] ?></td>
-              <td class="colCause"><?= makePopupLink( '?view=eventdetail&eid='.$event['Id'], 'zmEventDetail', 'eventdetail', validHtmlStr($event['Cause']), canEdit( 'Events' ), 'title="'.htmlspecialchars($event['Notes']).'"' ) ?></td>
-              <td class="colTime"><?= strftime( STRF_FMT_DATETIME_SHORTER, strtotime($event['StartTime']) ) ?></td>
-              <td class="colDuration"><?= $event['Length'] ?></td>
-              <td class="colFrames"><?= makePopupLink( '?view=frames&eid='.$event['Id'], 'zmFrames', 'frames', $event['Frames'] ) ?></td>
-              <td class="colAlarmFrames"><?= makePopupLink( '?view=frames&eid='.$event['Id'], 'zmFrames', 'frames', $event['AlarmFrames'] ) ?></a></td>
-              <td class="colTotScore"><?= $event['TotScore'] ?></td>
-              <td class="colAvgScore"><?= $event['AvgScore'] ?></td>
-              <td class="colMaxScore"><?= makePopupLink( '?view=frame&eid='.$event['Id'].'&fid=0', 'zmImage', array( 'image', reScale( $event['Width'], $scale ), reScale( $event['Height'], $scale ) ), $event['MaxScore'] ) ?></td>
-<?php
-    if ( ZM_WEB_LIST_THUMBS )
-    {
+foreach ( $events as $event ){
         if ( $thumbData = createListThumbnail( $event ) )
         {
 ?>
-              <td class="colThumbnail"><?= makePopupLink( '?view=frame&eid='.$event['Id'].'&fid='.$thumbData['FrameId'], 'zmImage', array( 'image', reScale( $event['Width'], $scale ), reScale( $event['Height'], $scale ) ), '<img src="'.$thumbData['Path'].'" width="'.$thumbData['Width'].'" height="'.$thumbData['Height'].'" alt="'.$thumbData['FrameId'].'/'.$event['MaxScore'].'"/>' ) ?></td>
+ <li>
+  <?= makePopupLink( '?view=frame&eid='.$event['Id'].'&fid='.$thumbData['FrameId'], 'zmImage', array( 'image', reScale( $event['Width'], $scale ), reScale( $event['Height'], $scale ) ), '<img src="'.$thumbData['Path'].'" width="'.$thumbData['Width'].'" height="'.$thumbData['Height'].'" alt="'.$thumbData['FrameId'].'/'.$event['MaxScore'].'"/>' ) ?>
+  <p>Date: <?= strftime( STRF_FMT_DATETIME_SHORTER, strtotime($event['StartTime']) ) ?></p>
+  <p>Duration: <?= $event['Length'] ?></p>
+ </li>
 <?php
         }
-        else
-        {
-?>
-              <td class="colThumbnail">&nbsp;</td>
-<?php
-        }
-    }
-?>
-              <td class="colMark"><input type="checkbox" name="markEids[]" value="<?= $event['Id'] ?>" onclick="configureButton( this, 'markEids' );"<?php if ( !canEdit( 'Events' ) ) { ?> disabled="disabled"<?php } ?>/></td>
-            </tr>
-<?php
 }
 ?>
-          </tbody>
-        </table>
+</ul>
 <?php
 if ( $pagination )
 {
 ?>
-        <h3 class="pagination"><?= $pagination ?></h3>
+        <h3 style="clear:both;" class="pagination"><?= $pagination ?></h3>
 <?php
 }
 if ( true || canEdit( 'Events' ) )

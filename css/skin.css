@@ -449,3 +449,11 @@ div.clear {
  background-color:#369;
  color:#fff;
 }
+
+
+
+/* Monitor History */
+#monitorHistory li{
+ float:left;
+ padding:10px;
+}
