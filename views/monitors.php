@@ -13,9 +13,7 @@ else
 {
     $protocol = 'http';
 }
-
 define( "ZM_BASE_URL", $protocol.'://'.$_SERVER['HTTP_HOST'] );
-
 
 $monitors = dbFetchAll( "select * from Monitors order by Sequence asc" );
 $displayMonitors = array();
@@ -34,7 +32,6 @@ for ( $i = 0; $i < count($monitors); $i++ )
     $monitors[$i]['ZoneCount'] = dbFetchOne( "select count(Id) as ZoneCount from Zones where MonitorId = '".$monitors[$i]['Id']."'", "ZoneCount" );
     $displayMonitors[] = $monitors[$i];
 }
-
 
 $scale = "35%";
 foreach( $displayMonitors as $monitor ){
@@ -56,9 +53,6 @@ foreach( $displayMonitors as $monitor ){
     if ( !$monitor['Enabled'] )
         $fclass .= " disabledText";
 
-?>
-     <li id="monitor_<?php echo $monitor['Id'] ?>">
-<?php
  if ($_COOKIE['zmBandwidth'] == 'low' || $_COOKIE['zmBandwidth'] == "medium") {
   $streamSrc = getStreamSrc( array( "mode=single", "monitor=".$monitor['Id'], "scale=".$scale ) );
  } elseif ($_COOKIE['zmBandwidth'] == 'high') {
@@ -70,7 +64,9 @@ foreach( $displayMonitors as $monitor ){
     $streamSrc = getStreamSrc( array( "mode=".$streamMode, "monitor=".$monitor['Id'], "scale=".$scale, "maxfps=".ZM_WEB_VIDEO_MAXFPS, "buffer=".$monitor['StreamReplayBuffer'] ) );
   }
  }
-    outputImageStill( "liveStream", $streamSrc, reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ), $monitor['Name'] );
 ?>
+
+<li id="monitor_<?php echo $monitor['Id'] ?>">
+ <?php outputImageStill( "liveStream", $streamSrc, reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ), $monitor['Name'] ); ?>
 </li>
 <?php } ?>

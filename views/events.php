@@ -126,29 +126,7 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
 ?>
 <body>
   <div id="page">
-    <div id="header">
-      <div id="headerButtons">
-<?php
-if ( $pages > 1 )
-{
-    if ( !empty($page) )
-    {
-?>
-        <a href="?view=<?= $view ?>&page=0<?= $filterQuery ?><?= $sortQuery ?>&limit=<?= $limit ?>"><?= $SLANG['ViewAll'] ?></a>
-<?php
-    }
-    else
-    {
-?>
-        <a href="?view=<?= $view ?>&page=1<?= $filterQuery ?><?= $sortQuery ?>&limit=<?= $limit ?>"><?= $SLANG['ViewPaged'] ?></a>
-<?php
-    }
-}
-?>
-        <a href="#" onclick="closeWindows();"><?= $SLANG['Close'] ?></a>
-      </div>
-      <h2><?= sprintf( $CLANG['EventCount'], $nEvents, zmVlang( $VLANG['Event'], $nEvents ) ) ?></h2>
-    </div>
+   <?php require("header.php"); ?>
     <div id="content">
       <form name="contentForm" id="contentForm" method="post" action="">
         <input type="hidden" name="view" value="<?= $view ?>"/>
@@ -265,6 +243,7 @@ if ( true || canEdit( 'Events' ) )
 ?>
       </form>
     </div>
+   <?php require("footer.php"); ?>
   </div>
 </body>
 </html>
