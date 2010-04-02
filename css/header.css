@@ -1,0 +1,39 @@
+#systemTime {
+    float: left;
+}
+
+#title {
+    margin: 0 auto;
+    text-align: center;
+    width: 50%;
+}
+
+#systemStats {
+    float: right;
+}
+
+#monitorSummary {
+    float: left;
+    text-align: left;
+    width: 20%;
+}
+
+#devices {
+    float: left;
+}
+
+#loginBandwidth {
+    margin: 0 auto;
+    text-align: center;
+    width: 40%;
+}
+
+#cycleMontage {
+    float: right;
+}
+
+#options {
+    float: right;
+    text-align: right;
+    width: 20%;
+}

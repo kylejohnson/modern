@@ -64,6 +64,8 @@ function makePopupImage( $url, $winName, $winSize, $label, $monitorName, $condit
   <link rel="shortcut icon" href="graphics/favicon.ico"/>
   <link rel="stylesheet" href="css/reset.css" type="text/css"/>
   <link rel="stylesheet" href="<?= $skinCssFile ?>" type="text/css" media="screen"/>
+  <link rel="stylesheet" href="/skins/new/css/header.css" type="text/css" media="screen"/>
+  <link rel="stylesheet" href="/skins/new/css/footer.css" type="text/css" media="screen"/>
   <link type="text/css" href="skins/new/css/smoothness/jquery-ui-1.8rc3.custom.css" rel="stylesheet" />     
 <?php
     if ( $viewCssFile )

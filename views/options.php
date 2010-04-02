@@ -55,9 +55,7 @@ xhtmlHeaders( __FILE__, $SLANG['Options'] );
 ?>
 <body>
   <div id="page">
-    <div id="header">
-      <h2><?= $SLANG['Options'] ?></h2>
-    </div>
+    <?php require("header.php"); ?>
     <div id="content">
       <ul class="tabList">
 <?php
@@ -264,6 +262,7 @@ else
 }
 ?>
     </div>
+   <?php require("footer.php"); ?>
   </div>
 </body>
 </html>

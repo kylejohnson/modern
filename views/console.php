@@ -17,34 +17,12 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 
-$running = daemonCheck();
-$status = $running?$SLANG['Running']:$SLANG['Stopped'];
-
-if ( $group = dbFetchOne( "select * from Groups where Id = '".(empty($_COOKIE['zmGroup'])?0:dbEscape($_COOKIE['zmGroup']))."'" ) )
-    $groupIds = array_flip(split( ',', $group['MonitorIds'] ));
 
 noCacheHeaders();
 
 $maxWidth = 0;
 $maxHeight = 0;
 $cycleCount = 0;
-$monitors = dbFetchAll( "select * from Monitors order by Sequence asc" );
-$displayMonitors = array();
-for ( $i = 0; $i < count($monitors); $i++ )
-{
-    if ( !visibleMonitor( $monitors[$i]['Id'] ) )
-    {
-        continue;
-    }
-    if ( $group && !empty($groupIds) && !array_key_exists( $monitors[$i]['Id'], $groupIds ) )
-    {
-        continue;
-    }
-    $monitors[$i]['zmc'] = zmcStatus( $monitors[$i] );
-    $monitors[$i]['zma'] = zmaStatus( $monitors[$i] );
-    $monitors[$i]['ZoneCount'] = dbFetchOne( "select count(Id) as ZoneCount from Zones where MonitorId = '".$monitors[$i]['Id']."'", "ZoneCount" );
-    $displayMonitors[] = $monitors[$i];
-}
 
 $cycleWidth = $maxWidth;
 $cycleHeight = $maxHeight;
