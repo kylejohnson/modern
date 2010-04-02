@@ -144,6 +144,8 @@ if ( $pagination )
 <?php
 }
 ?>
+<div id="sidebarHistory">
+</div>
 <ul id="monitorHistory">
 <?php
 $count = 0;

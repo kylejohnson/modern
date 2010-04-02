@@ -453,7 +453,18 @@ div.clear {
 
 
 /* Monitor History */
+#monitorHistory{
+float:left;
+width:800px;
+}
 #monitorHistory li{
  float:left;
  padding:10px;
+}
+
+#sidebarHistory{
+ width:200px;
+ height:400px;
+ border-right;:1px solid #000;
+ float:left;
 }
