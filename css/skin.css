@@ -318,6 +318,8 @@ div.clear {
 }
 
 #content {
+ float:left;
+ width:100%;
     line-height: 130%;
     margin:0 auto;
     text-align: center;
@@ -454,8 +456,7 @@ div.clear {
 
 /* Monitor History */
 #monitorHistory{
-float:left;
-width:800px;
+padding:0 10px;
 }
 #monitorHistory li{
  float:left;
@@ -463,8 +464,12 @@ width:800px;
 }
 
 #sidebarHistory{
- width:200px;
- height:400px;
- border-right;:1px solid #000;
+ width:190px;
+ margin-left:-100%;
+ border-right:1px solid #000;
  float:left;
+}
+
+#contentcolumn{
+ margin-left:200px;
 }

@@ -128,6 +128,7 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
   <div id="page">
    <?php require("header.php"); ?>
     <div id="content">
+     <div id="contentcolumn">
       <form name="contentForm" id="contentForm" method="post" action="">
         <input type="hidden" name="view" value="<?= $view ?>"/>
         <input type="hidden" name="action" value=""/>
@@ -144,8 +145,6 @@ if ( $pagination )
 <?php
 }
 ?>
-<div id="sidebarHistory">
-</div>
 <ul id="monitorHistory">
 <?php
 $count = 0;
@@ -186,6 +185,10 @@ if ( true || canEdit( 'Events' ) )
 ?>
       </form>
     </div>
+   </div>
+<div id="sidebarHistory">
+<p>yar!!</p>
+</div>
    <?php require("footer.php"); ?>
   </div>
 </body>
