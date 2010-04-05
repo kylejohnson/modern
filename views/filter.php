@@ -130,7 +130,7 @@ if ( empty($_REQUEST['sort_field']) )
     $_REQUEST['sort_asc'] = (ZM_WEB_EVENT_SORT_ORDER == "asc");
 }
 
-$hasCal = file_exists( 'tools/jscalendar/calendar.js' );
+$hasCal = file_exists( '/skins/new/js/calendar.js' );
 
 $focusWindow = true;
 
