@@ -184,7 +184,8 @@ if ( true || canEdit( 'Events' ) )
     </div>
    </div>
 <div id="sidebarHistory">
-<form>
+ <h2>Search</h2>
+ <h3>Monitors</h3>
  <ul>
 <?php foreach ($monitors as $monitor) { ?>
   <li>
@@ -193,7 +194,10 @@ if ( true || canEdit( 'Events' ) )
   </li>
 <?php } ?>
  </ul>
-</form>
+
+ <h3>Date</h3>
+
+ <h3>Presets</h3>
 </div>
    <?php require("footer.php"); ?>
   </div>
