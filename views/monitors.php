@@ -2,8 +2,6 @@
 require_once("../../../includes/config.php");
 require_once("../../../includes/database.php");
 require_once("../../../includes/functions.php");
-require_once("../includes/functions.php");
-require_once("../includes/config.php");
 
 if ( isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == 'on' )
 {
@@ -52,7 +50,6 @@ foreach( $displayMonitors as $monitor ){
         $fclass = "infoText";
     if ( !$monitor['Enabled'] )
         $fclass .= " disabledText";
-
  if ($_COOKIE['zmBandwidth'] == 'low' || $_COOKIE['zmBandwidth'] == "medium") {
   $streamSrc = getStreamSrc( array( "mode=single", "monitor=".$monitor['Id'], "scale=".$scale ) );
  } elseif ($_COOKIE['zmBandwidth'] == 'high') {
@@ -65,7 +62,6 @@ foreach( $displayMonitors as $monitor ){
   }
  }
 ?>
-
 <li id="monitor_<?php echo $monitor['Id'] ?>">
  <a href="/?view=events&page=1&filter[terms][0][attr]=MonitorId&filter[terms][0][op]==&filter[terms][0][val]=<?php echo $monitor['Id'] ?>" >
   <?php outputImageStill( "liveStream", $streamSrc, reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ), $monitor['Name'] ); ?>
