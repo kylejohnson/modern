@@ -30,7 +30,7 @@ if ( !empty($_REQUEST['execute']) )
 }
 
 $countSql = "select count(E.Id) as EventCount from Monitors as M inner join Events as E on (M.Id = E.MonitorId) where";
-$eventsSql = "select E.Id,E.MonitorId,M.Name As MonitorName,M.Width,M.Height,M.DefaultScale,E.Name,E.Cause,E.Notes,E.StartTime,E.Length,E.Frames,E.AlarmFrames,E.TotScore,E.AvgScore,E.MaxScore,E.Archived from Monitors as M inner join Events as E on (M.Id = E.MonitorId) where";
+$eventsSql = "select E.Id,E.MonitorId,M.Name As MonitorName,M.Width,M.Height,M.DefaultScale,E.Name,E.MaxScore,E.StartTime,E.Length,E.Archived from Monitors as M inner join Events as E on (M.Id = E.MonitorId) where";
 if ( $user['MonitorIds'] )
 {
     $countSql .= " M.Id in (".join( ",", preg_split( '/["\'\s]*,["\'\s]*/', $user['MonitorIds'] ) ).")";
@@ -116,6 +116,10 @@ foreach ( dbFetchAll( $eventsSql ) as $event )
         $unarchived = true;
 }
 
+$monitorsSql = "select Name, Id from Monitors";
+$monitors = array();
+dbFetchAll($monitorsSql);
+
 $maxShortcuts = 5;
 $pagination = getPagination( $pages, $page, $maxShortcuts, $filterQuery.$sortQuery.'&limit='.$limit );
 
@@ -129,14 +133,6 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
    <?php require("header.php"); ?>
     <div id="content">
      <div id="contentcolumn">
-      <form name="contentForm" id="contentForm" method="post" action="">
-        <input type="hidden" name="view" value="<?= $view ?>"/>
-        <input type="hidden" name="action" value=""/>
-        <input type="hidden" name="page" value="<?= $page ?>"/>
-        <?= $_REQUEST['filter']['fields'] ?>
-        <input type="hidden" name="sort_field" value="<?= validHtmlStr($_REQUEST['sort_field']) ?>"/>
-        <input type="hidden" name="sort_asc" value="<?= validHtmlStr($_REQUEST['sort_asc']) ?>"/>
-        <input type="hidden" name="limit" value="<?= $limit ?>"/>
 <?php
 if ( $pagination )
 {
@@ -153,7 +149,9 @@ foreach ( $events as $event ){
         {
 ?>
  <li>
-  <?= makePopupLink( '?view=frame&eid='.$event['Id'].'&fid='.$thumbData['FrameId'], 'zmImage', array( 'image', reScale( $event['Width'], $scale ), reScale( $event['Height'], $scale ) ), '<img src="'.$thumbData['Path'].'" width="'.$thumbData['Width'].'" height="'.$thumbData['Height'].'" alt="'.$thumbData['FrameId'].'/'.$event['MaxScore'].'"/>' ) ?>
+  <a class="box" href="/?view=event&eid=<?= $event['Id'] ?>"">
+   <img src="<?= $thumbData['Path'] ?>" width="<?= $thumbData['Width'] ?>" height="<?= $thumbData['Height'] ?>" alt="<?= $thumbData['FrameId'].'/'.$event['MaxScore'] ?>" />
+  </a>
   <p>Date: <?= strftime( STRF_FMT_DATETIME_SHORTER, strtotime($event['StartTime']) ) ?></p>
   <p>Duration: <?= $event['Length'] ?></p>
  </li>
@@ -183,11 +181,19 @@ if ( true || canEdit( 'Events' ) )
 <?php
 }
 ?>
-      </form>
     </div>
    </div>
 <div id="sidebarHistory">
-<p>yar!!</p>
+<form>
+ <ul>
+<?php foreach ($monitors as $monitor) { ?>
+  <li>
+   <input type="checkbox" name="monitorName" id="monitor_<?= $monitor['Id'] ?>" /> <label for="monitor_<?= $monitor['Id'] ?>"><?= $monitor['Name'] ?></label>
+  </a>
+  </li>
+<?php } ?>
+ </ul>
+</form>
 </div>
    <?php require("footer.php"); ?>
   </div>

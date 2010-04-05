@@ -33,28 +33,6 @@ function xhtmlHeaders( $file, $title )
 
     extract( $GLOBALS, EXTR_OVERWRITE );
 
-function makePopupImage( $url, $winName, $winSize, $label, $monitorName, $condition=1, $options="" )
-{
-    $string = "";
-    if ( $condition )
-    {
-        if ( is_array( $winSize ) )
-            $popupParms = "'".$url."', '".$winName."', '".$winSize[0]."', ".$winSize[1].", ".$winSize[2];
-        else
-            $popupParms = "'".$url."', '".$winName."', '".$winSize."'";
-
-        $string .= '<a href="'.$url.'" onclick="createPopup( '.$popupParms.' ); return( false );"'.($options?(' '.$options):'').'>';
-    }
-    $string .= '<img src="';
-    $string .= $label;
-    $string .= '" alt="'.$monitorName.'" />';
-    if ( $condition )
-    {
-        $string .= '</a>';
-    }
-    return( $string );
-}
-
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -66,7 +44,35 @@ function makePopupImage( $url, $winName, $winSize, $label, $monitorName, $condit
   <link rel="stylesheet" href="<?= $skinCssFile ?>" type="text/css" media="screen"/>
   <link rel="stylesheet" href="/skins/new/css/header.css" type="text/css" media="screen"/>
   <link rel="stylesheet" href="/skins/new/css/footer.css" type="text/css" media="screen"/>
-  <link type="text/css" href="skins/new/css/smoothness/jquery-ui-1.8rc3.custom.css" rel="stylesheet" />     
+  <link type="text/css" href="skins/new/css/smoothness/jquery-ui-1.8rc3.custom.css" rel="stylesheet" />
+<?php if ($title == "Console") { ?>
+<script type="text/javascript" src="skins/new/js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="skins/new/js/jquery-ui-1.8rc3.custom.min.js"></script>
+<script type="text/javascript">
+var consoleRefreshTimeout = <?= 1000*ZM_WEB_REFRESH_MAIN ?>;
+$(function() {
+
+    $("#monitors").load("/skins/new/views/monitors.php");
+    var refreshId = setInterval(function() {
+       $("#monitors").load('/skins/new/views/monitors.php?randval='+ Math.random());
+    }, consoleRefreshTimeout);
+
+  $("#monitors").sortable({ opacity: 0.6, cursor: 'move', update: function() {
+    var order = $(this).sortable("serialize") + '&action=sequence';
+    $.post("skins/new/includes/updateSequence.php", order);
+   }});
+
+});
+</script>
+<?php } ?>
+<?php
+ if ($title == "Events") {
+?>
+<script type="text/javascript" src="skins/new/js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="skins/new/js/jquery-ui-1.8rc3.custom.min.js"></script>
+<?php
+ }
+?>
 <?php
     if ( $viewCssFile )
     {
@@ -85,9 +91,6 @@ function makePopupImage( $url, $winName, $winSize, $label, $monitorName, $condit
 <?php
     }
 ?>
-  <script type="text/javascript" src="tools/mootools/mootools-1.2.1-core-nc.js"></script>
-  <script type="text/javascript" src="tools/mootools/mootools-1.2-more-nc.js"></script>
-  <script type="text/javascript" src="js/mootools.ext.js"></script>
 <?php
     if ( $skinJsPhpFile )
     {
