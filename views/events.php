@@ -1,4 +1,6 @@
 <?php
+//})_
+//});
 //
 // ZoneMinder web events view file, $Date: 2008-10-20 09:25:24 +0100 (Mon, 20 Oct 2008) $, $Revision: 2669 $
 // Copyright (C) 2001-2008 Philip Coombes
@@ -20,26 +22,26 @@
 
 if ( !canView( 'Events' ) || (!empty($_REQUEST['execute']) && !canEdit('Events')) )
 {
-    $view = "error";
-    return;
+$view = "error";
+return;
 }
 
 if ( !empty($_REQUEST['execute']) )
 {
-    executeFilter( $tempFilterName );
+executeFilter( $tempFilterName );
 }
 
 $countSql = "select count(E.Id) as EventCount from Monitors as M inner join Events as E on (M.Id = E.MonitorId) where";
 $eventsSql = "select E.Id,E.MonitorId,M.Name As MonitorName,M.Width,M.Height,M.DefaultScale,E.Name,E.MaxScore,E.StartTime,E.Length,E.Archived from Monitors as M inner join Events as E on (M.Id = E.MonitorId) where";
 if ( $user['MonitorIds'] )
 {
-    $countSql .= " M.Id in (".join( ",", preg_split( '/["\'\s]*,["\'\s]*/', $user['MonitorIds'] ) ).")";
-    $eventsSql .= " M.Id in (".join( ",", preg_split( '/["\'\s]*,["\'\s]*/', $user['MonitorIds'] ) ).")";
+$countSql .= " M.Id in (".join( ",", preg_split( '/["\'\s]*,["\'\s]*/', $user['MonitorIds'] ) ).")";
+$eventsSql .= " M.Id in (".join( ",", preg_split( '/["\'\s]*,["\'\s]*/', $user['MonitorIds'] ) ).")";
 }
 else
 {
-    $countSql .= " 1";
-    $eventsSql .= " 1";
+$countSql .= " 1";
+$eventsSql .= " 1";
 }
 
 parseSort();
@@ -48,53 +50,53 @@ $filterQuery = $_REQUEST['filter']['query'];
 
 if ( $_REQUEST['filter']['sql'] )
 {
-    $countSql .= $_REQUEST['filter']['sql'];
-    $eventsSql .= $_REQUEST['filter']['sql'];
+$countSql .= $_REQUEST['filter']['sql'];
+$eventsSql .= $_REQUEST['filter']['sql'];
 }
 $eventsSql .= " order by $sortColumn $sortOrder";
 
 if ( isset($_REQUEST['page']) )
-    $page = validInt($_REQUEST['page']);
+$page = validInt($_REQUEST['page']);
 else
-    $page = 0;
+$page = 0;
 if ( isset($_REQUEST['limit']) )
-    $limit = validInt($_REQUEST['limit']);
+$limit = validInt($_REQUEST['limit']);
 else
-    $limit = 0;
+$limit = 0;
 
 $nEvents = dbFetchOne( $countSql, 'EventCount' );
 if ( !empty($limit) && $nEvents > $limit )
 {
-    $nEvents = $limit;
+$nEvents = $limit;
 }
 $pages = (int)ceil($nEvents/ZM_WEB_EVENTS_PER_PAGE);
 if ( $pages > 1 )
 {
-    if ( !empty($page) )
-    {
-        if ( $page < 0 )
-            $page = 1;
-        if ( $page > $pages )
-            $page = $pages;
-    }
+if ( !empty($page) )
+{
+if ( $page < 0 )
+    $page = 1;
+if ( $page > $pages )
+    $page = $pages;
+}
 }
 if ( !empty($page) )
 {
-    $limitStart = (($page-1)*ZM_WEB_EVENTS_PER_PAGE);
-    if ( empty( $limit ) )
-    {
-        $limitAmount = ZM_WEB_EVENTS_PER_PAGE;
-    }
-    else
-    {
-        $limitLeft = $limit - $limitStart;
-        $limitAmount = ($limitLeft>ZM_WEB_EVENTS_PER_PAGE)?ZM_WEB_EVENTS_PER_PAGE:$limitLeft;
-    }
-    $eventsSql .= " limit $limitStart, $limitAmount";
+$limitStart = (($page-1)*ZM_WEB_EVENTS_PER_PAGE);
+if ( empty( $limit ) )
+{
+$limitAmount = ZM_WEB_EVENTS_PER_PAGE;
+}
+else
+{
+$limitLeft = $limit - $limitStart;
+$limitAmount = ($limitLeft>ZM_WEB_EVENTS_PER_PAGE)?ZM_WEB_EVENTS_PER_PAGE:$limitLeft;
+}
+$eventsSql .= " limit $limitStart, $limitAmount";
 }
 elseif ( !empty( $limit ) )
 {
-    $eventsSql .= " limit 0, ".dbEscape($limit);
+$eventsSql .= " limit 0, ".dbEscape($limit);
 }
 
 $maxWidth = 0;
@@ -104,16 +106,16 @@ $unarchived = false;
 $events = array();
 foreach ( dbFetchAll( $eventsSql ) as $event )
 {
-    $events[] = $event;
-    $scale = max( reScale( SCALE_BASE, $event['DefaultScale'], ZM_WEB_DEFAULT_SCALE ), SCALE_BASE );
-    $eventWidth = reScale( $event['Width'], $scale );
-    $eventHeight = reScale( $event['Height'], $scale );
-    if ( $maxWidth < $eventWidth ) $maxWidth = $eventWidth;
-    if ( $maxHeight < $eventHeight ) $maxHeight = $eventHeight;
-    if ( $event['Archived'] )
-        $archived = true;
-    else
-        $unarchived = true;
+$events[] = $event;
+$scale = max( reScale( SCALE_BASE, $event['DefaultScale'], ZM_WEB_DEFAULT_SCALE ), SCALE_BASE );
+$eventWidth = reScale( $event['Width'], $scale );
+$eventHeight = reScale( $event['Height'], $scale );
+if ( $maxWidth < $eventWidth ) $maxWidth = $eventWidth;
+if ( $maxHeight < $eventHeight ) $maxHeight = $eventHeight;
+if ( $event['Archived'] )
+$archived = true;
+else
+$unarchived = true;
 }
 
 $monitorsSql = "select Name, Id from Monitors";
@@ -121,7 +123,6 @@ $monitors = array();
 dbFetchAll($monitorsSql);
 
 $maxShortcuts = 5;
-$pagination = getPagination( $pages, $page, $maxShortcuts, $filterQuery.$sortQuery.'&limit='.$limit );
 
 $focusWindow = true;
 
@@ -132,56 +133,28 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
   <div id="page">
    <?php require("header.php"); ?>
     <div id="content">
-     <div id="contentcolumn">
+</div>
 <?php
-if ( $pagination )
+$per_page = ZM_WEB_EVENTS_PER_PAGE;
+
+//Calculating no of pages
+$Sql = "select count(E.Id) as EventCount from Monitors as M inner join Events as E on (M.Id = E.MonitorId) where M.Id = 1";
+$result = dbFetchOne( $Sql, 'EventCount' );
+$pages = ceil($result/$per_page)
+?>
+<div id="loading" ></div>
+<ul id="pagination">
+<?php
+//Pagination Numbers
+for($i=1; $i<=$pages; $i++)
 {
-?>
-        <h3 class="pagination"><?= $pagination ?></h3>
-<?php
-}
-?>
-<ul id="monitorHistory">
-<?php
-$count = 0;
-foreach ( $events as $event ){
-        if ( $thumbData = createListThumbnail( $event ) )
-        {
-?>
- <li>
-  <a class="box" href="/?view=event&eid=<?= $event['Id'] ?>"">
-   <img src="<?= $thumbData['Path'] ?>" width="<?= $thumbData['Width'] ?>" height="<?= $thumbData['Height'] ?>" alt="<?= $thumbData['FrameId'].'/'.$event['MaxScore'] ?>" />
-  </a>
-  <p>Date: <?= strftime( STRF_FMT_DATETIME_SHORTER, strtotime($event['StartTime']) ) ?></p>
-  <p>Duration: <?= $event['Length'] ?></p>
- </li>
-<?php
-        }
+echo '<li id="'.$i.'">'.$i.'</li>';
 }
 ?>
 </ul>
-<?php
-if ( $pagination )
-{
-?>
-        <h3 style="clear:both;" class="pagination"><?= $pagination ?></h3>
-<?php
-}
-if ( true || canEdit( 'Events' ) )
-{
-?>
-        <div id="contentButtons">
-          <input type="button" name="viewBtn" value="<?= $SLANG['View'] ?>" onclick="viewEvents( this, 'markEids' );" disabled="disabled"/>
-          <input type="button" name="archiveBtn" value="<?= $SLANG['Archive'] ?>" onclick="archiveEvents( this, 'markEids' )" disabled="disabled"/>
-          <input type="button" name="unarchiveBtn" value="<?= $SLANG['Unarchive'] ?>" onclick="unarchiveEvents( this, 'markEids' );" disabled="disabled"/>
-          <input type="button" name="editBtn" value="<?= $SLANG['Edit'] ?>" onclick="editEvents( this, 'markEids' )" disabled="disabled"/>
-          <input type="button" name="exportBtn" value="<?= $SLANG['Export'] ?>" onclick="exportEvents( this, 'markEids' )" disabled="disabled"/>
-          <input type="button" name="deleteBtn" value="<?= $SLANG['Delete'] ?>" onclick="deleteEvents( this, 'markEids' );" disabled="disabled"/>
-        </div>
-<?php
-}
-?>
-    </div>
+
+     <div id="contentcolumn">
+     </div>
    </div>
 <div id="sidebarHistory">
  <h2>Search</h2>
@@ -190,7 +163,6 @@ if ( true || canEdit( 'Events' ) )
 <?php foreach ($monitors as $monitor) { ?>
   <li>
    <input type="checkbox" name="monitorName" id="monitor_<?= $monitor['Id'] ?>" /> <label for="monitor_<?= $monitor['Id'] ?>"><?= $monitor['Name'] ?></label>
-  </a>
   </li>
 <?php } ?>
  </ul>

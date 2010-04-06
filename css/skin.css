@@ -475,3 +475,23 @@ padding:0 10px;
 #contentcolumn{
  margin-left:200px;
 }
+
+#loading
+{
+width: 100%;
+position: absolute;
+}
+#pagination li
+{
+padding:5px;
+margin:2px;
+list-style: none;
+float: left;
+border:solid 1px #dddddd;
+color:#0063DC;
+}
+#pagination li:hover
+{
+color:#FF0084;
+cursor: pointer;
+}
