@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	function Display_Load()
+	function Display_Load() {
 	    $("#loading").fadeIn(900,0);
 		$("#loading").html("<img src='/skins/new/graphics/bigLoader.gif' />");
 	}
