@@ -68,8 +68,7 @@ $(function() {
 <?php
  if ($title == "Events") {
 ?>
-<script type="text/javascript" src="/skins/new/js/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="/skins/new/js/jquery-ui-1.8rc3.custom.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"</script>
 <script type="text/javascript" src="/skins/new/js/jquery_pagination.js"></script>
 <?php
  }
