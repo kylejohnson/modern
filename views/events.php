@@ -133,7 +133,9 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
   <div id="page">
    <?php require("header.php"); ?>
     <div id="content">
-</div>
+     <div id="contentcolumn">
+      <div id="events">
+      </div>
 <?php
 $per_page = ZM_WEB_EVENTS_PER_PAGE;
 
@@ -153,7 +155,6 @@ echo '<li id="'.$i.'">'.$i.'</li>';
 ?>
 </ul>
 
-     <div id="contentcolumn">
      </div>
    </div>
 <div id="sidebarHistory">

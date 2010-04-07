@@ -9,7 +9,7 @@ $(document).ready(function(){
 	};
 	$("#pagination li:first").css({'color' : '#FF0084'}).css({'border' : 'none'});
 	Display_Load();
-	$("#content").load("/skins/new/views/pagination_data.php?page=1", Hide_Load());
+	$("#events").load("/skins/new/views/pagination_data.php?page=1", Hide_Load());
 	$("#pagination li").click(function(){
 		Display_Load();
 		$("#pagination li")
@@ -19,6 +19,6 @@ $(document).ready(function(){
 		.css({'color' : '#FF0084'})
 		.css({'border' : 'none'});
 		var pageNum = this.id;
-		$("#content").load("/skins/new/views/pagination_data.php?page=" + pageNum, Hide_Load());
+		$("#events").load("/skins/new/views/pagination_data.php?page=" + pageNum, Hide_Load());
 	});
 });
