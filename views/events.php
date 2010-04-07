@@ -26,7 +26,8 @@ $monitors = array();
 dbFetchAll($monitorsSql);
 
 $maxShortcuts = 5;
-
+$maxWidth = 0;
+$maxHeight = 0;
 $focusWindow = true;
 
 xhtmlHeaders(__FILE__, $SLANG['Events'] );

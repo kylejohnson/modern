@@ -92,6 +92,7 @@ foreach (dbFetchAll($eventsSql) as $event) {
         $unarchived = true;
 }
 ?>
+<input type="hidden" id="inptMonitorName" value="<?= $event['MonitorName'] ?>"/>
 <ul id="monitorHistory">
 <?php
 $count = 0;
@@ -118,3 +119,4 @@ foreach ( $events as $event ){
  }
  ?>
 </ul>
+
