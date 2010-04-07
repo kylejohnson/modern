@@ -20,103 +20,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 
-if ( !canView( 'Events' ) || (!empty($_REQUEST['execute']) && !canEdit('Events')) )
-{
-$view = "error";
-return;
-}
-
-if ( !empty($_REQUEST['execute']) )
-{
-executeFilter( $tempFilterName );
-}
-
-$countSql = "select count(E.Id) as EventCount from Monitors as M inner join Events as E on (M.Id = E.MonitorId) where";
-$eventsSql = "select E.Id,E.MonitorId,M.Name As MonitorName,M.Width,M.Height,M.DefaultScale,E.Name,E.MaxScore,E.StartTime,E.Length,E.Archived from Monitors as M inner join Events as E on (M.Id = E.MonitorId) where";
-if ( $user['MonitorIds'] )
-{
-$countSql .= " M.Id in (".join( ",", preg_split( '/["\'\s]*,["\'\s]*/', $user['MonitorIds'] ) ).")";
-$eventsSql .= " M.Id in (".join( ",", preg_split( '/["\'\s]*,["\'\s]*/', $user['MonitorIds'] ) ).")";
-}
-else
-{
-$countSql .= " 1";
-$eventsSql .= " 1";
-}
-
-parseSort();
-parseFilter( $_REQUEST['filter'] );
-$filterQuery = $_REQUEST['filter']['query'];
-
-if ( $_REQUEST['filter']['sql'] )
-{
-$countSql .= $_REQUEST['filter']['sql'];
-$eventsSql .= $_REQUEST['filter']['sql'];
-}
-$eventsSql .= " order by $sortColumn $sortOrder";
-
-if ( isset($_REQUEST['page']) )
-$page = validInt($_REQUEST['page']);
-else
-$page = 0;
-if ( isset($_REQUEST['limit']) )
-$limit = validInt($_REQUEST['limit']);
-else
-$limit = 0;
-
-$nEvents = dbFetchOne( $countSql, 'EventCount' );
-if ( !empty($limit) && $nEvents > $limit )
-{
-$nEvents = $limit;
-}
-$pages = (int)ceil($nEvents/ZM_WEB_EVENTS_PER_PAGE);
-if ( $pages > 1 )
-{
-if ( !empty($page) )
-{
-if ( $page < 0 )
-    $page = 1;
-if ( $page > $pages )
-    $page = $pages;
-}
-}
-if ( !empty($page) )
-{
-$limitStart = (($page-1)*ZM_WEB_EVENTS_PER_PAGE);
-if ( empty( $limit ) )
-{
-$limitAmount = ZM_WEB_EVENTS_PER_PAGE;
-}
-else
-{
-$limitLeft = $limit - $limitStart;
-$limitAmount = ($limitLeft>ZM_WEB_EVENTS_PER_PAGE)?ZM_WEB_EVENTS_PER_PAGE:$limitLeft;
-}
-$eventsSql .= " limit $limitStart, $limitAmount";
-}
-elseif ( !empty( $limit ) )
-{
-$eventsSql .= " limit 0, ".dbEscape($limit);
-}
-
-$maxWidth = 0;
-$maxHeight = 0;
-$archived = false;
-$unarchived = false;
-$events = array();
-foreach ( dbFetchAll( $eventsSql ) as $event )
-{
-$events[] = $event;
-$scale = max( reScale( SCALE_BASE, $event['DefaultScale'], ZM_WEB_DEFAULT_SCALE ), SCALE_BASE );
-$eventWidth = reScale( $event['Width'], $scale );
-$eventHeight = reScale( $event['Height'], $scale );
-if ( $maxWidth < $eventWidth ) $maxWidth = $eventWidth;
-if ( $maxHeight < $eventHeight ) $maxHeight = $eventHeight;
-if ( $event['Archived'] )
-$archived = true;
-else
-$unarchived = true;
-}
 
 $monitorsSql = "select Name, Id from Monitors";
 $monitors = array();
@@ -136,25 +39,8 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
      <div id="contentcolumn">
       <div id="events">
       </div>
-<?php
-$per_page = ZM_WEB_EVENTS_PER_PAGE;
-
-//Calculating no of pages
-$Sql = "select count(E.Id) as EventCount from Monitors as M inner join Events as E on (M.Id = E.MonitorId) where M.Id = 1";
-$result = dbFetchOne( $Sql, 'EventCount' );
-$pages = ceil($result/$per_page)
-?>
-<div id="loading" ></div>
-<ul id="pagination">
-<?php
-//Pagination Numbers
-for($i=1; $i<=$pages; $i++)
-{
-echo '<li id="'.$i.'">'.$i.'</li>';
-}
-?>
-</ul>
-
+      <div id="loading">
+      </div>
      </div>
    </div>
 <div id="sidebarHistory">
@@ -163,7 +49,7 @@ echo '<li id="'.$i.'">'.$i.'</li>';
  <ul>
 <?php foreach ($monitors as $monitor) { ?>
   <li>
-   <input type="checkbox" name="monitorName" id="monitor_<?= $monitor['Id'] ?>" /> <label for="monitor_<?= $monitor['Id'] ?>"><?= $monitor['Name'] ?></label>
+   <input type="checkbox" name="monitorName" id="<?= $monitor['Name'] ?>" /> <label for="<?= $monitor['Name'] ?>"><?= $monitor['Name'] ?></label>
   </li>
 <?php } ?>
  </ul>

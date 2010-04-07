@@ -1,4 +1,5 @@
 $(document).ready(function(){
+var url = location.search
 	function Display_Load() {
 	    $("#loading").fadeIn(900,0);
 		$("#loading").html("<img src='/skins/new/graphics/bigLoader.gif' />");
@@ -9,7 +10,7 @@ $(document).ready(function(){
 	};
 	$("#pagination li:first").css({'color' : '#FF0084'}).css({'border' : 'none'});
 	Display_Load();
-	$("#events").load("/skins/new/views/pagination_data.php?page=1", Hide_Load());
+	$("#events").load("/skins/new/views/pagination_data.php" + url, Hide_Load());
 	$("#pagination li").click(function(){
 		Display_Load();
 		$("#pagination li")

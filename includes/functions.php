@@ -70,6 +70,7 @@ $(function() {
 ?>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" src="/skins/new/js/jquery_pagination.js"></script>
+<script type="text/javascript" src="/skins/new/js/jquery_event_search.js"></script>
 <?php
  }
 ?>
