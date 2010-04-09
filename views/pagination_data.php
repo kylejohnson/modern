@@ -143,6 +143,9 @@ foreach ( $events as $event ){
   echo '<li id="'.($page-1).'">< Previous</li>';
   echo '<li id="1"><< First</li>';
  }
+ if ($page >= 11) {
+  echo '<li id="'.($page-10).'">'.($page-10).'</li>';
+ }
  if ($page >= 3) {
   echo '<li id="'.($page-2).'">'.($page-2).'</li>';
  }
@@ -155,6 +158,9 @@ foreach ( $events as $event ){
  }
  if (($page + 2) < $pages) {
   echo '<li id="'.($page+2).'">'.($page+2).'</li>';
+ }
+ if (($page + 10) < $pages) {
+  echo '<li id="'.($page+10).'">'.($page+10).'</li>';
  }
  if ($page != $pages) {
   echo '<li id="'.$pages.'">Last >></li>';

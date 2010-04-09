@@ -22,6 +22,15 @@ $(document).ready(function(){
     $("#events").load("/skins/new/views/pagination_data.php?page=" + pageNum + "&filter[terms][0][attr]=MonitorName&filter[terms][0][op]==&filter[terms][0][val]=" + monitorName, function () { Build_Pagination() }); //Load data to page then rebuild Build_Pagination function
    }
   });
+
+
+ // Auto-check the default monitor filter box
+ $("#sidebarHistory input").each(function() {
+  if ((this.id) == $("#inptMonitorName").attr("value")) {
+    $(this).attr("checked", true);
+  }
+ });
+
  };
 
  Display_Load(); //First thing that happens - display spinner
