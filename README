@@ -1,0 +1,3 @@
+This is a work-in-progress of a new skin for ZoneMinder version >= 1.24  .
+I plan on removing many of the extra (read: usually unused) features of the WebUI and to go with a more simplistic approach, while adding web 2.0 features.
+To use this skin, check it out into a new zm/skins directory (I.e. zm/skins/new), then browse to http://yourzm/?skin=new
