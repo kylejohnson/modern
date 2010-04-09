@@ -456,6 +456,7 @@ div.clear {
 
 /* Monitor History */
 #monitorHistory{
+clear:both;
 padding:0 10px;
 }
 #monitorHistory li{
@@ -466,10 +467,23 @@ padding:0 10px;
 #sidebarHistory{
  width:190px;
  margin-left:-100%;
- border-right:1px solid #000;
  float:left;
  text-align:left;
  padding:2px 4px;
+}
+
+#sidebarHistory h2 {
+ text-align:center;
+}
+
+#sidebarHistory fieldset {
+ border-top:1px solid #000;
+}
+
+#sidebarHistory fieldset legend {
+ color:#000066;
+ font-weight:bold;
+ padding:2px 3px;
 }
 
 #contentcolumn{
@@ -480,8 +494,12 @@ padding:0 10px;
  width: 100%;
  position: absolute;
 }
-#pagination{clear:both;}
-#pagination li {
+.pagination{
+ clear:both;
+ margin:0px auto;
+ width:500px;
+}
+.pagination li {
  padding:5px;
  margin:2px;
  list-style: none;
@@ -489,7 +507,13 @@ padding:0 10px;
  border:solid 1px #dddddd;
  color:#0063DC;
 }
-#pagination li:hover {
+.pagination li:hover {
  color:#FF0084;
  cursor: pointer;
+}
+
+.pagination li.curPage {
+ font-weight:bold;
+ background-color:#0063DC;
+ color:#ffffff;
 }

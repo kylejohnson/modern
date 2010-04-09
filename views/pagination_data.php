@@ -93,6 +93,31 @@ foreach (dbFetchAll($eventsSql) as $event) {
 }
 ?>
 <input type="hidden" id="inptMonitorName" value="<?= $event['MonitorName'] ?>"/>
+<ul class="pagination">
+ <?php
+ if ($page != 1) {
+  echo '<li id="'.($page-1).'">< Previous</li>';
+  echo '<li id="1"><< First</li>';
+ }
+ if ($page >= 3) {
+  echo '<li id="'.($page-2).'">'.($page-2).'</li>';
+ }
+ if ($page >= 2) {
+  echo '<li id="'.($page-1).'">'.($page-1).'</li>';
+ }
+ echo '<li id="'.$page.'" class="curPage">'.$page.'</li>';
+ if (($page + 1) < $pages) {
+  echo '<li id="'.($page+1).'">'.($page+1).'</li>';
+ }
+ if (($page + 2) < $pages) {
+  echo '<li id="'.($page+2).'">'.($page+2).'</li>';
+ }
+ if ($page != $pages) {
+  echo '<li id="'.$pages.'">Last >></li>';
+  echo '<li id="'.($page+1).'">Next ></li>';
+ }
+ ?>
+</ul>
 <ul id="monitorHistory">
 <?php
 $count = 0;
@@ -112,10 +137,28 @@ foreach ( $events as $event ){
  }}
 ?>
 </ul>
-<ul id="pagination">
+<ul class="pagination">
  <?php
- for($i=1; $i<=$pages; $i++) {
-  echo '<li id="'.$i.'">'.$i.'</li>';
+ if ($page != 1) {
+  echo '<li id="'.($page-1).'">< Previous</li>';
+  echo '<li id="1"><< First</li>';
+ }
+ if ($page >= 3) {
+  echo '<li id="'.($page-2).'">'.($page-2).'</li>';
+ }
+ if ($page >= 2) {
+  echo '<li id="'.($page-1).'">'.($page-1).'</li>';
+ }
+ echo '<li id="'.$page.'" class="curPage">'.$page.'</li>';
+ if (($page + 1) < $pages) {
+  echo '<li id="'.($page+1).'">'.($page+1).'</li>';
+ }
+ if (($page + 2) < $pages) {
+  echo '<li id="'.($page+2).'">'.($page+2).'</li>';
+ }
+ if ($page != $pages) {
+  echo '<li id="'.$pages.'">Last >></li>';
+  echo '<li id="'.($page+1).'">Next ></li>';
  }
  ?>
 </ul>

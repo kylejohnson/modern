@@ -46,7 +46,8 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
    </div>
 <div id="sidebarHistory">
  <h2>Search</h2>
- <h3>Monitors</h3>
+ <fieldset>
+ <legend>Monitors</legend>
  <ul>
 <?php foreach ($monitors as $monitor) { ?>
   <li>
@@ -54,10 +55,16 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
   </li>
 <?php } ?>
  </ul>
+ </fieldset>
+ 
+ <fieldset>
+  <legend>Date</legend>
+ </fieldset>
+ 
+ <fieldset>
+  <legend>Presets</legend>
+ </fieldset>
 
- <h3>Date</h3>
-
- <h3>Presets</h3>
 </div>
    <?php require("footer.php"); ?>
   </div>

@@ -13,7 +13,7 @@ $(document).ready(function(){
  function Build_Pagination() {
   Hide_Load();  //Hide spinner
   var monitorName = $("#inptMonitorName").attr("value"); // Get the currently selected monitor.  This is only needed for the first page load, before any filters are set.
-  $("#pagination li").click(function() { //If page is changed
+  $(".pagination li").click(function() { //If page is changed
    Display_Load(); //Show spinner
    var pageNum = this.id; //Set page number
    if (!(query == "")) {
