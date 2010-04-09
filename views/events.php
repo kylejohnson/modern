@@ -59,6 +59,18 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
  
  <fieldset>
   <legend>Date</legend>
+  <ul>
+   <li id="liLatestEvents">Latest</li>
+   <li>Past Hour</li>
+   <li>Past 24 Hours</li>
+   <li>Past 48 Hours</li>
+   <li id="liSpecificDate">Specific Date Range
+    <ul id="filterSpecificDate" style="display:none;">
+     <li><label id="lblFrom" for="inptFrom">From:</label> <input type="text" id="inptFrom" /></li>
+     <li><label id="lblTo" for="inptTo">To:</label> <input type="text" id="inptTo" /></li>
+    </ul>
+   </li>
+  </ul>
  </fieldset>
  
  <fieldset>

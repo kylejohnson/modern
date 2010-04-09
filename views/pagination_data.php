@@ -92,6 +92,8 @@ foreach (dbFetchAll($eventsSql) as $event) {
         $unarchived = true;
 }
 ?>
+<p><?= $nEvents; ?> events</p>
+<p><?= $pages; ?> pages</p>
 <input type="hidden" id="inptMonitorName" value="<?= $event['MonitorName'] ?>"/>
 <ul class="pagination">
  <?php

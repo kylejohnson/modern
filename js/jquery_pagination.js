@@ -1,6 +1,8 @@
 $(document).ready(function(){
  url = location.search;
  query = "";
+ i = 0;
+
  function Display_Load() {
   $("#loading").fadeIn(900,0);
   $("#loading").html("<img src='/skins/new/graphics/bigLoader.gif' />");
@@ -52,5 +54,15 @@ $(document).ready(function(){
   monitorName = this.id
   Display_Load(); //Display spinner
   $("#events").load("/skins/new/views/pagination_data.php?page=1" + query, function() { Build_Pagination()}); // Load data into #events
+ });
+ 
+ $("#liLatestEvents").click(function() {
+  q = "&filter[terms][" + i + "][attr]=DateTime&filter[terms][" + i + "][op]==&filter[terms][" + i + "][val]=1+hour";
+  query = query + "&filter[terms][" + i + "][cnj]=and" + q;
+  $("#events").load("/skins/new/views/pagination_data.php?page=1" + query, function() {Build_Pagination()});
+ });
+
+ $("#liSpecificDate").click(function() {
+  $("#filterSpecificDate").css("display", "block");
  });
 });
