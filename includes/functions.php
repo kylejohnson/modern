@@ -54,7 +54,7 @@ $(function() {
 
     $("#monitors").load("/skins/new/views/monitors.php");
     var refreshId = setInterval(function() {
-       $("#monitors").load('/skins/new/views/monitors.php?randval='+ Math.random());
+       $("#monitors").load('/skins/new/views/monitors.php');
     }, consoleRefreshTimeout);
 
   $("#monitors").sortable({ opacity: 0.6, cursor: 'move', update: function() {
