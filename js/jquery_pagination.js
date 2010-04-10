@@ -47,7 +47,7 @@ $(document).ready(function(){
    if (i>0){ //If more than 1 checked box
     query += "&filter[terms][" + i + "][cnj]=or&filter[terms][" + i + "][attr]=MonitorName&filter[terms][" + i + "][op]==&filter[terms][" + i + "][val]=" + allVals[i]; // add "or"
    } else {
-    query += "&filter[terms][" + i + "][attr]=MonitorName&filter[terms][" + i + "][op]==&filter[terms][" + i + "][val]=" + allVals[i]; // Add nothing
+    query = "&filter[terms][" + i + "][attr]=MonitorName&filter[terms][" + i + "][op]==&filter[terms][" + i + "][val]=" + allVals[i]; // Add nothing
    }
   };
   monitorName = this.id
