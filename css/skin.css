@@ -517,3 +517,10 @@ padding:0 10px;
  background-color:#0063DC;
  color:#ffffff;
 }
+
+.spinner {
+ width:190px;
+ margin:0 auto;
+ text-align:center;
+ padding:2px 4px;
+}

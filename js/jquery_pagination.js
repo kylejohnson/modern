@@ -2,12 +2,12 @@ $(document).ready(function(){
  url = location.search;
  query = "";
  function Display_Load() {
-  $("#loading").fadeIn(900,0);
-  $("#loading").html("<img src='/skins/new/graphics/bigLoader.gif' />");
+  $(".spinner").fadeIn(900,0);
+  $(".spinner").html("<img src='/skins/new/graphics/spinner.gif' />");
  };
 
  function Hide_Load() {
-  $("#loading").fadeOut('slow');
+  $(".spinner").fadeOut('slow');
  };
 
  function Build_Pagination() {
