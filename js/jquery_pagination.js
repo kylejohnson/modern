@@ -37,6 +37,7 @@ $(document).ready(function(){
  $("#events").load("/skins/new/views/pagination_data.php" + url, function() { Build_Pagination() }); //Second, load data into #events then build Build_Pagination function
 
  $('#sidebarHistory input').change(function() { //When a checkbox is checked
+  if ($(this).attr("checked") == true) {
   var allVals = []; //Make the array
   $("#sidebarHistory input:checked").each(function() { //For each checked box
    allVals.push(this.id); //Push the checkbox id into the array
@@ -52,5 +53,5 @@ $(document).ready(function(){
   monitorName = this.id
   Display_Load(); //Display spinner
   $("#events").load("/skins/new/views/pagination_data.php?page=1" + query, function() { Build_Pagination()}); // Load data into #events
- });
+ }});
 });
