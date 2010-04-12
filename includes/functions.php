@@ -66,6 +66,16 @@ $(function() {
 </script>
 <?php } ?>
 <?php
+ if ($title == "Admin") {
+?>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+  <script type="text/javascript" src="/skins/new/js/admin.js"></script>
+  <script type="text/javascript" src="/skins/new/js/jquery.colorbox.js"></script>
+  <link type="text/css" media="screen" rel="stylesheet" href="/skins/new/css/colorbox.css"></link>
+<?php
+ }
+?>
+<?php
  if ($title == "Events") {
 ?>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>

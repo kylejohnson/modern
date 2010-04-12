@@ -62,7 +62,7 @@ else
       <li><a href="/">Cameras</a></li>
       <li><a href="/?view=events&amp;page=1">Events</a></li>
       <li><a href="/?view=timeline&amp;page=1">Timeline</a></li>
-      <li><a href="/?view=monitor">Add New Camera</a></li>
+      <li><a href="/?view=admin">Admin.</a></li>
       <li><a href="/?view=options">Options</a></li>
       <li><a href="/?view=system">System</a></li>
      </ul>
