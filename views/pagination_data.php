@@ -29,7 +29,7 @@ if ( $_REQUEST['filter']['sql'] )
 $countSql .= $_REQUEST['filter']['sql'];
 $eventsSql .= $_REQUEST['filter']['sql'];
 }
-$eventsSql .= " order by $sortColumn $sortOrder";
+$eventsSql .= " order by E.StartTime desc";
 
 if ( isset($_REQUEST['page']) )
 $page = validInt($_REQUEST['page']);

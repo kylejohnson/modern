@@ -40,8 +40,6 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
      <div id="contentcolumn">
       <div id="events">
       </div>
-      <div id="loading">
-      </div>
      </div>
    </div>
 <div id="sidebarHistory">
@@ -76,6 +74,9 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
  <fieldset>
   <legend>Presets</legend>
  </fieldset>
+
+ <div class="spinner">
+ </div>
 
 </div>
    <?php require("footer.php"); ?>

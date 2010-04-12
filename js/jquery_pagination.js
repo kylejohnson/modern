@@ -4,12 +4,12 @@ $(document).ready(function(){
  i = 0;
 
  function Display_Load() {
-  $("#loading").fadeIn(900,0);
-  $("#loading").html("<img src='/skins/new/graphics/bigLoader.gif' />");
+  $(".spinner").fadeIn(900,0);
+  $(".spinner").html("<img src='/skins/new/graphics/spinner.gif' />");
  };
 
  function Hide_Load() {
-  $("#loading").fadeOut('slow');
+  $(".spinner").fadeOut('slow');
  };
 
  function Build_Pagination() {
@@ -39,6 +39,7 @@ $(document).ready(function(){
  $("#events").load("/skins/new/views/pagination_data.php" + url, function() { Build_Pagination() }); //Second, load data into #events then build Build_Pagination function
 
  $('#sidebarHistory input').change(function() { //When a checkbox is checked
+  if ($(this).attr("checked") == true) {
   var allVals = []; //Make the array
   $("#sidebarHistory input:checked").each(function() { //For each checked box
    allVals.push(this.id); //Push the checkbox id into the array
@@ -48,11 +49,11 @@ $(document).ready(function(){
    if (i>0){ //If more than 1 checked box
     query += "&filter[terms][" + i + "][cnj]=or&filter[terms][" + i + "][attr]=MonitorName&filter[terms][" + i + "][op]==&filter[terms][" + i + "][val]=" + allVals[i]; // add "or"
    } else {
-    query += "&filter[terms][" + i + "][attr]=MonitorName&filter[terms][" + i + "][op]==&filter[terms][" + i + "][val]=" + allVals[i]; // Add nothing
+    query = "&filter[terms][" + i + "][attr]=MonitorName&filter[terms][" + i + "][op]==&filter[terms][" + i + "][val]=" + allVals[i]; // Add nothing
    }
   };
   monitorName = this.id
   Display_Load(); //Display spinner
   $("#events").load("/skins/new/views/pagination_data.php?page=1" + query, function() { Build_Pagination()}); // Load data into #events
- });
+ }});
 });

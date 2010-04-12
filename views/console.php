@@ -37,3 +37,4 @@ xhtmlHeaders( __FILE__, $SLANG['Console'] );
 </ul>
   </div>
 <?php require_once("footer.php"); ?>
+</div>
