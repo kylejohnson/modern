@@ -365,8 +365,9 @@ div.clear {
  border-top:2px solid #336699;
  border-bottom:2px solid #336699;
  clear:both;
- margin: 8px auto;
- padding:8px 0;
+ margin-top:4px;
+ padding:4px;
+ text-align:right;
 }
 
 
