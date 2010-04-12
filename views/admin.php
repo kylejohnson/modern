@@ -33,7 +33,9 @@ xhtmlHeaders( __FILE__, "Admin" );
  <div id="page">
  <?php require_once("header.php"); ?>
  <div id="content">
-  <div><a id="addMonitor" href="/?view=monitor">Add Monitor</a></div>
+  <ul>
+   <li><a id="addMonitor" href="/?view=monitor">Add Monitor</a></li>
+  </ul>
  </div> 
  <?php require_once("footer.php"); ?>
  </div>

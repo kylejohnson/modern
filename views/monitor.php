@@ -354,7 +354,7 @@ $orientations = array(
     $SLANG['FlippedVert'] => 'vert'
 );
 
-xhtmlHeaders(__FILE__, $SLANG['Monitor']." - ".validHtmlStr($monitor['Name']) );
+xhtmlHeaders(__FILE__, $SLANG['Monitor']);
 ?>
 <body>
   <div id="page">
