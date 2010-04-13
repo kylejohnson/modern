@@ -525,3 +525,8 @@ padding:0 10px;
  text-align:center;
  padding:2px 4px;
 }
+
+#tblMonitors {
+ width:800px;
+ margin:0 auto;
+}
