@@ -100,7 +100,7 @@ xhtmlHeaders( __FILE__, "Admin" );
    </tbody>
    <tfoot>
     <td colspan="2"><a id="addMonitor" href="/?view=monitor">Add Monitor</a></td>
-    <td colspan="3"><a id="delMonitor" href="/?view=monitor">Delete Monitor</a></td>
+    <td colspan="3"><a id="delMonitor" href="#">Delete Monitor</a></td>
    </tfoot>
   </table>
   <ul>

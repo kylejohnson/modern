@@ -84,6 +84,19 @@ $(function() {
   <script type="text/javascript" src="/skins/new/js/admin.js"></script>
   <script type="text/javascript" src="/skins/new/js/jquery.colorbox.js"></script>
   <link type="text/css" media="screen" rel="stylesheet" href="/skins/new/css/colorbox.css"></link>
+<script type="text/javascript">
+$(function() {
+  $("#delMonitor").click(function() {
+   if (confirm('Are you sure you want to delete the selected monitors and all associated events?')) {
+    $("#tblMonitors input:checked").each(function() {
+     var MonitorId = $(this).attr("value");
+     $.post("skins/new/includes/deleteMonitor.php?MonitorId="+ MonitorId);
+    });
+   }
+  });
+});
+</script>
+
 <?php
  }
 ?>
