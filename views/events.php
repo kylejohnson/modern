@@ -69,6 +69,7 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
     </ul>
    </li>
   </ul>
+  <div id="divSubmit">Submit</div>
  </fieldset>
  
  <fieldset>
