@@ -43,7 +43,6 @@ $(document).ready(function(){
   var from = $("#inptFrom").val();
   var to = $("#inptTo").val();
   var q = "";
-  var x = "";
 
   var num = [];
   $("#sidebarHistory input:checked").each(function() {
@@ -56,13 +55,14 @@ $(document).ready(function(){
    x += "&filter[terms][2][cnj]=and&filter[terms][2][obr]=0&filter[terms][2][attr]=DateTime&filter[terms][2][op]=%3C&filter[terms][2][val]=" + to + "&filter[terms][2][cbr]=0";
    q = url + x;
   } else {
+   var x = "";
    x =  "&filter[terms][" + i + "][cnj]=and&filter[terms][" + i + "][obr]=0&filter[terms][" + i + "][attr]=DateTime&filter[terms][" + i + "][op]=%3E&filter[terms][" + i + "][val]=" + from + "&filter[terms][" + i + "][cbr]=0";
    i++;
    x += "&filter[terms][" + i + "][cnj]=and&filter[terms][" + i + "][obr]=0&filter[terms][" + i + "][attr]=DateTime&filter[terms][" + i + "][op]=%3C&filter[terms][" + i + "][val]=" + to + "&filter[terms][" + i + "][cbr]=0";
-   q = query + x;
+   query = query + x;
   }
  
-  $("#events").load("/skins/new/views/pagination_data.php?page=1" + q, function() { Build_Pagination() });
+  $("#events").load("/skins/new/views/pagination_data.php?page=1" + query, function() { Build_Pagination() });
  });
 
  Display_Load(); //First thing that happens - display spinner
