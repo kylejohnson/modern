@@ -35,6 +35,36 @@ $(document).ready(function(){
 
  };
 
+ $("#liSpecificDate").click(function() {
+  $("#filterSpecificDate").css("display", "block");
+ });
+
+ $("#divSubmit").click(function() {
+  var from = $("#inptFrom").val();
+  var to = $("#inptTo").val();
+  var q = "";
+  var x = "";
+
+  var num = [];
+  $("#sidebarHistory input:checked").each(function() {
+   num.push(this.id);
+  });
+  i = num.length;
+
+  if (i == 1) {
+   x =  "&filter[terms][1][cnj]=and&filter[terms][1][obr]=0&filter[terms][1][attr]=DateTime&filter[terms][1][op]=%3E&filter[terms][1][val]=" + from + "&filter[terms][1][cbr]=0";
+   x += "&filter[terms][2][cnj]=and&filter[terms][2][obr]=0&filter[terms][2][attr]=DateTime&filter[terms][2][op]=%3C&filter[terms][2][val]=" + to + "&filter[terms][2][cbr]=0";
+   q = url + x;
+  } else {
+   x =  "&filter[terms][" + i + "][cnj]=and&filter[terms][" + i + "][obr]=0&filter[terms][" + i + "][attr]=DateTime&filter[terms][" + i + "][op]=%3E&filter[terms][" + i + "][val]=" + from + "&filter[terms][" + i + "][cbr]=0";
+   i++;
+   x += "&filter[terms][" + i + "][cnj]=and&filter[terms][" + i + "][obr]=0&filter[terms][" + i + "][attr]=DateTime&filter[terms][" + i + "][op]=%3C&filter[terms][" + i + "][val]=" + to + "&filter[terms][" + i + "][cbr]=0";
+   q = query + x;
+  }
+ 
+  $("#events").load("/skins/new/views/pagination_data.php?page=1" + q, function() { Build_Pagination() });
+ });
+
  Display_Load(); //First thing that happens - display spinner
  $("#events").load("/skins/new/views/pagination_data.php" + url, function() { Build_Pagination() }); //Second, load data into #events then build Build_Pagination function
 
