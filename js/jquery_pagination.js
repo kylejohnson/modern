@@ -1,7 +1,6 @@
+query = "";
 $(document).ready(function(){
  url = location.search;
- query = "";
- i = 0;
 
  function Display_Load() {
   $(".spinner").fadeIn(900,0);
@@ -25,13 +24,11 @@ $(document).ready(function(){
    }
   });
 
-
  // Auto-check the default monitor filter box
  $("#sidebarHistory input").each(function() {
   if ((this.id) == $("#inptMonitorName").attr("value")) {
     $(this).attr("checked", true);
-  }
- });
+  }});
 
  };
 
@@ -40,50 +37,51 @@ $(document).ready(function(){
  });
 
  $("#divSubmit").click(function() {
-  var from = $("#inptFrom").val();
-  var to = $("#inptTo").val();
-  var q = "";
-
-  var num = [];
-  $("#sidebarHistory input:checked").each(function() {
-   num.push(this.id);
-  });
-  i = num.length;
-
-  if (i == 1) {
-   x =  "&filter[terms][1][cnj]=and&filter[terms][1][obr]=0&filter[terms][1][attr]=DateTime&filter[terms][1][op]=%3E&filter[terms][1][val]=" + from + "&filter[terms][1][cbr]=0";
-   x += "&filter[terms][2][cnj]=and&filter[terms][2][obr]=0&filter[terms][2][attr]=DateTime&filter[terms][2][op]=%3C&filter[terms][2][val]=" + to + "&filter[terms][2][cbr]=0";
-   q = url + x;
-  } else {
-   var x = "";
-   x =  "&filter[terms][" + i + "][cnj]=and&filter[terms][" + i + "][obr]=0&filter[terms][" + i + "][attr]=DateTime&filter[terms][" + i + "][op]=%3E&filter[terms][" + i + "][val]=" + from + "&filter[terms][" + i + "][cbr]=0";
-   i++;
-   x += "&filter[terms][" + i + "][cnj]=and&filter[terms][" + i + "][obr]=0&filter[terms][" + i + "][attr]=DateTime&filter[terms][" + i + "][op]=%3C&filter[terms][" + i + "][val]=" + to + "&filter[terms][" + i + "][cbr]=0";
-   query = query + x;
-  }
- 
-  $("#events").load("/skins/new/views/pagination_data.php?page=1" + query, function() { Build_Pagination() });
+  Display_Load();
+  Build_Query();
+  Hide_Load();
  });
 
  Display_Load(); //First thing that happens - display spinner
  $("#events").load("/skins/new/views/pagination_data.php" + url, function() { Build_Pagination() }); //Second, load data into #events then build Build_Pagination function
 
- $('#sidebarHistory input').change(function() { //When a checkbox is checked
+ $('#sidebarHistory li input').change(function() { //When a checkbox is checked
   if ($(this).attr("checked") == true) {
-  var allVals = []; //Make the array
-  $("#sidebarHistory input:checked").each(function() { //For each checked box
-   allVals.push(this.id); //Push the checkbox id into the array
+   monitorName = this.id;
+   Display_Load();
+   Build_Query();
+   Hide_Load();
+  }});
+
+
+
+
+ function Build_Query() {
+  var aryMonitors = [];
+
+  $("#sidebarHistory input:checked").each(function() { // For each checked monitor
+   aryMonitors.push(this.id); // Push its name into the array
   });
-  var x = allVals.length; //Get the number of checked boxes
-  for (i=0;i<x;i++) { //For each checked box
-   if (i>0){ //If more than 1 checked box
-    query += "&filter[terms][" + i + "][cnj]=or&filter[terms][" + i + "][attr]=MonitorName&filter[terms][" + i + "][op]==&filter[terms][" + i + "][val]=" + allVals[i]; // add "or"
+  var x = aryMonitors.length; // Number of checked monitors
+  
+  var from = $("#inptFrom").val();
+  var to = $("#inptTo").val();
+
+  for (var i=0;i<x;i++) {
+   if (i>0) {
+    query += "&filter[terms][" + i + "][cnj]=or&filter[terms][" + i + "][attr]=MonitorName&filter[terms][" + i + "][op]==&filter[terms][" + i + "][val]=" + aryMonitors[i];
    } else {
-    query = "&filter[terms][" + i + "][attr]=MonitorName&filter[terms][" + i + "][op]==&filter[terms][" + i + "][val]=" + allVals[i]; // Add nothing
+    query = "&filter[terms][" + i + "][attr]=MonitorName&filter[terms][" + i + "][op]==&filter[terms][" + i + "][val]=" + aryMonitors[i];
    }
   };
-  monitorName = this.id
-  Display_Load(); //Display spinner
-  $("#events").load("/skins/new/views/pagination_data.php?page=1" + query, function() { Build_Pagination()}); // Load data into #events
- }});
+
+  if ((from != "") && (to != "")) {
+   query +=  "&filter[terms][" + i + "][cnj]=and&filter[terms][" + i + "][obr]=0&filter[terms][" + i + "][attr]=DateTime&filter[terms][" + i + "][op]=%3E&filter[terms][" + i + "][val]=" + from + "&filter[terms][" + i + "][cbr]=0";
+   i++;
+   query += "&filter[terms][" + i + "][cnj]=and&filter[terms][" + i + "][obr]=0&filter[terms][" + i + "][attr]=DateTime&filter[terms][" + i + "][op]=%3C&filter[terms][" + i + "][val]=" + to + "&filter[terms][" + i + "][cbr]=0";
+  }
+
+   $("#events").load("/skins/new/views/pagination_data.php?page=1" + query, function() { Build_Pagination()}); // Load data into #events
+
+ };
 });
