@@ -62,4 +62,3 @@ function initPage()
         createPopup( '?view=donate', 'zmDonate', 'donate' );
 }
 
-window.addEvent( 'domready', initPage );
