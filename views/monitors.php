@@ -3,6 +3,7 @@ require_once("../../../includes/config.php");
 require_once("../../../includes/database.php");
 require_once("../../../includes/functions.php");
 
+$mid = $_REQUEST['mid'];
 if ( isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == 'on' )
 {
     $protocol = 'https';
@@ -13,7 +14,11 @@ else
 }
 define( "ZM_BASE_URL", $protocol.'://'.$_SERVER['HTTP_HOST'] );
 
-$monitors = dbFetchAll( "select * from Monitors order by Sequence asc" );
+if ($mid) {
+ $monitors = dbFetchAll( "select Id, Name, Width, Height from Monitors where Id = " . $mid . " order by Sequence asc" );
+} else {
+ $monitors = dbFetchAll( "select Id, Name, Width, Height from Monitors order by Sequence asc" );
+}
 $displayMonitors = array();
 for ( $i = 0; $i < count($monitors); $i++ )
 {
