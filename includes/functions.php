@@ -48,22 +48,7 @@ function xhtmlHeaders( $file, $title )
 <?php if ($title == "Console") { ?>
 <script type="text/javascript" src="skins/new/js/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="skins/new/js/jquery-ui-1.8rc3.custom.min.js"></script>
-<script type="text/javascript">
-var consoleRefreshTimeout = <?= 1000*ZM_WEB_REFRESH_MAIN ?>;
-$(function() {
-
-    $("#monitors").load("/skins/new/views/monitors.php");
-    var refreshId = setInterval(function() {
-       $("#monitors").load('/skins/new/views/monitors.php');
-    }, consoleRefreshTimeout);
-
-  $("#monitors").sortable({ opacity: 0.6, cursor: 'move', update: function() {
-    var order = $(this).sortable("serialize") + '&action=sequence';
-    $.post("skins/new/includes/updateSequence.php", order);
-   }});
-
-});
-</script>
+<script type="text/javascript" src="skins/new/js/console.js"></script>
 <?php } ?>
 <?php
  if ($title == "Monitor") {
