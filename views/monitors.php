@@ -73,6 +73,8 @@ foreach( $displayMonitors as $monitor ){
   <?php outputImageStill( "liveStream", $streamSrc, reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ), $monitor['Name'] ); ?>
  </a>
  </div>
+ <div class="monfooter">
  <div class="spinner"></div>
+ </div>
 </li>
 <?php } ?>

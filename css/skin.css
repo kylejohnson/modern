@@ -530,3 +530,11 @@ padding:0 10px;
  width:800px;
  margin:0 auto;
 }
+
+.mon{
+}
+.monfooter{
+ height:40px;
+ display:block;
+}
+.monfooter .spinner{text-align:left;}

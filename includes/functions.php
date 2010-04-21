@@ -48,7 +48,30 @@ function xhtmlHeaders( $file, $title )
 <?php if ($title == "Console") { ?>
 <script type="text/javascript" src="skins/new/js/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="skins/new/js/jquery-ui-1.8rc3.custom.min.js"></script>
-<script type="text/javascript" src="skins/new/js/console.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+var refresh = <?= 1000*ZM_WEB_REFRESH_MAIN ?>;
+ $("#monitors").load("/skins/new/views/monitors.php");
+
+ setInterval(function() {
+  $("#monitors li").each(function() {
+   var _this = $(this);
+   $(".spinner",_this).html("<img src='/skins/new/graphics/spinner.gif' />");
+   var mid = $(this).attr("id");
+   mid = mid.split("_");
+   $(".mon",this).load("/skins/new/views/monitors.php?mid=" + mid[1] + " .mon", function () { 
+    $(".spinner",_this).fadeOut('slow');
+   });
+  });
+ }, refresh);
+
+  $("#monitors").sortable({ opacity: 0.6, cursor: 'move', update: function() {
+  var order = $(this).sortable("serialize") + '&action=sequence';
+    $.post("skins/new/includes/updateSequence.php", order);
+   }});
+
+});
+</script>
 <?php } ?>
 <?php
  if ($title == "Monitor") {
