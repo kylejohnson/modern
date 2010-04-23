@@ -55,7 +55,7 @@ foreach( $displayMonitors as $monitor ){
         $fclass = "infoText";
     if ( !$monitor['Enabled'] )
         $fclass .= " disabledText";
- if ($_COOKIE['zmBandwidth'] == 'low' || $_COOKIE['zmBandwidth'] == "medium") {
+ if ($_COOKIE['zmBandwidth'] == 'low' || $_COOKIE['zmBandwidth'] == "medium" || $_COOKIE['zmBandwidth'] == "") {
   $streamSrc = getStreamSrc( array( "mode=single", "monitor=".$monitor['Id'], "scale=".$scale ) );
  } elseif ($_COOKIE['zmBandwidth'] == 'high') {
    if ( ZM_STREAM_METHOD == 'mpeg' && ZM_MPEG_LIVE_FORMAT ) {
