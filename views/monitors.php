@@ -4,6 +4,7 @@ require_once("../../../includes/database.php");
 require_once("../../../includes/functions.php");
 
 $mid = $_REQUEST['mid'];
+$bandwidth = $_COOKIE['zmBandwidth'];
 if ( isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == 'on' )
 {
     $protocol = 'https';
@@ -55,9 +56,9 @@ foreach( $displayMonitors as $monitor ){
         $fclass = "infoText";
     if ( !$monitor['Enabled'] )
         $fclass .= " disabledText";
- if ($_COOKIE['zmBandwidth'] == 'low' || $_COOKIE['zmBandwidth'] == "medium" || $_COOKIE['zmBandwidth'] == "") {
+ if (($bandwidth == 'low' || $bandwidth == "medium" || $bandwidth == "") || !($bandwidth)) {
   $streamSrc = getStreamSrc( array( "mode=single", "monitor=".$monitor['Id'], "scale=".$scale ) );
- } elseif ($_COOKIE['zmBandwidth'] == 'high') {
+ } elseif ($bandwidth == 'high') {
    if ( ZM_STREAM_METHOD == 'mpeg' && ZM_MPEG_LIVE_FORMAT ) {
     $streamMode = "mpeg";
     $streamSrc = getStreamSrc( array( "mode=".$streamMode, "monitor=".$monitor['Id'], "scale=".$scale, "bitrate=".ZM_WEB_VIDEO_BITRATE, "maxfps=".ZM_WEB_VIDEO_MAXFPS, "format=".ZM_MPEG_LIVE_FORMAT, "buffer=".$monitor['StreamReplayBuffer'] ) );
