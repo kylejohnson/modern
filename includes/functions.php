@@ -48,10 +48,17 @@ function xhtmlHeaders( $file, $title )
 <?php if ($title == "Console") { ?>
 <script type="text/javascript" src="skins/new/js/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="skins/new/js/jquery-ui-1.8rc3.custom.min.js"></script>
+<script type="text/javascript" src="/skins/new/js/jquery.colorbox.js"></script>
+<script type="text/javascript" src="/skins/new/js/console.colorbox.js"></script>
+  <link type="text/css" media="screen" rel="stylesheet" href="/skins/new/css/colorbox.css"></link>
 <script type="text/javascript">
 $(document).ready(function(){
 var refresh = <?= 1000*ZM_WEB_REFRESH_MAIN ?>;
- $("#monitors").load("/skins/new/views/monitors.php");
+ $("#monitors").load("/skins/new/views/monitors.php", function() {cb() });
+
+function cb() {
+ $(".test").colorbox();
+}
 
  setInterval(function() {
   $("#monitors li").each(function() {
@@ -100,7 +107,8 @@ var refresh = <?= 1000*ZM_WEB_REFRESH_MAIN ?>;
 ?>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" src="/skins/new/js/jquery_pagination.js"></script>
-<script type="text/javascript" src="/skins/new/js/jquery_event_search.js"></script>
+<script type="text/javascript" src="/skins/new/js/jquery.colorbox.js"></script>
+<link type="text/css" media="screen" rel="stylesheet" href="/skins/new/css/colorbox.css"></link>
 <?php
  }
 ?>
