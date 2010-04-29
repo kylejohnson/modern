@@ -59,19 +59,26 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
   <legend>Date</legend>
   <ul>
    <li id="liSpecificDate">Specific Date Range
-    <ul id="filterSpecificDate" style="display:none;">
+    <ul id="filterSpecificDate">
      <li><label id="lblFrom" for="inptFrom">From:</label> <input type="text" id="inptFrom" /></li>
      <li><label id="lblTo" for="inptTo">To:</label> <input type="text" id="inptTo" /></li>
     </ul>
    </li>
   </ul>
-  <div id="divSubmit">Submit</div>
  </fieldset>
- 
  <fieldset>
-  <legend>Presets</legend>
+  <legend>Time</legend>
+  <ul>
+   <li id="liSpecificDate">Specific Time Range
+    <ul id="filterSpecificTime">
+     <li><label id="lblTimeFrom" for="inptTimeFrom">From:</label> <input type="text" id="inptTimeFrom" /></li>
+     <li><label id="lblTimeTo" for="inptTimeTo">To:</label> <input type="text" id="inptTimeTo" /></li>
+    </ul>
+   </li>
+  </ul>
  </fieldset>
-
+  <div id="divSubmit">Submit</div>
+ 
  <div class="spinner">
  </div>
 

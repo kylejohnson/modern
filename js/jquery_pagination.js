@@ -65,8 +65,10 @@ $(".box").colorbox({iframe:true, innerWidth:800, innerHeight:700});
   });
   var x = aryMonitors.length; // Number of checked monitors
   
-  var from = $("#inptFrom").val();
-  var to = $("#inptTo").val();
+  var Dfrom = $("#inptFrom").val();
+  var Dto = $("#inptTo").val();
+  var Tfrom = $("#inptTimeFrom").val();
+  var Tto = $("#inptTimeTo").val();
 
   for (var i=0;i<x;i++) {
    if (i>0) {
@@ -76,10 +78,16 @@ $(".box").colorbox({iframe:true, innerWidth:800, innerHeight:700});
    }
   };
 
-  if ((from != "") && (to != "")) {
-   query +=  "&filter[terms][" + i + "][cnj]=and&filter[terms][" + i + "][obr]=0&filter[terms][" + i + "][attr]=DateTime&filter[terms][" + i + "][op]=%3E&filter[terms][" + i + "][val]=" + from + "&filter[terms][" + i + "][cbr]=0";
+  if ((Dfrom != "") && (Dto != "")) {
+   query +=  "&filter[terms][" + i + "][cnj]=and&filter[terms][" + i + "][obr]=0&filter[terms][" + i + "][attr]=DateTime&filter[terms][" + i + "][op]=%3E&filter[terms][" + i + "][val]=" + Dfrom + "&filter[terms][" + i + "][cbr]=0";
    i++;
-   query += "&filter[terms][" + i + "][cnj]=and&filter[terms][" + i + "][obr]=0&filter[terms][" + i + "][attr]=DateTime&filter[terms][" + i + "][op]=%3C&filter[terms][" + i + "][val]=" + to + "&filter[terms][" + i + "][cbr]=0";
+   query += "&filter[terms][" + i + "][cnj]=and&filter[terms][" + i + "][obr]=0&filter[terms][" + i + "][attr]=DateTime&filter[terms][" + i + "][op]=%3C&filter[terms][" + i + "][val]=" + Dto + "&filter[terms][" + i + "][cbr]=0";
+  }
+  if ((Tfrom != "") && (Tto != "")) {
+   i++;
+   query +=  "&filter[terms][" + i + "][cnj]=and&filter[terms][" + i + "][obr]=0&filter[terms][" + i + "][attr]=Time&filter[terms][" + i + "][op]=%3E&filter[terms][" + i + "][val]=" + Tfrom + "&filter[terms][" + i + "][cbr]=0";
+   i++;
+   query += "&filter[terms][" + i + "][cnj]=and&filter[terms][" + i + "][obr]=0&filter[terms][" + i + "][attr]=Time&filter[terms][" + i + "][op]=%3C&filter[terms][" + i + "][val]=" + Tto + "&filter[terms][" + i + "][cbr]=0";
   }
 
    $("#events").load("/skins/new/views/pagination_data.php?page=1" + query, function() { Build_Pagination()}); // Load data into #events
