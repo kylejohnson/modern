@@ -37,31 +37,30 @@ function xhtmlHeaders( $file, $title )
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title><?= ZM_WEB_TITLE_PREFIX ?> - <?= validHtmlStr($title) ?></title>
-  <link rel="icon" type="image/ico" href="graphics/favicon.ico"/>
-  <link rel="shortcut icon" href="graphics/favicon.ico"/>
-  <link rel="stylesheet" href="css/reset.css" type="text/css"/>
-  <link rel="stylesheet" href="<?= $skinCssFile ?>" type="text/css" media="screen"/>
-  <link rel="stylesheet" href="/skins/new/css/header.css" type="text/css" media="screen"/>
-  <link rel="stylesheet" href="/skins/new/css/footer.css" type="text/css" media="screen"/>
-  <link type="text/css" href="skins/new/css/smoothness/jquery-ui-1.8rc3.custom.css" rel="stylesheet" />
+ <title><?= ZM_WEB_TITLE_PREFIX ?> - <?= validHtmlStr($title) ?></title>
+ <link rel="icon" type="image/ico" href="graphics/favicon.ico"/>
+ <link rel="shortcut icon" href="graphics/favicon.ico"/>
+ <link rel="stylesheet" href="css/reset.css" type="text/css"/>
+ <link rel="stylesheet" href="<?= $skinCssFile ?>" type="text/css" media="screen"/>
+ <link rel="stylesheet" href="/skins/new/css/header.css" type="text/css" media="screen"/>
+ <script type="text/javascript" src="skins/new/js/jquery-1.4.2.min.js"></script>
+ <script type="text/javascript" src="skins/new/js/jquery-ui-1.8.custom.min.js"></script>
+ <link type="text/css" media="screen" rel="stylesheet" href="skins/new/css/colorbox.css"></link>
+ <link type="text/css" media="screen" rel="stylesheet" href="skins/new/css/jquery/jquery-ui-1.8.custom.css"></link>
 <?php if ($title == "Console") { ?>
-<script type="text/javascript" src="skins/new/js/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="skins/new/js/jquery-ui-1.8rc3.custom.min.js"></script>
-<script type="text/javascript" src="/skins/new/js/jquery.colorbox.js"></script>
-<script type="text/javascript" src="/skins/new/js/console.colorbox.js"></script>
-  <link type="text/css" media="screen" rel="stylesheet" href="/skins/new/css/colorbox.css"></link>
-<script type="text/javascript">
-$(document).ready(function(){
-var refresh = <?= 1000*ZM_WEB_REFRESH_MAIN ?>;
- $("#monitors").load("/skins/new/views/monitors.php", function() {cb() });
+ <script type="text/javascript" src="/skins/new/js/jquery.colorbox.js"></script>
+ <script type="text/javascript" src="/skins/new/js/console.colorbox.js"></script>
+ <script type="text/javascript">
+  $(document).ready(function(){
+   var refresh = <?= 1000*ZM_WEB_REFRESH_MAIN ?>;
+   $("#monitors").load("/skins/new/views/monitors.php", function() {cb() });
 
-function cb() {
- $(".test").colorbox();
-}
+   function cb() {
+    $(".test").colorbox();
+   }
 
- setInterval(function() {
-  $("#monitors li").each(function() {
+  setInterval(function() {
+   $("#monitors li").each(function() {
    var _this = $(this);
    $(".spinner",_this).html("<img src='/skins/new/graphics/spinner.gif' />");
    var mid = $(this).attr("id");
@@ -77,7 +76,7 @@ function cb() {
     $.post("skins/new/includes/updateSequence.php", order);
    }});
 
-});
+ });
 </script>
 <?php } ?>
 <?php
@@ -95,20 +94,17 @@ function cb() {
   <script type="text/javascript" src="tools/mootools/mootools-1.2.1-core-nc.js"></script>
   <script type="text/javascript" src="tools/mootools/mootools-1.2-more-nc.js"></script>
   <script type="text/javascript" src="js/mootools.ext.js"></script>
-  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
   <script type="text/javascript" src="/skins/new/js/admin.js"></script>
   <script type="text/javascript" src="/skins/new/js/jquery.colorbox.js"></script>
-  <link type="text/css" media="screen" rel="stylesheet" href="/skins/new/css/colorbox.css"></link>
 <?php
  }
 ?>
 <?php
  if ($title == "Events") {
 ?>
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-<script type="text/javascript" src="/skins/new/js/jquery_pagination.js"></script>
-<script type="text/javascript" src="/skins/new/js/jquery.colorbox.js"></script>
-<link type="text/css" media="screen" rel="stylesheet" href="/skins/new/css/colorbox.css"></link>
+<script type="text/javascript" src="skins/new/js/jquery_pagination.js"></script>
+<script type="text/javascript" src="skins/new/js/jquery.colorbox.js"></script>
+<script type="text/javascript" src="skins/new/js/events.js"></script>
 <?php
  }
 ?>

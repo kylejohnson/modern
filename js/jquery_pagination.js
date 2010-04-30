@@ -37,7 +37,7 @@ $(".box").colorbox({iframe:true, innerWidth:800, innerHeight:700});
   $("#filterSpecificDate").css("display", "block");
  });
 
- $("#divSubmit").click(function() {
+ $("#btnSubmit").click(function() {
   Display_Load();
   Build_Query();
   Hide_Load();
@@ -65,8 +65,8 @@ $(".box").colorbox({iframe:true, innerWidth:800, innerHeight:700});
   });
   var x = aryMonitors.length; // Number of checked monitors
   
-  var Dfrom = $("#inptFrom").val();
-  var Dto = $("#inptTo").val();
+  var Dfrom = $("#inptDateFrom").val();
+  var Dto = $("#inptDateTo").val();
   var Tfrom = $("#inptTimeFrom").val();
   var Tto = $("#inptTimeTo").val();
 
@@ -79,9 +79,9 @@ $(".box").colorbox({iframe:true, innerWidth:800, innerHeight:700});
   };
 
   if ((Dfrom != "") && (Dto != "")) {
-   query +=  "&filter[terms][" + i + "][cnj]=and&filter[terms][" + i + "][obr]=0&filter[terms][" + i + "][attr]=DateTime&filter[terms][" + i + "][op]=%3E&filter[terms][" + i + "][val]=" + Dfrom + "&filter[terms][" + i + "][cbr]=0";
+   query +=  "&filter[terms][" + i + "][cnj]=and&filter[terms][" + i + "][obr]=0&filter[terms][" + i + "][attr]=DateTime&filter[terms][" + i + "][op]=%3E%3D&filter[terms][" + i + "][val]=" + Dfrom + "&filter[terms][" + i + "][cbr]=0";
    i++;
-   query += "&filter[terms][" + i + "][cnj]=and&filter[terms][" + i + "][obr]=0&filter[terms][" + i + "][attr]=DateTime&filter[terms][" + i + "][op]=%3C&filter[terms][" + i + "][val]=" + Dto + "&filter[terms][" + i + "][cbr]=0";
+   query += "&filter[terms][" + i + "][cnj]=and&filter[terms][" + i + "][obr]=0&filter[terms][" + i + "][attr]=DateTime&filter[terms][" + i + "][op]=%3C%3D&filter[terms][" + i + "][val]=" + Dto + "&filter[terms][" + i + "][cbr]=0";
   }
   if ((Tfrom != "") && (Tto != "")) {
    i++;

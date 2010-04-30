@@ -538,3 +538,25 @@ padding:0 10px;
  display:block;
 }
 .monfooter .spinner{text-align:left;}
+
+/* Filter Sidebar */
+#sidebarHistory fieldset {
+ margin-bottom:10px;
+}
+.filter label {
+ float:left;
+ font-weight:bold;
+ width:45px;
+ text-align:right;
+}
+.filter input {
+ width:105px;
+ margin-top:3px;
+ margin-left:5px;
+}
+#filterSubmit {
+ margin-top:20px;
+ text-align:center;
+}
+
+/* Filter Sidebar */

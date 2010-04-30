@@ -57,27 +57,21 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
  
  <fieldset>
   <legend>Date</legend>
-  <ul>
-   <li id="liSpecificDate">Specific Date Range
-    <ul id="filterSpecificDate">
-     <li><label id="lblFrom" for="inptFrom">From:</label> <input type="text" id="inptFrom" /></li>
-     <li><label id="lblTo" for="inptTo">To:</label> <input type="text" id="inptTo" /></li>
-    </ul>
-   </li>
+  <ul id="filterSpecificDate" class="filter">
+   <li><label id="lblFrom" for="inptDateFrom">From:</label> <input type="text" id="inptDateFrom" /></li>
+   <li><label id="lblTo" for="inptDateTo">To:</label> <input type="text" id="inptDateTo" /></li>
   </ul>
  </fieldset>
  <fieldset>
   <legend>Time</legend>
-  <ul>
-   <li id="liSpecificDate">Specific Time Range
-    <ul id="filterSpecificTime">
-     <li><label id="lblTimeFrom" for="inptTimeFrom">From:</label> <input type="text" id="inptTimeFrom" /></li>
-     <li><label id="lblTimeTo" for="inptTimeTo">To:</label> <input type="text" id="inptTimeTo" /></li>
-    </ul>
-   </li>
+  <ul id="filterSpecificTime" class="filter">
+   <li><label id="lblTimeFrom" for="inptTimeFrom">From:</label> <input type="text" id="inptTimeFrom" /></li>
+   <li><label id="lblTimeTo" for="inptTimeTo">To:</label> <input type="text" id="inptTimeTo" /></li>
   </ul>
  </fieldset>
-  <div id="divSubmit">Submit</div>
+ <div id="filterSubmit">
+  <input value="Submit" type="submit" id="btnSubmit"></input>
+ </div>
  
  <div class="spinner">
  </div>
