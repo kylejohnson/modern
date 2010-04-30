@@ -95,11 +95,7 @@ if ( isset($_REQUEST['downloadIndex']) )
 
 $focusWindow = true;
 
-xhtmlHeaders(__FILE__, $SLANG['Video'] );
 ?>
-<body>
-  <div id="page">
-    <div id="content">
 <?php
 if ( isset($_REQUEST['showIndex']) )
 {
@@ -115,6 +111,7 @@ if ( isset($_REQUEST['showIndex']) )
 else
 {
 ?>
+<script type="text/javascript" href="js/video.js"></script>
       <form name="contentForm" id="contentForm" method="post" action="<?= $_SERVER['PHP_SELF'] ?>">
         <input type="hidden" name="id" value="<?= $event['Id'] ?>"/>
         <table id="contentTable" class="minor" cellspacing="0">
@@ -221,7 +218,3 @@ else
     }
 }
 ?>
-    </div>
-  </div>
-</body>
-</html>

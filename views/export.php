@@ -44,9 +44,6 @@ $focusWindow = true;
 
 xhtmlHeaders(__FILE__, $SLANG['Export'] );
 ?>
-<body>
-  <div id="page">
-    <div id="content">
       <form name="contentForm" id="contentForm" method="post" action="<?= $_SERVER['PHP_SELF'] ?>">
 <?php
 if ( !empty($_REQUEST['eid']) )
@@ -120,6 +117,3 @@ elseif ( !empty($_REQUEST['eids']) )
 <?php
     }
 ?>
-  </div>
-</body>
-</html>
