@@ -109,6 +109,13 @@ function xhtmlHeaders( $file, $title )
  }
 ?>
 <?php
+ if ($title == "Event") {
+?>
+<script type="text/javascript" src="skins/new/js/event.js"></script>
+<?php
+ }
+?>
+<?php
     if ( $viewCssFile )
     {
 ?>
