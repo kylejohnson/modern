@@ -94,41 +94,43 @@ xhtmlHeaders(__FILE__, $SLANG['Event'] );
         <div id="replayControl"><label for="replayMode"><?= $SLANG['Replay'] ?></label><?= buildSelect( "replayMode", $replayModes, "changeReplayMode();" ); ?></div>
         <div id="nameControl"><input type="text" id="eventName" name="eventName" value="<?= validHtmlStr($event['Name']) ?>" size="16"/><input type="button" value="<?= $SLANG['Rename'] ?>" onclick="renameEvent()"<?php if ( !canEdit( 'Events' ) ) { ?> disabled="disabled"<?php } ?>/></div>
       </div>
-      <div id="menuBar2">
-        <div id="closeWindow"><a href="#" onclick="closeWindow();"><?= $SLANG['Close'] ?></a></div>
+      <div id="menuBar22">
+       <ul>
+ 	<li><a href="#eventStream">Event</a></li>
 <?php
 if ( canEdit( 'Events' ) )
 {
 ?>
-        <div id="deleteEvent"><a href="#" onclick="deleteEvent()"><?= $SLANG['Delete'] ?></a></div>
-        <div id="editEvent"><a href="#" onclick="editEvent()"><?= $SLANG['Edit'] ?></a></div>
+        <li><a href="#" onclick="deleteEvent()"><?= $SLANG['Delete'] ?></a></li>
 <?php
 }
 if ( canView( 'Events' ) )
 {
 ?>
-        <div id="exportEvent"><a href="#" onclick="exportEvent()"><?= $SLANG['Export'] ?></a></div>
+        <li><a href="/?view=export&amp;eid=<?= $eid ?>">Export</a></li>
 <?php
 }
 if ( canEdit( 'Events' ) )
 {
 ?>
-        <div id="archiveEvent" class="hidden"><a href="#" onclick="archiveEvent()"><?= $SLANG['Archive'] ?></a></div>
-        <div id="unarchiveEvent" class="hidden"><a href="#" onclick="unarchiveEvent()"><?= $SLANG['Unarchive'] ?></a></div>
+<!--        <li><a href="#" onclick="archiveEvent()"><?= $SLANG['Archive'] ?></a></li>
+        <li><a href="#" onclick="unarchiveEvent()"><?= $SLANG['Unarchive'] ?></a></li>-->
 <?php
 }
 ?>
-        <div id="framesEvent"><a href="#" onclick="showEventFrames()"><?= $SLANG['Frames'] ?></a></div>
-        <div id="streamEvent"<?php if ( $streamMode == 'stream' ) { ?> class="hidden"<?php } ?>><a href="#" onclick="showStream()"><?= $SLANG['Stream'] ?></a></div>
-        <div id="stillsEvent"<?php if ( $streamMode == 'still' ) { ?> class="hidden"<?php } ?>><a href="#" onclick="showStills()"><?= $SLANG['Stills'] ?></a></div>
+<!--        <li><a href="#" onclick="showEventFrames()"><?= $SLANG['Frames'] ?></a></li>-->
+        <li <?php if ( $streamMode == 'stream' ) { ?> class="hidden"<?php } ?>><a href="#" onclick="showStream()"><?= $SLANG['Stream'] ?></a></li>
+        <li <?php if ( $streamMode == 'still' ) { ?> class="hidden"<?php } ?>><a href="/?view=frames&amp;eid=<?= $eid ?>">Stills</a></li>
 <?php
 if ( ZM_OPT_FFMPEG )
 {
 ?>
-        <div id="videoEvent"><a href="#" onclick="videoEvent()"><?= $SLANG['Video'] ?></a></div>
+<!--        <div id="videoEvent"><a href="#" onclick="videoEvent()"><?= $SLANG['Video'] ?></a></div>-->
+		<li><a href="/?view=video&amp;eid=<?= $eid ?>"><span>Video</span></a></li>
 <?php
 }
 ?>
+       </ul>
       </div>
       <div id="eventStream">
         <div id="imageFeed">
@@ -189,7 +191,6 @@ else
           <div id="eventImageFrame">
             <img id="eventImage" src="graphics/transparent.gif" alt=""/>
             <div id="eventImageBar">
-              <div id="eventImageClose"><input type="button" value="<?= $SLANG['Close'] ?>" onclick="hideEventImage()"/></div>
               <div id="eventImageStats" class="hidden"><input type="button" value="<?= $SLANG['Stats'] ?>" onclick="showFrameStats()"/></div>
               <div id="eventImageData">Frame <span id="eventImageNo"></span></div>
             </div>

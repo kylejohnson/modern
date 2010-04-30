@@ -99,12 +99,6 @@ xhtmlHeaders(__FILE__, $SLANG['Video'] );
 ?>
 <body>
   <div id="page">
-    <div id="header">
-      <div id="headerButtons">
-        <a href="#" onclick="closeWindow()"><?= $SLANG['Close'] ?></a>
-      </div>
-      <h2><?= $SLANG['Video'] ?></h2>
-    </div>
     <div id="content">
 <?php
 if ( isset($_REQUEST['showIndex']) )

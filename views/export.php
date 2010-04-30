@@ -46,12 +46,6 @@ xhtmlHeaders(__FILE__, $SLANG['Export'] );
 ?>
 <body>
   <div id="page">
-    <div id="header">
-      <div id="headerButtons">
-        <a href="#" onclick="closeWindow()"><?= $SLANG['Close'] ?></a>
-      </div>
-      <h2><?= $SLANG['ExportOptions'] ?></h2>
-    </div>
     <div id="content">
       <form name="contentForm" id="contentForm" method="post" action="<?= $_SERVER['PHP_SELF'] ?>">
 <?php

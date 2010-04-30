@@ -12,7 +12,10 @@ $(document).ready(function(){
  };
 
  function Build_Pagination() {
-$(".box").colorbox({iframe:true, innerWidth:800, innerHeight:700});
+  //$("a[rel='event']").colorbox({iframe:true, innerWidth:800, innerHeight:700});
+  $("a[rel='event']").colorbox({
+   onComplete:function(){  $("#menuBar22").tabs();}
+  });
   Hide_Load();  //Hide spinner
   var monitorName = $("#inptMonitorName").attr("value"); // Get the currently selected monitor.  This is only needed for the first page load, before any filters are set.
   $(".pagination li").click(function() { //If page is changed
