@@ -31,15 +31,7 @@ $frames = dbFetchAll( $sql );
 
 $focusWindow = true;
 
-xhtmlHeaders(__FILE__, $SLANG['Frames']." - ".$event['Id'] );
 ?>
-<body>
-  <div id="page">
-    <div id="header">
-      <div id="headerButtons"><a href="#" onclick="closeWindow();"><?= $SLANG['Close'] ?></a></div>
-      <h2><?= $SLANG['Frames'] ?> - <?= $event['Id'] ?></h2>
-    </div>
-    <div id="content">
       <form name="contentForm" id="contentForm" method="get" action="<?= $_SERVER['PHP_SELF'] ?>">
         <input type="hidden" name="view" value="none"/>
         <table id="contentTable" class="major" cellspacing="0">
@@ -97,7 +89,3 @@ else
         <div id="contentButtons">
         </div>
       </form>
-    </div>
-  </div>
-</body>
-</html>
