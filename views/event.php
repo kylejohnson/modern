@@ -77,23 +77,6 @@ xhtmlHeaders(__FILE__, $SLANG['Event'] );
 <body>
   <div id="page">
     <div id="content">
-      <div id="dataBar">
-        <table id="dataTable" class="major" cellspacing="0">
-          <tr>
-            <td><span id="dataId" title="<?= $SLANG['Id'] ?>"><?= $event['Id'] ?></span></td>
-            <td><span id="dataCause" title="<?= $event['Notes']?validHtmlStr($event['Notes']):$SLANG['AttrCause'] ?>"><?= validHtmlStr($event['Cause']) ?></span></td>
-            <td><span id="dataTime" title="<?= $SLANG['Time'] ?>"><?= strftime( STRF_FMT_DATETIME_SHORT, strtotime($event['StartTime'] ) ) ?></span></td>
-            <td><span id="dataDuration" title="<?= $SLANG['Duration'] ?>"><?= $event['Length'] ?></span>s</td>
-            <td><span id="dataFrames" title="<?= $SLANG['AttrFrames']."/".$SLANG['AttrAlarmFrames'] ?>"><?= $event['Frames'] ?>/<?= $event['AlarmFrames'] ?></span></td>
-            <td><span id="dataScore" title="<?= $SLANG['AttrTotalScore']."/".$SLANG['AttrAvgScore']."/".$SLANG['AttrMaxScore'] ?>"><?= $event['TotScore'] ?>/<?= $event['AvgScore'] ?>/<?= $event['MaxScore'] ?></span></td>
-          </tr>
-        </table>
-      </div>
-      <div id="menuBar1">
-        <div id="scaleControl"><label for="scale"><?= $SLANG['Scale'] ?></label><?= buildSelect( "scale", $scales, "changeScale();" ); ?></div>
-        <div id="replayControl"><label for="replayMode"><?= $SLANG['Replay'] ?></label><?= buildSelect( "replayMode", $replayModes, "changeReplayMode();" ); ?></div>
-        <div id="nameControl"><input type="text" id="eventName" name="eventName" value="<?= validHtmlStr($event['Name']) ?>" size="16"/><input type="button" value="<?= $SLANG['Rename'] ?>" onclick="renameEvent()"<?php if ( !canEdit( 'Events' ) ) { ?> disabled="disabled"<?php } ?>/></div>
-      </div>
       <div id="menuBar22">
        <ul>
  	<li><a href="#eventStream">Event</a></li>
@@ -131,8 +114,12 @@ if ( ZM_OPT_FFMPEG )
 }
 ?>
        </ul>
-      </div>
       <div id="eventStream">
+      <div id="menuBar1">
+        <div id="scaleControl"><label for="scale"><?= $SLANG['Scale'] ?></label><?= buildSelect( "scale", $scales, "changeScale();" ); ?></div>
+        <div id="replayControl"><label for="replayMode"><?= $SLANG['Replay'] ?></label><?= buildSelect( "replayMode", $replayModes, "changeReplayMode();" ); ?></div>
+        <div id="nameControl"><input type="text" id="eventName" name="eventName" value="<?= validHtmlStr($event['Name']) ?>" size="16"/><input type="button" value="<?= $SLANG['Rename'] ?>" onclick="renameEvent()"<?php if ( !canEdit( 'Events' ) ) { ?> disabled="disabled"<?php } ?>/></div>
+      </div>
         <div id="imageFeed">
 <?php
 if ( ZM_STREAM_METHOD == 'mpeg' && ZM_MPEG_LIVE_FORMAT )
@@ -142,7 +129,7 @@ if ( ZM_STREAM_METHOD == 'mpeg' && ZM_MPEG_LIVE_FORMAT )
 }
 else
 {
-    $streamSrc = getStreamSrc( array( "source=event", "mode=jpeg", "event=".$eid, "frame=".$fid, "scale=".$scale, "rate=".$rate, "maxfps=".ZM_WEB_VIDEO_MAXFPS, "replay=".$replayMode) );
+    $streamSrc = getStreamSrc( array( "source=event", "mode=jpeg", "event=".$eid, "frame=".$fid, "scale=".$scale, "replay=".$replayMode) );
     if ( canStreamNative() )
     {
         outputImageStream( "evtStream", $streamSrc, reScale( $event['Width'], $scale ), reScale( $event['Height'], $scale ), validHtmlStr($event['Name']) );
@@ -153,6 +140,8 @@ else
     }
 }
 ?>
+            <span id="dataTime" title="<?= $SLANG['Time'] ?>"><?= strftime( STRF_FMT_DATETIME_SHORT, strtotime($event['StartTime'] ) ) ?></span>
+            <span id="dataDuration" title="<?= $SLANG['Duration'] ?>"><?= $event['Length'] ?></span>s
         </div>
         <p id="dvrControls">
           <input type="button" value="&lt;+" id="prevBtn" title="<?= $SLANG['Prev'] ?>" class="inactive" onclick="streamPrev( true )"/>
@@ -181,6 +170,7 @@ else
         }
 ?>
         </div>
+      </div>
       </div>
       <div id="eventStills" class="hidden">
         <div id="eventThumbsPanel">
