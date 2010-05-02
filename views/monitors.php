@@ -77,6 +77,6 @@ foreach( $displayMonitors as $monitor ){
  <div class="monfooter">
  <div class="spinner"></div>
  </div>
- <a rel="monitor" href="/?view=full&amp;mid=<?= $monitor['Id']; ?>" class="test">View Full</a>
+ <a rel="monitor" href="/?view=full&amp;mid=<?= $monitor['Id']; ?>" class="test" title="<?= $monitor['Name']; ?>">View Full</a>
 </li>
 <?php } ?>

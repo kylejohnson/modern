@@ -12,8 +12,9 @@ $(document).ready(function(){
  };
 
  function Build_Pagination() {
-  //$("a[rel='event']").colorbox({iframe:true, innerWidth:800, innerHeight:700});
   $("a[rel='event']").colorbox({
+   current:'event {current} of {total}',
+   preloading:'false',
    onComplete:function(){  $("#menuBar22").tabs();}
   });
   Hide_Load();  //Hide spinner

@@ -129,7 +129,7 @@ foreach ( $events as $event ){
  if ($thumbData = createListThumbnail($event)) {
 ?>
 <li>
- <a class="box" rel="event" href="/?view=event&eid=<?= $event['Id'] ?>"">
+ <a title="event <?= $event['Id'] ?>" rel="event" href="/?view=event&eid=<?= $event['Id'] ?>"">
   <img src="<?= $thumbData['Path'] ?>" width="<?= $thumbData['Width'] ?>" height="<?= $thumbData['Height'] ?>" alt="<?= $thumbData['FrameId'].'/'.$event['MaxScore'] ?>" />
  </a>
  <p>Date: <?= strftime( STRF_FMT_DATETIME_SHORTER, strtotime($event['StartTime']) ) ?></p>
