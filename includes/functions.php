@@ -56,7 +56,7 @@ function xhtmlHeaders( $file, $title )
    $("#monitors").load("/skins/new/views/monitors.php", function() {cb() });
 
    function cb() {
-    $(".test").colorbox();
+    $("a[rel='monitor']").colorbox();
    }
 
   setInterval(function() {
