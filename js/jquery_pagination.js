@@ -14,8 +14,10 @@ $(document).ready(function(){
  function Build_Pagination() {
   $("a[rel='event']").colorbox({
    current:'event {current} of {total}',
+   iframe:'true',
+   width:"75%",
+   height:"75%",
    preloading:'false',
-   onComplete:function(){  $("#menuBar22").tabs();}
   });
   Hide_Load();  //Hide spinner
   var monitorName = $("#inptMonitorName").attr("value"); // Get the currently selected monitor.  This is only needed for the first page load, before any filters are set.
