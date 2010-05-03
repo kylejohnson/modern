@@ -76,8 +76,8 @@ $eventMonitorSQL = "select MonitorID from Events where Id = $eid";
 $eventMonitor = dbFetchOne($eventMonitorSQL);
 $eventMonitor = $eventMonitor['MonitorID'];
 $cwd = getcwd();
-$mainpath = "$cwd/events/$eventMonitor/$eid/"; # Full path to image directory
-$files = scandir($mainpath); # All of the files inside $path
+$mainpath = "events/$eventMonitor/$eid/"; # Full path to image directory
+$files = scandir($cwd . "/" . $mainpath); # All of the files inside $path
 array_shift($files);
 array_shift($files);
 array_shift($files);
@@ -94,6 +94,14 @@ xhtmlHeaders(__FILE__, $SLANG['Event'] );
 ?>
 <script type="text/javascript">
 $(function(){
+
+$("#btnExport").button();
+$("#btnExport").click(function() {
+ $.post("skins/new/includes/createVideo.php?eid=<?= $eid ?>&action=video&path=<?= $mainpath ?>", function(data){
+  $("#videoExport span").append(data);
+ });
+});
+
 var images = new Array();
 <?php
  foreach($paths as $key => $value) {
@@ -125,49 +133,14 @@ setInterval(function(){changeClass()}, 200);
 <body>
   <div id="page">
     <div id="content">
-      <div id="menuBar2">
-       <ul>
- 	<li><a href="#eventStream">Event</a></li>
-<?php
-if ( canEdit( 'Events' ) )
-{
-?>
-        <li><a href="#" onclick="deleteEvent()"><?= $SLANG['Delete'] ?></a></li>
-<?php
-}
-if ( canView( 'Events' ) )
-{
-?>
-        <li><a href="/?view=export&amp;eid=<?= $eid ?>">Export</a></li>
-<?php
-}
-if ( canEdit( 'Events' ) )
-{
-?>
-<!--        <li><a href="#" onclick="archiveEvent()"><?= $SLANG['Archive'] ?></a></li>
-        <li><a href="#" onclick="unarchiveEvent()"><?= $SLANG['Unarchive'] ?></a></li>-->
-<?php
-}
-?>
-<!--        <li><a href="#" onclick="showEventFrames()"><?= $SLANG['Frames'] ?></a></li>-->
-        <li <?php if ( $streamMode == 'stream' ) { ?> class="hidden"<?php } ?>><a href="#" onclick="showStream()"><?= $SLANG['Stream'] ?></a></li>
-        <li <?php if ( $streamMode == 'still' ) { ?> class="hidden"<?php } ?>><a href="/?view=frames&amp;eid=<?= $eid ?>">Stills</a></li>
-<?php
-if ( ZM_OPT_FFMPEG )
-{
-?>
-<!--        <div id="videoEvent"><a href="#" onclick="videoEvent()"><?= $SLANG['Video'] ?></a></div>-->
-		<li><a href="/?view=video&amp;eid=<?= $eid ?>"><span>Video</span></a></li>
-<?php
-}
-?>
-       </ul>
       <div id="eventStream">
-        <div id="imageFeed">
             <span id="dataTime" title="<?= $SLANG['Time'] ?>"><?= strftime( STRF_FMT_DATETIME_SHORT, strtotime($event['StartTime'] ) ) ?></span>
             <span id="dataDuration" title="<?= $SLANG['Duration'] ?>"><?= $event['Length'] ?></span>s
-        </div>
-      </div>
+        <div id="imageFeed"></div>
+       <div id="videoExport">
+	<input type="submit" value="Export" id="btnExport"></input>
+	<span></span>
+       </div>
       </div>
       <div id="eventStills" class="hidden">
         <div id="eventThumbsPanel">
