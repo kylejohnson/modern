@@ -97,6 +97,7 @@ $(function(){
 
 $("#btnExport").button();
 $("#btnExport").click(function() {
+ $("#spinner").html('<img src="skins/new/graphics/spinner.gif" alt="spinner" />');
  $.post("skins/new/includes/createVideo.php?eid=<?= $eid ?>&action=video&path=<?= $mainpath ?>", function(data){
   $("#videoExport span").html(data);
  });
@@ -149,7 +150,7 @@ $("#btnPause").click(function(){
         <input type="submit" value="Play" id="btnPlay"></input>
         <input type="submit" value="Pause" id="btnPause"></input>
 	<input type="submit" value="Export" id="btnExport"></input>
-	<span></span>
+	<span id="spinner"></span>
        </div>
       </div>
       <div id="eventStills" class="hidden">
