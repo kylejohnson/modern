@@ -75,6 +75,7 @@ $(document).ready(function(){
   var Dto = $("#inptDateTo").val();
   var Tfrom = $("#inptTimeFrom").val();
   var Tto = $("#inptTimeTo").val();
+  var eid = $("#inptEventID").val();
 
   for (var i=0;i<x;i++) {
    if (i>0) {
@@ -94,6 +95,10 @@ $(document).ready(function(){
    query +=  "&filter[terms][" + i + "][cnj]=and&filter[terms][" + i + "][obr]=0&filter[terms][" + i + "][attr]=Time&filter[terms][" + i + "][op]=%3E&filter[terms][" + i + "][val]=" + Tfrom + "&filter[terms][" + i + "][cbr]=0";
    i++;
    query += "&filter[terms][" + i + "][cnj]=and&filter[terms][" + i + "][obr]=0&filter[terms][" + i + "][attr]=Time&filter[terms][" + i + "][op]=%3C&filter[terms][" + i + "][val]=" + Tto + "&filter[terms][" + i + "][cbr]=0";
+  }
+  if ((eid >= 1) && (Dfrom == "") && (Dto == "") && (Tfrom == "") && (Tto == "")) {
+   i = 0;
+   query =  "&filter[terms][" + i + "][attr]=Id&filter[terms][" + i + "][op]=%3D&filter[terms][" + i + "][val]=" + eid;
   }
 
    $("#events").load("/skins/new/views/pagination_data.php?page=1" + query, function() { Build_Pagination()}); // Load data into #events

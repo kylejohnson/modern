@@ -69,6 +69,12 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
    <li><label id="lblTimeTo" for="inptTimeTo">To:</label> <input type="text" id="inptTimeTo" /></li>
   </ul>
  </fieldset>
+ <fieldset>
+  <legend>Event</legend>
+  <ul class="filter">
+   <li><label id="lblEventID" for="inptEventID">Event ID:</label> <input type="text" id="inptEventID" /></li>
+  </ul>
+ </fieldset>
  <div id="filterSubmit">
   <input value="Submit" type="submit" id="btnSubmit"></input>
  </div>
