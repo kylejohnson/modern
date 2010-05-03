@@ -126,7 +126,15 @@ function changeClass() {
  }
 };
 
-setInterval(function(){changeClass()}, 200);
+$("#btnPlay").button()
+$("#btnPlay").click(function(){
+ start = setInterval(function(){changeClass()}, 200);
+});
+
+$("#btnPause").button()
+$("#btnPause").click(function(){
+ clearInterval(start);
+});
  
 });
 </script>
@@ -138,6 +146,8 @@ setInterval(function(){changeClass()}, 200);
             <span id="dataDuration" title="<?= $SLANG['Duration'] ?>"><?= $event['Length'] ?></span>s
         <div id="imageFeed"></div>
        <div id="videoExport">
+        <input type="submit" value="Play" id="btnPlay"></input>
+        <input type="submit" value="Pause" id="btnPause"></input>
 	<input type="submit" value="Export" id="btnExport"></input>
 	<span></span>
        </div>
