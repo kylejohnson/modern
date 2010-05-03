@@ -72,12 +72,60 @@ $connkey = generateConnKey();
 
 $focusWindow = true;
 
+$eventMonitorSQL = "select MonitorID from Events where Id = $eid";
+$eventMonitor = dbFetchOne($eventMonitorSQL);
+$eventMonitor = $eventMonitor['MonitorID'];
+$cwd = getcwd();
+$mainpath = "$cwd/events/$eventMonitor/$eid/"; # Full path to image directory
+$files = scandir($mainpath); # All of the files inside $path
+array_shift($files);
+array_shift($files);
+array_shift($files);
+$paths = array();
+foreach ($files as $file){
+ if (preg_match("/capture/i", $file)) 
+ {
+  $tmp = "/events/$eventMonitor/$eid/" . $file;
+  array_push($paths, $tmp);
+ }
+};
+
 xhtmlHeaders(__FILE__, $SLANG['Event'] );
 ?>
+<script type="text/javascript">
+$(function(){
+var images = new Array();
+<?php
+ foreach($paths as $key => $value) {
+  echo "images[$key] = \"$value\";\n";
+  }
+?>
+x = images.length;
+for (image in images) {
+ if (image == 0) {
+  $("#imageFeed").append('<img src="' + images[image] + '" class="eventImage" id="img_' + image + '" />');
+ } else {
+  $("#imageFeed").append('<img src="' + images[image] + '" class="eventImageHide" id="img_' + image + '" />');
+ }
+}
+i = 0;
+
+function changeClass() {
+ if (i<x){
+  $("#img_" + (i - 1)).attr("class", "eventImageHide");
+  $("#img_" + i).attr("class", "eventImage");
+  i++;
+ }
+};
+
+setInterval(function(){changeClass()}, 200);
+ 
+});
+</script>
 <body>
   <div id="page">
     <div id="content">
-      <div id="menuBar22">
+      <div id="menuBar2">
        <ul>
  	<li><a href="#eventStream">Event</a></li>
 <?php
@@ -115,60 +163,9 @@ if ( ZM_OPT_FFMPEG )
 ?>
        </ul>
       <div id="eventStream">
-      <div id="menuBar1">
-        <div id="scaleControl"><label for="scale"><?= $SLANG['Scale'] ?></label><?= buildSelect( "scale", $scales, "changeScale();" ); ?></div>
-        <div id="replayControl"><label for="replayMode"><?= $SLANG['Replay'] ?></label><?= buildSelect( "replayMode", $replayModes, "changeReplayMode();" ); ?></div>
-        <div id="nameControl"><input type="text" id="eventName" name="eventName" value="<?= validHtmlStr($event['Name']) ?>" size="16"/><input type="button" value="<?= $SLANG['Rename'] ?>" onclick="renameEvent()"<?php if ( !canEdit( 'Events' ) ) { ?> disabled="disabled"<?php } ?>/></div>
-      </div>
         <div id="imageFeed">
-<?php
-if ( ZM_STREAM_METHOD == 'mpeg' && ZM_MPEG_LIVE_FORMAT )
-{
-    $streamSrc = getStreamSrc( array( "source=event", "mode=mpeg", "event=".$eid, "frame=".$fid, "scale=".$scale, "rate=".$rate, "bitrate=".ZM_WEB_VIDEO_BITRATE, "maxfps=".ZM_WEB_VIDEO_MAXFPS, "format=".ZM_MPEG_REPLAY_FORMAT, "replay=".$replayMode ) );
-    outputVideoStream( "evtStream", $streamSrc, reScale( $event['Width'], $scale ), reScale( $event['Height'], $scale ), ZM_MPEG_LIVE_FORMAT );
-}
-else
-{
-    $streamSrc = getStreamSrc( array( "source=event", "mode=jpeg", "event=".$eid, "frame=".$fid, "scale=".$scale, "replay=".$replayMode) );
-    if ( canStreamNative() )
-    {
-        outputImageStream( "evtStream", $streamSrc, reScale( $event['Width'], $scale ), reScale( $event['Height'], $scale ), validHtmlStr($event['Name']) );
-    }
-    else
-    {
-        outputHelperStream( "evtStream", $streamSrc, reScale( $event['Width'], $scale ), reScale( $event['Height'], $scale ) );
-    }
-}
-?>
             <span id="dataTime" title="<?= $SLANG['Time'] ?>"><?= strftime( STRF_FMT_DATETIME_SHORT, strtotime($event['StartTime'] ) ) ?></span>
             <span id="dataDuration" title="<?= $SLANG['Duration'] ?>"><?= $event['Length'] ?></span>s
-        </div>
-        <p id="dvrControls">
-          <input type="button" value="&lt;+" id="prevBtn" title="<?= $SLANG['Prev'] ?>" class="inactive" onclick="streamPrev( true )"/>
-          <input type="button" value="&lt;&lt;" id="fastRevBtn" title="<?= $SLANG['Rewind'] ?>" class="inactive" disabled="disabled" onclick="streamFastRev( true )"/>
-          <input type="button" value="&lt;" id="slowRevBtn" title="<?= $SLANG['StepBack'] ?>" class="unavail" disabled="disabled" onclick="streamSlowRev( true )"/>
-          <input type="button" value="||" id="pauseBtn" title="<?= $SLANG['Pause'] ?>" class="inactive" onclick="streamPause( true )"/>
-          <input type="button" value="|>" id="playBtn" title="<?= $SLANG['Play'] ?>" class="active" disabled="disabled" onclick="streamPlay( true )"/>
-          <input type="button" value="&gt;" id="slowFwdBtn" title="<?= $SLANG['StepForward'] ?>" class="unavail" disabled="disabled" onclick="streamSlowFwd( true )"/>
-          <input type="button" value="&gt;&gt;" id="fastFwdBtn" title="<?= $SLANG['FastForward'] ?>" class="inactive" disabled="disabled" onclick="streamFastFwd( true )"/>
-          <input type="button" value="&ndash;" id="zoomOutBtn" title="<?= $SLANG['ZoomOut'] ?>" class="avail" onclick="streamZoomOut()"/>
-          <input type="button" value="+&gt;" id="nextBtn" title="<?= $SLANG['Next'] ?>" class="inactive" onclick="streamNext( true )"/>
-        </p>
-        <div id="replayStatus">
-          <span id="mode">Mode: <span id="modeValue">&nbsp;</span></span>
-          <span id="rate">Rate: <span id="rateValue"></span>x</span>
-          <span id="progress">Progress: <span id="progressValue"></span>s</span>
-          <span id="zoom">Zoom: <span id="zoomValue"></span>x</span>
-        </div>
-        <div id="progressBar" class="invisible">
-<?php
-        for ( $i = 0; $i < $panelSections; $i++ )
-        {
-?>
-           <div class="progressBox" id="progressBox<?= $i ?>" title=""></div>
-<?php
-        }
-?>
         </div>
       </div>
       </div>

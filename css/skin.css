@@ -560,3 +560,12 @@ padding:0 10px;
 }
 
 /* Filter Sidebar */
+
+.eventImage{
+display;block;
+}
+
+.eventImageHide{
+visibility:hidden;
+display:none;
+}
