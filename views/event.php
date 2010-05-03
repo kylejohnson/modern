@@ -98,7 +98,7 @@ $(function(){
 $("#btnExport").button();
 $("#btnExport").click(function() {
  $.post("skins/new/includes/createVideo.php?eid=<?= $eid ?>&action=video&path=<?= $mainpath ?>", function(data){
-  $("#videoExport span").append(data);
+  $("#videoExport span").html(data);
  });
 });
 

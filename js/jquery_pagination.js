@@ -16,7 +16,7 @@ $(document).ready(function(){
    current:'event {current} of {total}',
    iframe:'true',
    width:"75%",
-   height:"75%",
+   height:"95%",
    preloading:'false',
   });
   Hide_Load();  //Hide spinner
