@@ -30,6 +30,7 @@ $cycleHeight = $maxHeight;
 xhtmlHeaders( __FILE__, $SLANG['Console'] );
 ?>
 <body>
+<input type="hidden" id="inptRefresh" value="<?= ZM_WEB_REFRESH_MAIN ?>"></input>
   <div id="page">
     <?php require_once("header.php"); ?>
     <div id="content" class="clearfix">
