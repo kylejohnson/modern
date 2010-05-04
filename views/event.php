@@ -143,8 +143,12 @@ $("#btnPause").click(function(){
   <div id="page">
     <div id="content">
       <div id="eventStream">
-            <span id="dataTime" title="<?= $SLANG['Time'] ?>"><?= strftime( STRF_FMT_DATETIME_SHORT, strtotime($event['StartTime'] ) ) ?></span>
-            <span id="dataDuration" title="<?= $SLANG['Duration'] ?>"><?= $event['Length'] ?></span>s
+	<table style="width:600px; margin:0 auto;">
+	 <tr>
+	  <td class="left"><span id="dataTime" title="<?= $SLANG['Time'] ?>"><?= strftime( STRF_FMT_DATETIME_SHORT, strtotime($event['StartTime'] ) ) ?></span></td>
+          <td class="right"><span id="dataDuration" title="<?= $SLANG['Duration'] ?>"><?= $event['Length'] ?></span>s</td>
+	 </tr>
+	</table>
         <div id="imageFeed"></div>
        <div id="videoExport">
         <input type="submit" value="Play" id="btnPlay"></input>

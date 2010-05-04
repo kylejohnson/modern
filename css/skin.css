@@ -569,3 +569,19 @@ display;block;
 visibility:hidden;
 display:none;
 }
+
+#eventStream{
+ background-color:#EEEEEE;
+ padding:4px;
+}
+
+#videoExport{
+ padding-top:4px;
+}
+
+#imageFeed{
+ padding:5px 0;
+}
+
+.left{text-align:left;}
+.right{text-align:right;}
