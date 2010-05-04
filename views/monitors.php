@@ -33,11 +33,10 @@ for ( $i = 0; $i < count($monitors); $i++ )
     }
     $monitors[$i]['zmc'] = zmcStatus( $monitors[$i] );
     $monitors[$i]['zma'] = zmaStatus( $monitors[$i] );
-    $monitors[$i]['ZoneCount'] = dbFetchOne( "select count(Id) as ZoneCount from Zones where MonitorId = '".$monitors[$i]['Id']."'", "ZoneCount" );
     $displayMonitors[] = $monitors[$i];
 }
 
-$scale = "35%";
+$scale = "35";
 foreach( $displayMonitors as $monitor ){
     if ( !$monitor['zmc'] )
         $dclass = "errorText";
@@ -67,8 +66,9 @@ foreach( $displayMonitors as $monitor ){
     $streamSrc = getStreamSrc( array( "mode=".$streamMode, "monitor=".$monitor['Id'], "scale=".$scale, "maxfps=".ZM_WEB_VIDEO_MAXFPS, "buffer=".$monitor['StreamReplayBuffer'] ) );
   }
  }
+ $width = ($monitor['Width'] * ('.' . $scale) + 20);
 ?>
-<li id="monitor_<?php echo $monitor['Id'] ?>">
+<li id="monitor_<?php echo $monitor['Id'] ?>" style="width:<?php echo $width ?>px;">
  <div class="mon">
  <a href="/?view=events&page=1&filter[terms][0][attr]=MonitorId&filter[terms][0][op]==&filter[terms][0][val]=<?php echo $monitor['Id'] ?>" >
   <?php outputImageStill( "liveStream", $streamSrc, reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ), $monitor['Name'] ); ?>
@@ -77,6 +77,6 @@ foreach( $displayMonitors as $monitor ){
  <div class="monfooter">
  <div class="spinner"></div>
  </div>
- <a rel="monitor" href="/?view=full&amp;mid=<?= $monitor['Id']; ?>" class="test" title="<?= $monitor['Name']; ?>">View Full</a>
+ <a rel="monitor" href="/?view=full&amp;mid=<?= $monitor['Id']; ?>" title="<?= $monitor['Name']; ?>">View Full</a>
 </li>
 <?php } ?>
