@@ -42,14 +42,14 @@ function xhtmlHeaders( $file, $title )
  <link rel="shortcut icon" href="graphics/favicon.ico"/>
  <link rel="stylesheet" href="css/reset.css" type="text/css"/>
  <link rel="stylesheet" href="<?= $skinCssFile ?>" type="text/css" media="screen"/>
- <link rel="stylesheet" href="/skins/new/css/header.css" type="text/css" media="screen"/>
+ <link rel="stylesheet" href="skins/new/css/header.css" type="text/css" media="screen"/>
  <script type="text/javascript" src="skins/new/js/jquery-1.4.2.min.js"></script>
  <script type="text/javascript" src="skins/new/js/jquery-ui-1.8.custom.min.js"></script>
  <link type="text/css" media="screen" rel="stylesheet" href="skins/new/css/colorbox.css"></link>
  <link type="text/css" media="screen" rel="stylesheet" href="skins/new/css/jquery/jquery-ui-1.8.custom.css"></link>
 <?php if ($title == "Console") { ?>
- <script type="text/javascript" src="/skins/new/js/jquery.colorbox.js"></script>
- <script type="text/javascript" src="/skins/new/js/console.colorbox.js"></script>
+ <script type="text/javascript" src="skins/new/js/jquery.colorbox.js"></script>
+ <script type="text/javascript" src="skins/new/js/console.colorbox.js"></script>
  <script type="text/javascript" src="skins/new/js/console.js"></script>
 <?php } ?>
 <?php

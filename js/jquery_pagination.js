@@ -4,7 +4,7 @@ $(document).ready(function(){
 
  function Display_Load() {
   $(".spinner").fadeIn(900,0);
-  $(".spinner").html("<img src='/skins/new/graphics/spinner.gif' />");
+  $(".spinner").html("<img src='skins/new/graphics/spinner.gif' />");
  };
 
  function Hide_Load() {
@@ -25,9 +25,9 @@ $(document).ready(function(){
    Display_Load(); //Show spinner
    var pageNum = this.id; //Set page number
    if (!(query == "")) {
-    $("#events").load("/skins/new/views/pagination_data.php?page=" + pageNum + query, function () { Build_Pagination() }); //Load data to page then rebuild Build_Pagination function
+    $("#events").load("skins/new/views/pagination_data.php?page=" + pageNum + query, function () { Build_Pagination() }); //Load data to page then rebuild Build_Pagination function
    } else {
-    $("#events").load("/skins/new/views/pagination_data.php?page=" + pageNum + "&filter[terms][0][attr]=MonitorName&filter[terms][0][op]==&filter[terms][0][val]=" + monitorName, function () { Build_Pagination() }); //Load data to page then rebuild Build_Pagination function
+    $("#events").load("skins/new/views/pagination_data.php?page=" + pageNum + "&filter[terms][0][attr]=MonitorName&filter[terms][0][op]==&filter[terms][0][val]=" + monitorName, function () { Build_Pagination() }); //Load data to page then rebuild Build_Pagination function
    }
   });
 
@@ -50,7 +50,7 @@ $(document).ready(function(){
  });
 
  Display_Load(); //First thing that happens - display spinner
- $("#events").load("/skins/new/views/pagination_data.php" + url, function() { Build_Pagination() }); //Second, load data into #events then build Build_Pagination function
+ $("#events").load("skins/new/views/pagination_data.php" + url, function() { Build_Pagination() }); //Second, load data into #events then build Build_Pagination function
 
  $('#sidebarHistory li input').change(function() { //When a checkbox is checked
   if ($(this).attr("checked") == true) {
@@ -101,7 +101,7 @@ $(document).ready(function(){
    query =  "&filter[terms][" + i + "][attr]=Id&filter[terms][" + i + "][op]=%3D&filter[terms][" + i + "][val]=" + eid;
   }
 
-   $("#events").load("/skins/new/views/pagination_data.php?page=1" + query, function() { Build_Pagination()}); // Load data into #events
+   $("#events").load("skins/new/views/pagination_data.php?page=1" + query, function() { Build_Pagination()}); // Load data into #events
 
  };
 });
