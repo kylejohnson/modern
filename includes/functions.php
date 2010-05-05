@@ -82,6 +82,7 @@ function xhtmlHeaders( $file, $title )
  if ($title == "Event") {
 ?>
 <script type="text/javascript" src="skins/new/js/event.js"></script>
+<script type="text/javascript" src="skins/new/js/preloadImage.js"></script>
 <?php
  }
 ?>
