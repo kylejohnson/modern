@@ -110,14 +110,24 @@ var images = new Array();
   }
 ?>
 x = images.length;
-for (image in images) {
- if (image == 0) {
-  $("#imageFeed").append('<img src="' + images[image] + '" class="eventImage" id="img_' + image + '" />');
- } else {
-  $("#imageFeed").append('<img src="' + images[image] + '" class="eventImageHide" id="img_' + image + '" />');
+
+$.preLoadImages(images,function(){
+ $("#btnPlay").removeAttr('disabled');
+ $("#btnPlay").removeClass('ui-button-disabled ui-state-disabled');
+});
+
+load_images();
+
+function load_images() {
+ for (image in images) {
+  if (image == 0) {
+   $("#imageFeed").append('<img src="' + images[image] + '" class="eventImage" id="img_' + image + '" />');
+  } else {
+   $("#imageFeed").append('<img src="' + images[image] + '" class="eventImageHide" id="img_' + image + '" />');
+  }
  }
+ i = 0;
 }
-i = 0;
 
 function changeClass() {
  if (i<x){
@@ -130,11 +140,15 @@ function changeClass() {
 $("#btnPlay").button()
 $("#btnPlay").click(function(){
  start = setInterval(function(){changeClass()}, 200);
+ $("#btnPause").css("border", "1px solid #C5DBEC");
+ $(this).css('border', "1px solid red");
 });
 
 $("#btnPause").button()
 $("#btnPause").click(function(){
  clearInterval(start);
+ $("#btnPlay").css("border", "1px solid #C5DBEC");
+ $(this).css('border', "1px solid red");
 });
  
 });
@@ -151,7 +165,7 @@ $("#btnPause").click(function(){
 	</table>
         <div id="imageFeed"></div>
        <div id="videoExport">
-        <input type="submit" value="Play" id="btnPlay"></input>
+        <input type="submit" value="Play" id="btnPlay" disabled="disabled"></input>
         <input type="submit" value="Pause" id="btnPause"></input>
 	<input type="submit" value="Export" id="btnExport"></input>
 	<span id="spinner"></span>
