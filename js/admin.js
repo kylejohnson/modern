@@ -1,5 +1,5 @@
 $(function() {
-  $("#content").load("/skins/new/views/adminMonitors.php", function() { Load_Monitors() });
+  $("#content").load("skins/new/views/adminMonitors.php", function() { Load_Monitors() });
 
  function Load_Monitors() {
   $("#delMonitor").click(function() {

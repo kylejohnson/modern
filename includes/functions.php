@@ -64,11 +64,8 @@ function xhtmlHeaders( $file, $title )
 <?php
  if ($title == "Admin") {
 ?>
-  <script type="text/javascript" src="tools/mootools/mootools-1.2.1-core-nc.js"></script>
-  <script type="text/javascript" src="tools/mootools/mootools-1.2-more-nc.js"></script>
-  <script type="text/javascript" src="js/mootools.ext.js"></script>
-  <script type="text/javascript" src="/skins/new/js/admin.js"></script>
-  <script type="text/javascript" src="/skins/new/js/jquery.colorbox.js"></script>
+  <script type="text/javascript" src="skins/new/js/admin.js"></script>
+  <script type="text/javascript" src="skins/new/js/jquery.colorbox.js"></script>
 <?php
  }
 ?>
