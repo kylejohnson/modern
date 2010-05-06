@@ -1,6 +1,4 @@
 <?php
-//})_
-//});
 //
 // ZoneMinder web events view file, $Date: 2008-10-20 09:25:24 +0100 (Mon, 20 Oct 2008) $, $Revision: 2669 $
 // Copyright (C) 2001-2008 Philip Coombes
@@ -25,9 +23,6 @@ $monitorsSql = "select Name, Id from Monitors";
 $monitors = array();
 dbFetchAll($monitorsSql);
 
-$maxShortcuts = 5;
-$maxWidth = 0;
-$maxHeight = 0;
 $focusWindow = true;
 
 xhtmlHeaders(__FILE__, $SLANG['Events'] );

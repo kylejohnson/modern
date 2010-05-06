@@ -1,8 +1,8 @@
 <?php
 require_once("../../../includes/config.php");
+require_once("../includes/config.php");
 require_once("../../../includes/database.php");
 require_once("../../../includes/functions.php");
-
 $mid = $_REQUEST['mid'];
 $bandwidth = $_COOKIE['zmBandwidth'];
 if ( isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == 'on' )
@@ -36,7 +36,7 @@ for ( $i = 0; $i < count($monitors); $i++ )
     $displayMonitors[] = $monitors[$i];
 }
 
-$scale = "35";
+$scale = ZM_WEB_DEFAULT_SCALE;
 foreach( $displayMonitors as $monitor ){
     if ( !$monitor['zmc'] )
         $dclass = "errorText";
