@@ -95,7 +95,7 @@ $("#btnExport").button();
 $("#btnExport").click(function() { // When btnExport is clicked
  $("#spinner").html('<img src="skins/new/graphics/spinner.gif" alt="spinner" />'); // Display the spinner
  $.post("skins/new/includes/createVideo.php?eid=<?= $eid ?>&action=video&path=<?= $mainpath ?>", function(data){ // Create the video file
-  $("#videoExport span").html(data); // Display the link to the video file (or whatever info. is returned)
+  $("#spinner").html(data); // Display the link to the video file (or whatever info. is returned)
  });
 });
 
@@ -170,7 +170,6 @@ function changeClass() {
 	</table>
         <div id="imageFeed"></div>
        <div id="videoExport">
-        <span id="percent"></span>
         <input type="submit" value="Play" id="btnPlay" disabled="disabled"></input>
         <input type="submit" value="Pause" id="btnPause"></input>
 	<input type="submit" value="Export" id="btnExport"></input>
