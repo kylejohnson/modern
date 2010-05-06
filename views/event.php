@@ -64,29 +64,25 @@ parseSort();
 parseFilter( $_REQUEST['filter'] );
 $filterQuery = $_REQUEST['filter']['query'];
 
-$panelSections = 40;
-$panelSectionWidth = (int)ceil(reScale($event['Width'],$scale)/$panelSections);
-$panelWidth = ($panelSections*$panelSectionWidth-1);
-
 $connkey = generateConnKey();
 
 $focusWindow = true;
 
 $eventMonitorSQL = "select MonitorID from Events where Id = $eid";
 $eventMonitor = dbFetchOne($eventMonitorSQL);
-$eventMonitor = $eventMonitor['MonitorID'];
-$cwd = getcwd();
+$eventMonitor = $eventMonitor['MonitorID']; # Get the Monitor ID
+$cwd = getcwd(); # Get the current working directory (root path to zm install)
 $mainpath = "events/$eventMonitor/$eid/"; # Full path to image directory
 $files = scandir($cwd . "/" . $mainpath); # All of the files inside $path
+array_shift($files); # Delete first 3 entires (.., . and .file);
 array_shift($files);
 array_shift($files);
-array_shift($files);
-$paths = array();
-foreach ($files as $file){
+$paths = array(); # Create the paths array
+foreach ($files as $file){ # For each file, push the path + file into paths
  if (preg_match("/capture/i", $file)) 
  {
   $tmp = "/events/$eventMonitor/$eid/" . $file;
-  array_push($paths, $tmp);
+  array_push($paths, $tmp); 
  }
 };
 
@@ -96,27 +92,50 @@ xhtmlHeaders(__FILE__, $SLANG['Event'] );
 $(function(){
 
 $("#btnExport").button();
-$("#btnExport").click(function() {
- $("#spinner").html('<img src="skins/new/graphics/spinner.gif" alt="spinner" />');
- $.post("skins/new/includes/createVideo.php?eid=<?= $eid ?>&action=video&path=<?= $mainpath ?>", function(data){
-  $("#videoExport span").html(data);
+$("#btnExport").click(function() { // When btnExport is clicked
+ $("#spinner").html('<img src="skins/new/graphics/spinner.gif" alt="spinner" />'); // Display the spinner
+ $.post("skins/new/includes/createVideo.php?eid=<?= $eid ?>&action=video&path=<?= $mainpath ?>", function(data){ // Create the video file
+  $("#videoExport span").html(data); // Display the link to the video file (or whatever info. is returned)
  });
 });
 
-var images = new Array();
-<?php
- foreach($paths as $key => $value) {
-  echo "images[$key] = \"$value\";\n";
-  }
-?>
-x = images.length;
-
-$.preLoadImages(images,function(){
- $("#btnPlay").removeAttr('disabled');
- $("#btnPlay").removeClass('ui-button-disabled ui-state-disabled');
+$("#btnPlay").button()
+$("#btnPlay").click(function(){
+ start = setInterval(function(){changeClass()}, 200);
+ $("#btnPause").css("border", "1px solid #C5DBEC");
+ $(this).css('border', "1px solid red");
 });
 
-load_images();
+$("#btnPause").button()
+$("#btnPause").click(function(){
+ clearInterval(start);
+ $("#btnPlay").css("border", "1px solid #C5DBEC");
+ $(this).css('border', "1px solid red");
+});
+
+var images = new Array(); // Array containing paths to each image
+<?php
+ foreach($paths as $key => $value) {
+  echo "images[$key] = \"$value\";\n"; # Fill the array
+  }
+?>
+x = images.length; // Count of images
+y = 0; // Loaded image counter
+
+for (image in images){ // For each image
+ $.preLoadImages(images[image], function(){ // Preload the image, then
+  y++; // Increment the loaded image counter
+  var percent = (y / x);
+  var result = Math.round(percent*100)
+  $("#percent").html(result + "%"); // Display the percent of images loaded
+  if (x == y) { // If all images are loaded, make btnPlay clickable
+   $("#btnPlay").removeAttr('disabled');
+   $("#btnPlay").removeClass('ui-button-disabled ui-state-disabled');
+  };
+ });
+};
+
+load_images(); // 
 
 function load_images() {
  for (image in images) {
@@ -137,20 +156,6 @@ function changeClass() {
  }
 };
 
-$("#btnPlay").button()
-$("#btnPlay").click(function(){
- start = setInterval(function(){changeClass()}, 200);
- $("#btnPause").css("border", "1px solid #C5DBEC");
- $(this).css('border', "1px solid red");
-});
-
-$("#btnPause").button()
-$("#btnPause").click(function(){
- clearInterval(start);
- $("#btnPlay").css("border", "1px solid #C5DBEC");
- $(this).css('border', "1px solid red");
-});
- 
 });
 </script>
 <body>
@@ -165,6 +170,7 @@ $("#btnPause").click(function(){
 	</table>
         <div id="imageFeed"></div>
        <div id="videoExport">
+        <span id="percent"></span>
         <input type="submit" value="Play" id="btnPlay" disabled="disabled"></input>
         <input type="submit" value="Pause" id="btnPause"></input>
 	<input type="submit" value="Export" id="btnExport"></input>
