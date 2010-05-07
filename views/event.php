@@ -99,6 +99,13 @@ $("#btnExport").click(function() { // When btnExport is clicked
  });
 });
 
+$("#btnDelete").button();
+$("#btnDelete").click(function(){
+ $.post("skins/new/includes/deleteEvent.php?eid=<?= $eid ?>");
+ parent.$.fn.colorbox.close();
+});
+
+
 $("#btnPlay").button()
 $("#btnPlay").click(function(){
  start = setInterval(function(){changeClass()}, 200);
@@ -127,7 +134,7 @@ for (image in images){ // For each image
   y++; // Increment the loaded image counter
   var percent = (y / x);
   var result = Math.round(percent*100)
-  $("#percent").html(result + "%"); // Display the percent of images loaded
+  $("#progress").html("Loading... " + result + "%"); // Display the percent of images loaded
   if (x == y) { // If all images are loaded, make btnPlay clickable
    $("#btnPlay").removeAttr('disabled');
    $("#btnPlay").removeClass('ui-button-disabled ui-state-disabled');
@@ -140,10 +147,12 @@ load_images(); //
 function load_images() {
  for (image in images) {
   if (image == 0) {
-   $("#imageFeed").append('<img src="' + images[image] + '" class="eventImage" id="img_' + image + '" />');
+   $("#imageFeed").append('<img src="' + images[image] + '" class="eventImage" id="img_' + image + '" />'); // First image, not hidden
   } else {
-   $("#imageFeed").append('<img src="' + images[image] + '" class="eventImageHide" id="img_' + image + '" />');
+   $("#imageFeed").append('<img src="' + images[image] + '" class="eventImageHide" id="img_' + image + '" />'); // Rest of images, hidden
   }
+  var link = '<a href="' + images[image] + '">' + '<img src="' + images[image] + '" class="still" id="still' + image + '" />' + '</a>';
+  $("#eventStills").append(link); // Show the stills
  }
  i = 0;
 }
@@ -170,46 +179,16 @@ function changeClass() {
 	</table>
         <div id="imageFeed"></div>
        <div id="videoExport">
+	<span id="progress"></span>
         <input type="submit" value="Play" id="btnPlay" disabled="disabled"></input>
         <input type="submit" value="Pause" id="btnPause"></input>
+	<input type="submit" value="Delete" id="btnDelete"></input>
 	<input type="submit" value="Export" id="btnExport"></input>
 	<span id="spinner"></span>
        </div>
+       <div id="eventStills"></div>
       </div>
-      <div id="eventStills" class="hidden">
-        <div id="eventThumbsPanel">
-          <div id="eventThumbs">
-          </div>
-        </div>
-        <div id="eventImagePanel" class="hidden">
-          <div id="eventImageFrame">
-            <img id="eventImage" src="graphics/transparent.gif" alt=""/>
-            <div id="eventImageBar">
-              <div id="eventImageStats" class="hidden"><input type="button" value="<?= $SLANG['Stats'] ?>" onclick="showFrameStats()"/></div>
-              <div id="eventImageData">Frame <span id="eventImageNo"></span></div>
-            </div>
-          </div>
-        </div>
-        <div id="eventImageNav">
-          <div id="eventImageButtons">
-            <div id="prevButtonsPanel">
-              <input id="prevEventBtn" type="button" value="&lt;E" onclick="prevEvent()" disabled="disabled"/>
-              <input id="prevThumbsBtn" type="button" value="&lt;&lt;" onclick="prevThumbs()" disabled="disabled"/>
-              <input id="prevImageBtn" type="button" value="&lt;" onclick="prevImage()" disabled="disabled"/>
-              <input id="nextImageBtn" type="button" value="&gt;" onclick="nextImage()" disabled="disabled"/>
-              <input id="nextThumbsBtn" type="button" value="&gt;&gt;" onclick="nextThumbs()" disabled="disabled"/>
-              <input id="nextEventBtn" type="button" value="E&gt;" onclick="nextEvent()" disabled="disabled"/>
-            </div>
-          </div>
-          <div id="thumbsSliderPanel">
-            <div id="thumbsSlider">
-                <div id="thumbsKnob">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+     </div>
     </div>
   </div>
 </body>
