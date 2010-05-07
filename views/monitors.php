@@ -36,7 +36,11 @@ for ( $i = 0; $i < count($monitors); $i++ )
     $displayMonitors[] = $monitors[$i];
 }
 
-$scale = ZM_WEB_DEFAULT_SCALE;
+if (!defined(ZM_WEB_DEFAULT_SCALE)) {
+ $scale = 40;
+} else {
+ $scale = ZM_WEB_DEFAULT_SCALE;
+}
 foreach( $displayMonitors as $monitor ){
     if ( !$monitor['zmc'] )
         $dclass = "errorText";
