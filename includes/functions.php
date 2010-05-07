@@ -135,7 +135,6 @@ function xhtmlHeaders( $file, $title )
 <?php
     }
 ?>
-<script>console.error = alert;</script>
 </head>
 <?php
 }
