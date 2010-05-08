@@ -33,7 +33,17 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
    <?php require("header.php"); ?>
     <div id="content">
      <div id="contentcolumn">
-      <div id="events">
+      <div id="gallery" class="ad-gallery">
+       <div class="ad-image-wrapper">
+       </div>
+       <div class="ad-controls">
+       </div>
+       <div class="ad-nav">
+        <div class="ad-thumbs">
+         <ul class="ad-thumb-list">
+         </ul>
+        </div>
+       </div>
       </div>
      </div>
    </div>
@@ -79,6 +89,3 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
 
 </div>
    <?php require("footer.php"); ?>
-  </div>
-</body>
-</html>

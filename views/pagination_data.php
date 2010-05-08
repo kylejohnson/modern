@@ -92,35 +92,7 @@ foreach (dbFetchAll($eventsSql) as $event) {
         $unarchived = true;
 }
 ?>
-<p><?= $nEvents; ?> events</p>
-<p><?= $pages; ?> pages</p>
 <input type="hidden" id="inptMonitorName" value="<?= $event['MonitorName'] ?>"/>
-<ul class="pagination">
- <?php
- if ($page != 1) {
-  echo '<li id="'.($page-1).'">< Previous</li>';
-  echo '<li id="1"><< First</li>';
- }
- if ($page >= 3) {
-  echo '<li id="'.($page-2).'">'.($page-2).'</li>';
- }
- if ($page >= 2) {
-  echo '<li id="'.($page-1).'">'.($page-1).'</li>';
- }
- echo '<li id="'.$page.'" class="curPage">'.$page.'</li>';
- if (($page + 1) < $pages) {
-  echo '<li id="'.($page+1).'">'.($page+1).'</li>';
- }
- if (($page + 2) < $pages) {
-  echo '<li id="'.($page+2).'">'.($page+2).'</li>';
- }
- if ($page != $pages) {
-  echo '<li id="'.$pages.'">Last >></li>';
-  echo '<li id="'.($page+1).'">Next ></li>';
- }
- ?>
-</ul>
-<ul id="monitorHistory">
 <?php
 $count = 0;
 foreach ( $events as $event ){
@@ -129,45 +101,13 @@ foreach ( $events as $event ){
  if ($thumbData = createListThumbnail($event)) {
 ?>
 <li>
- <a title="event <?= $event['Id'] ?>" rel="event" href="/?view=event&eid=<?= $event['Id'] ?>"">
+ <a title="event <?= $event['Id'] ?>" rel="event" href="<?= $thumbData['Path'] ?>">
   <img src="<?= $thumbData['Path'] ?>" width="<?= $thumbData['Width'] ?>" height="<?= $thumbData['Height'] ?>" alt="<?= $thumbData['FrameId'].'/'.$event['MaxScore'] ?>" />
  </a>
- <p>Date: <?= strftime( STRF_FMT_DATETIME_SHORTER, strtotime($event['StartTime']) ) ?></p>
- <p>Duration: <?= $event['Length'] ?></p>
+ <!--<p>Date: <?= strftime( STRF_FMT_DATETIME_SHORTER, strtotime($event['StartTime']) ) ?></p>
+ <p>Duration: <?= $event['Length'] ?></p>-->
 </li>
 <?php
- }}
+ }
+}
 ?>
-</ul>
-<ul class="pagination">
- <?php
- if ($page != 1) {
-  echo '<li id="'.($page-1).'">< Previous</li>';
-  echo '<li id="1"><< First</li>';
- }
- if ($page >= 11) {
-  echo '<li id="'.($page-10).'">'.($page-10).'</li>';
- }
- if ($page >= 3) {
-  echo '<li id="'.($page-2).'">'.($page-2).'</li>';
- }
- if ($page >= 2) {
-  echo '<li id="'.($page-1).'">'.($page-1).'</li>';
- }
- echo '<li id="'.$page.'" class="curPage">'.$page.'</li>';
- if (($page + 1) < $pages) {
-  echo '<li id="'.($page+1).'">'.($page+1).'</li>';
- }
- if (($page + 2) < $pages) {
-  echo '<li id="'.($page+2).'">'.($page+2).'</li>';
- }
- if (($page + 10) < $pages) {
-  echo '<li id="'.($page+10).'">'.($page+10).'</li>';
- }
- if ($page != $pages) {
-  echo '<li id="'.$pages.'">Last >></li>';
-  echo '<li id="'.($page+1).'">Next ></li>';
- }
- ?>
-</ul>
-

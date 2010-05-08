@@ -12,13 +12,6 @@ $(document).ready(function(){
  };
 
  function Build_Pagination() {
-  $("a[rel='event']").colorbox({
-   current:'event {current} of {total}',
-   iframe:'true',
-   width:"75%",
-   height:"95%",
-   preloading:'false',
-  });
   Hide_Load();  //Hide spinner
   var monitorName = $("#inptMonitorName").attr("value"); // Get the currently selected monitor.  This is only needed for the first page load, before any filters are set.
   $(".pagination li").click(function() { //If page is changed
@@ -50,7 +43,10 @@ $(document).ready(function(){
  });
 
  Display_Load(); //First thing that happens - display spinner
- $("#events").load("skins/new/views/pagination_data.php" + url, function() { Build_Pagination() }); //Second, load data into #events then build Build_Pagination function
+ $(".ad-thumb-list").load("skins/new/views/pagination_data.php" + url, function(){ //Second, load data into #events then build Build_Pagination function
+   Build_Pagination();
+   var galleries = $('.ad-gallery').adGallery();
+ }); 
 
  $('#sidebarHistory li input').change(function() { //When a checkbox is checked
   if ($(this).attr("checked") == true) {
