@@ -280,6 +280,17 @@
           link.addClass('ad-thumb'+ i);
           link.click(
             function() {
+var src = $(this).attr('href');
+var pos = src.lastIndexOf('/');
+var path = src.substr(0,pos+1); // This is the path to the event image directory
+$.post("skins/new/includes/getFiles.php?path=" + path, function(data){
+ var imgs = new Array();
+ imgs = data.split(" ");
+ var x = imgs.length
+ for (var i=0;i<x;i++){
+  $(".ad-image").append('<img src="' + imgs[i] + '"/>');
+ }
+});
               context.showImage(i);
               context.slideshow.stop();
               return false;
