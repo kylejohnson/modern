@@ -91,17 +91,19 @@ foreach (dbFetchAll($eventsSql) as $event) {
     else
         $unarchived = true;
 }
+
 ?>
 <input type="hidden" id="inptMonitorName" value="<?= $event['MonitorName'] ?>"/>
 <?php
 $count = 0;
 foreach ( $events as $event ){
-?>
-<?php
+$eid = $event['Id'];
+$mid = $event['MonitorId'];
+$fullpath = "events/$mid/$eid/";
  if ($thumbData = createListThumbnail($event)) {
 ?>
 <li>
- <a title="event <?= $event['Id'] ?>" rel="event" href="<?= $thumbData['Path'] ?>">
+ <a title="event <?= $event['Id'] ?>" rel="event" href="<?= $fullpath ?>001-capture.jpg">
   <img src="<?= $thumbData['Path'] ?>" width="<?= $thumbData['Width'] ?>" height="<?= $thumbData['Height'] ?>" alt="<?= $thumbData['FrameId'].'/'.$event['MaxScore'] ?>" />
  </a>
  <!--<p>Date: <?= strftime( STRF_FMT_DATETIME_SHORTER, strtotime($event['StartTime']) ) ?></p>
