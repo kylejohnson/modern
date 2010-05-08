@@ -4,7 +4,7 @@ require_once("../../../includes/functions.php");
 require_once("../../../includes/database.php");
 $per_page = ZM_WEB_EVENTS_PER_PAGE;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
-chdir("/var/www/zm");
+chdir(ZM_PATH_WEB);
 $start = ($page-1)*$per_page;
 
 $countSql = "select count(E.Id) as EventCount from Monitors as M inner join Events as E on (M.Id = E.MonitorId) where";
