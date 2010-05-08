@@ -3,7 +3,7 @@ $(function() {
  $('#inptDateTo').datepicker();
  $('input:submit').button();
 
-
+ // Exporting Event to Image //
 $("#btnExport").button();
 $("#btnExport").click(function() { // When btnExport is clicked
  var src = $(".ad-image img").attr('src');
@@ -16,5 +16,5 @@ $("#btnExport").click(function() { // When btnExport is clicked
   $("#export").html(data); // Display the link to the video file (or whatever info. is returned)
  });
 });
-
+ // Exporting Event to Image //
 });
