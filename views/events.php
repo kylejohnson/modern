@@ -38,7 +38,7 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
        </div>
        <div class="ad-controls">
 	<div id="video-controls">
-         <input type="submit" value="Play" id="btnPlay" disabled="disabled"></input>
+         <input type="submit" value="Play" id="btnPlay"></input>
          <input type="submit" value="Pause" id="btnPause"></input>
 	 <input type="submit" value="Delete" id="btnDelete"></input>
 	 <span id="export"><input type="submit" value="Export" id="btnExport"></input></span>
