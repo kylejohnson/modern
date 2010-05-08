@@ -18,9 +18,9 @@ $(document).ready(function(){
    Display_Load(); //Show spinner
    var pageNum = this.id; //Set page number
    if (!(query == "")) {
-    $("#events").load("skins/new/views/pagination_data.php?page=" + pageNum + query, function () { Build_Pagination() }); //Load data to page then rebuild Build_Pagination function
+    $(".ad-thumb-list").load("skins/new/views/pagination_data.php?page=" + pageNum + query, function () { Build_Pagination() }); //Load data to page then rebuild Build_Pagination function
    } else {
-    $("#events").load("skins/new/views/pagination_data.php?page=" + pageNum + "&filter[terms][0][attr]=MonitorName&filter[terms][0][op]==&filter[terms][0][val]=" + monitorName, function () { Build_Pagination() }); //Load data to page then rebuild Build_Pagination function
+    $(".ad-thumb-list").load("skins/new/views/pagination_data.php?page=" + pageNum + "&filter[terms][0][attr]=MonitorName&filter[terms][0][op]==&filter[terms][0][val]=" + monitorName, function () { Build_Pagination() }); //Load data to page then rebuild Build_Pagination function
    }
   });
 
@@ -43,7 +43,7 @@ $(document).ready(function(){
  });
 
  Display_Load(); //First thing that happens - display spinner
- $(".ad-thumb-list").load("skins/new/views/pagination_data.php" + url, function(){ //Second, load data into #events then build Build_Pagination function
+ $(".ad-thumb-list").load("skins/new/views/pagination_data.php" + url, function(){ //Second, load data into .ad-thumb-list then build Build_Pagination function
    Build_Pagination();
    var galleries = $('.ad-gallery').adGallery();
  }); 
@@ -76,7 +76,9 @@ $(document).ready(function(){
 
   // First filters are Monitor Names, lets do those!
   for (var i=0;i<x;i++) {
-   if (i == 0){ // First filter, open the (
+   if (x==1) { // Only filter, no ( or )
+    query = "&filter[terms][" + i + "][obr]=0&filter[terms][" + i + "][attr]=MonitorName&filter[terms][" + i + "][op]==&filter[terms][" + i + "][val]=" + aryMonitors[i] + "&filter[terms][" + i + "][cbr]=0";
+   } else if (i == 0){ // First filter, open the (
     query = "&filter[terms][" + i + "][obr]=1&filter[terms][" + i + "][attr]=MonitorName&filter[terms][" + i + "][op]==&filter[terms][" + i + "][val]=" + aryMonitors[i] + "&filter[terms][" + i + "][cbr]=0";
    } else if ( !(i==0) && (i<(x-1)) ) { // Any filter that is not the first or last, no ( or )
     query += "&filter[terms][" + i + "][cnj]=or&filter[terms][" + i + "][obr]=0&filter[terms][" + i + "][attr]=MonitorName&filter[terms][" + i + "][op]==&filter[terms][" + i + "][val]=" + aryMonitors[i] + "&filter[terms][" + i + "][cbr]=0";
@@ -106,7 +108,7 @@ $(document).ready(function(){
    query =  "&filter[terms][" + i + "][attr]=Id&filter[terms][" + i + "][op]=%3D&filter[terms][" + i + "][val]=" + eid;
   }
 
-   $("#events").load("skins/new/views/pagination_data.php?page=1" + query, function() { Build_Pagination()}); // Load data into #events
+   $(".ad-thumb-list").load("skins/new/views/pagination_data.php?page=1" + query, function() { Build_Pagination()}); // Load data into .ad-thumb-list
 
  };
 });
