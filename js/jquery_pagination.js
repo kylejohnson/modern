@@ -27,9 +27,11 @@ $(document).ready(function(){
  // Auto-check the default monitor filter box
  $("#sidebarHistory input").each(function() {
   if ((this.id) == $("#inptMonitorName").attr("value")) {
-    $(this).attr("checked", true);
-  }});
+   $(this).attr("checked", true);
+  }
+ });
 
+  var galleries = $('.ad-gallery').adGallery();
  };
 
  $("#liSpecificDate").click(function() {
@@ -45,7 +47,6 @@ $(document).ready(function(){
  Display_Load(); //First thing that happens - display spinner
  $(".ad-thumb-list").load("skins/new/views/pagination_data.php" + url, function(){ //Second, load data into .ad-thumb-list then build Build_Pagination function
    Build_Pagination();
-   var galleries = $('.ad-gallery').adGallery();
  }); 
 
  $('#sidebarHistory li input').change(function() { //When a checkbox is checked
