@@ -17,4 +17,12 @@ $("#btnExport").click(function() { // When btnExport is clicked
  });
 });
  // Exporting Event to Image //
+ //
+$("#btnPause").button()
+$("#btnPause").click(function(){
+ clearInterval(start);
+ $("#btnPlay").css("border", "1px solid #C5DBEC");
+ $(this).css('border', "1px solid red");
+});
+
 });
