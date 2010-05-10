@@ -50,6 +50,10 @@ $.post("skins/new/includes/getFiles.php?path=" + path, function(data){ // Get th
    var percent = (y / x);
    var result = Math.round(percent*100);
    $("#progress").html("Loading... " + result + "%");
+   if (x == y){ // All images are loaded; enable btnPlay
+    $("#btnPlay").removeAttr('disabled');
+    $("#btnPlay").removeClass('ui-button-disabled ui-state-disabled');
+   };
   });
  };
  for (var i=0;i<x;i++){
