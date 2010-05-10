@@ -76,6 +76,7 @@ function xhtmlHeaders( $file, $title )
 <script type="text/javascript" src="skins/new/js/jquery.colorbox.js"></script>
 <script type="text/javascript" src="skins/new/js/events.js"></script>
 <script type="text/javascript" src="skins/new/js/jquery.ad-gallery.js"></script>
+<script type="text/javascript" src="skins/new/js/preloadImage.js"></script>
 <link rel="stylesheet" href="skins/new/css/jquery.ad-gallery.css" type="text/css"/>
 <?php
  }
