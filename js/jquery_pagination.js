@@ -38,14 +38,26 @@ var context = this;
 var src = $('#img_0').attr('src');
 var pos = src.lastIndexOf('/');
 var path = src.substr(0,pos+1); // This is the path to the event image directory
-$.post("skins/new/includes/getFiles.php?path=" + path, function(data){
- var imgs = new Array();
- imgs = data.split(" ");
- x = imgs.length - 1;
+var imgs = new Array();
+
+$.post("skins/new/includes/getFiles.php?path=" + path, function(data){ // Get the list of files
+ imgs = data.split(" "); // Push the list into the array
+ x = imgs.length - 1; // Get the length of the array
+ y = 0; // Loaded image counter
+ for (img in imgs){ // For each image in the array
+  $.preLoadImages(imgs[img], function(){ // Preload the image, then,
+   y++;
+   var percent = (y / x);
+   var result = Math.round(percent*100);
+   $("#progress").html("Loading... " + result + "%");
+  });
+ };
  for (var i=0;i<x;i++){
   $(".ad-image").append('<img class="eventImageHide" id="img_' + (i+1) + '" src="' + imgs[i] + '"/>');
  }
+
  // Play the Event //
+ 
 $("#btnPlay").click(function(){
  start = setInterval(function(){changeClass()}, 200);
  $("#btnPause").css("border", "1px solid #C5DBEC");
