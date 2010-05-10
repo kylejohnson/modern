@@ -36,6 +36,9 @@ $(document).ready(function(){
     afterImageVisible: function() {
 var context = this;
 var src = $('#img_0').attr('src');
+var width = $('#img_0').css('width');
+var height = $('#img_0').css('height');
+var style = 'style="width:' + width + '; height:' + height + ';"';
 var pos = src.lastIndexOf('/');
 var path = src.substr(0,pos+1); // This is the path to the event image directory
 var imgs = new Array();
@@ -57,7 +60,7 @@ $.post("skins/new/includes/getFiles.php?path=" + path, function(data){ // Get th
   });
  };
  for (var i=0;i<x;i++){
-  $(".ad-image").append('<img class="eventImageHide" id="img_' + (i+1) + '" src="' + imgs[i] + '"/>');
+  $(".ad-image").append('<img class="eventImageHide" id="img_' + (i+1) + '" src="' + imgs[i] + '" style="width:'+width+'; height:'+height+';"/>');
  }
 
  // Play the Event //
