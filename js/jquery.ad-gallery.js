@@ -280,34 +280,6 @@
           link.addClass('ad-thumb'+ i);
           link.click(
             function() {
-var src = $(this).attr('href');
-var pos = src.lastIndexOf('/');
-var path = src.substr(0,pos+1); // This is the path to the event image directory
-$.post("skins/new/includes/getFiles.php?path=" + path, function(data){
- var imgs = new Array();
- imgs = data.split(" ");
- x = imgs.length - 1;
- for (var i=0;i<x;i++){
-  $(".ad-image").append('<img class="eventImageHide" id="img_' + (i+1) + '" src="' + imgs[i] + '"/>');
- }
- // Play the Event //
-$("#btnPlay").click(function(){
- start = setInterval(function(){changeClass()}, 200);
- $("#btnPause").css("border", "1px solid #C5DBEC");
- $(this).css('border', "1px solid red");
-});
-i=0;
-
-function changeClass() {
- if (i<x){
-  $("#img_" + (i - 1)).attr("class", "eventImageHide");
-  $("#img_" + i).attr("class", "eventImage");
-  i++;
- }
-};
- // Play the Event //
-});
-
               context.showImage(i);
               context.slideshow.stop();
               return false;
