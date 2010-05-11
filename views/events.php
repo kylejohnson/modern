@@ -42,6 +42,7 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
          <input type="submit" value="Play" id="btnPlay" disabled="disabled"></input>
          <input type="submit" value="Pause" id="btnPause"></input>
 	 <input type="submit" value="Delete" id="btnDelete"></input>
+	 <input type="submit" value="Stills" id="btnStills"></input>
 	 <span id="export"><input type="submit" value="Export" id="btnExport"></input></span>
 	</div>
        </div>
