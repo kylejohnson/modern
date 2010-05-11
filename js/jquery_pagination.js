@@ -32,6 +32,7 @@ $(document).ready(function(){
  });
 
   var galleries = $('.ad-gallery').adGallery({
+   slideshow: {enable: false},
    callbacks: {
     afterImageVisible: function() {
 var context = this;
