@@ -524,6 +524,7 @@
         img.attr('width', size.width);
         img.attr('height', size.height);
 	img.attr('id', 'img_0');
+	img.attr('rel', 'event');
         img_container.css({width: size.width +'px', height: size.height +'px'});
         this._centerImage(img_container, size.width, size.height);
         var desc = this._getDescription(image, img_container);

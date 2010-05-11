@@ -61,7 +61,7 @@ $.post("skins/new/includes/getFiles.php?path=" + path, function(data){ // Get th
   });
  };
  for (var i=0;i<x;i++){
-  $(".ad-image").append('<img class="eventImageHide" id="img_' + (i+1) + '" src="' + imgs[i] + '" style="width:'+width+'; height:'+height+';"/>');
+  $(".ad-image").append('<img rel="event" class="eventImageHide" id="img_' + (i+1) + '" src="' + imgs[i] + '" style="width:'+width+'; height:'+height+';"/>');
  }
 
  // Play the Event //
