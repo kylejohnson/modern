@@ -1,6 +1,6 @@
 #gallery{
  background-color:#EEEEEE;
- padding:30px;
+ padding:5px 30px;
 }
 .ad-gallery {
 }
@@ -89,7 +89,7 @@
           display: block;
         }
   .ad-gallery .ad-controls {
-    height: 20px;
+    height: 40px;
   }
     .ad-gallery .ad-info {
       float: left;
