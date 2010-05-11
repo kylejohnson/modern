@@ -25,4 +25,6 @@ $("#btnPause").click(function(){
  $(this).css('border', "1px solid red");
 });
 
+$("#btnStills").button();
+
 });
