@@ -103,7 +103,7 @@ $fullpath = "events/$mid/$eid/";
  if ($thumbData = createListThumbnail($event)) {
 ?>
 <li>
- <a rel="event" href="<?= $fullpath ?>001-capture.jpg">
+ <a href="<?= $fullpath ?>001-capture.jpg">
   <img title="Event <?= $event['Id'] ?>" longdesc="Duration: <?= $event['Length'] ?>  -  Time: <?=$event['StartTime'] ?>" src="<?= $thumbData['Path'] ?>" width="<?= $thumbData['Width'] ?>" height="<?= $thumbData['Height'] ?>" alt="<?= $thumbData['FrameId'].'/'.$event['MaxScore'] ?>" />
  </a>
 </li>
