@@ -227,7 +227,7 @@
     setupElements: function() {
       this.controls = this.wrapper.find('.ad-controls');
       this.gallery_info = $('<p class="ad-info"></p>');
-      this.controls.append(this.gallery_info);
+//      this.controls.append(this.gallery_info);
       this.image_wrapper = this.wrapper.find('.ad-image-wrapper');
       this.image_wrapper.empty();
       this.nav = this.wrapper.find('.ad-nav');
@@ -426,7 +426,7 @@
       );
     },
     _afterShow: function() {
-      this.gallery_info.html((this.current_index + 1) +' / '+ this.images.length);
+      //this.gallery_info.html((this.current_index + 1) +' / '+ this.images.length);
       if(!this.settings.cycle) {
         // Needed for IE
         this.prev_link.show().css('height', this.image_wrapper_height);
