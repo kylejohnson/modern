@@ -36,7 +36,7 @@ $(document).ready(function(){
    callbacks: {
     afterImageVisible: function() {
 var context = this;
-var src = $('#img_0').attr('src');
+src = $('#img_0').attr('src');
 var width = $('#img_0').css('width');
 var height = $('#img_0').css('height');
 var style = 'style="width:' + width + '; height:' + height + ';"';
@@ -46,10 +46,10 @@ var imgs = new Array();
 
 $.post("skins/new/includes/getFiles.php?path=" + path, function(data){ // Get the list of files
  imgs = data.split(" "); // Push the list into the array
- x = imgs.length - 1; // Get the length of the array
- y = 0; // Loaded image counter
- for (img in imgs){ // For each image in the array
-  $.preLoadImages(imgs[img], function(){ // Preload the image, then,
+ x = imgs.length -1; // Number of images
+ y = 1; // Loaded image counter
+ for (var i=1;i<x;i++){
+  $.preLoadImages(imgs[i], function(){ // Preload the image, then,
    y++;
    var percent = (y / x);
    var result = Math.round(percent*100);
@@ -59,10 +59,8 @@ $.post("skins/new/includes/getFiles.php?path=" + path, function(data){ // Get th
     $("#btnPlay").removeClass('ui-button-disabled ui-state-disabled');
    };
   });
+  $(".ad-image").append('<a rel="event" href="'+imgs[i]+'"><img class="eventImageHide" id="img_' + i + '" src="' + imgs[i] + '" style="width:'+width+'; height:'+height+';"/></a>');
  };
- for (var i=0;i<x;i++){
-  $(".ad-image").append('<img rel="event" class="eventImageHide" id="img_' + (i+1) + '" src="' + imgs[i] + '" style="width:'+width+'; height:'+height+';"/>');
- }
 
  // Play the Event //
  
