@@ -36,15 +36,12 @@ $(document).ready(function(){
    callbacks: {
     afterImageVisible: function() {
 var context = this;
-src = $('#img_0').attr('src');
-var wtf = src.split('/'); 
-eid = wtf[2];
-mid = wtf[1];
+var src = $('#img_0').attr('src');
 var width = $('#img_0').css('width');
 var height = $('#img_0').css('height');
 var style = 'style="width:' + width + '; height:' + height + ';"';
 var pos = src.lastIndexOf('/');
-var path = src.substr(0,pos+1); // This is the path to the event image directory
+path = src.substr(0,pos+1); // This is the path to the event image directory
 var imgs = new Array();
 
 $.post("skins/new/includes/getFiles.php?path=" + path, function(data){ // Get the list of files
@@ -82,7 +79,7 @@ function changeClass() {
  }
 };
  // Play the Event //
- $("#btnStills").colorbox({href:'skins/new/views/stills.php?eid='+eid+'&mid='+mid});
+ $("#btnStills").colorbox({iframe:true, width:'640px', height:'480px', href:'skins/new/views/stills.php?path='+path});
 });
 
      
