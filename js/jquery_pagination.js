@@ -79,7 +79,7 @@ function changeClass() {
  }
 };
  // Play the Event //
- $("#btnStills").colorbox({iframe:true, width:'640px', height:'480px', href:'skins/new/views/stills.php?path='+path});
+ $("#btnStills").colorbox({iframe:true, width:'75%', height:'75%', href:'skins/new/views/stills.php?path='+path});
 });
 
      
