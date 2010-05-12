@@ -39,6 +39,7 @@ var context = this;
 src = $('#img_0').attr('src');
 var wtf = src.split('/'); 
 eid = wtf[2];
+mid = wtf[1];
 var width = $('#img_0').css('width');
 var height = $('#img_0').css('height');
 var style = 'style="width:' + width + '; height:' + height + ';"';
@@ -81,7 +82,7 @@ function changeClass() {
  }
 };
  // Play the Event //
- $("#btnStills").colorbox({href:'skins/new/views/stills.php?eid='+eid});
+ $("#btnStills").colorbox({href:'skins/new/views/stills.php?eid='+eid+'&mid='+mid});
 });
 
      
