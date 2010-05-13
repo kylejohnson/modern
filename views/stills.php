@@ -17,31 +17,16 @@
     imgs = data.split(" ");
     var x = imgs.length;
     for (var i=0;i<x;i++){
-     $(".ad-thumb-list").append('<li><a href="/'+imgs[i]+'">'+'<img src="/'+imgs[i]+'"/>'+'</a></li>');
+     $("#stills").append('<li><a href="/'+imgs[i]+'">'+'<img src="/'+imgs[i]+'"/>'+'</a></li>');
     };
-    $(".ad-thumb-list img").attr('width', '250');
-    build_gallery();
+    $("#stills img").attr('width', '250');
    });
- 
-   function build_gallery(){
-
-   var galleries = $('.ad-gallery').adGallery();
-   };
   });
  </script>
 </head>
 <body>
-<div id="gallery" class="ad-gallery">
-  <div class="ad-image-wrapper">
-  </div>
-  <div class="ad-controls">
-  </div>
-  <div class="ad-nav">
-    <div class="ad-thumbs">
-      <ul class="ad-thumb-list">
-      </ul>
-    </div>
-  </div>
-</div>
+<ul id="stills">
+
+</ul>
 </body>
 </html>
