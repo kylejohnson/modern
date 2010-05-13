@@ -313,11 +313,11 @@
                                 preloaded: false, desc: desc, title: title, size: false };
         }
       );
-            context.nav.find('.ad-thumb-list').css('width', thumb_wrapper_width +'px');
       // Wait until all thumbs are loaded, and then set the width of the ul
       var inter = setInterval(
         function() {
           if(thumb_count == thumbs_loaded) {
+            context.nav.find('.ad-thumb-list').css('width', thumb_wrapper_width +'px');
             clearInterval(inter);
           };
         },
