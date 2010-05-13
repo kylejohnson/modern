@@ -589,3 +589,12 @@ display:none;
 
 .left{text-align:left;}
 .right{text-align:right;}
+
+#stills{
+list-style-type:none;
+padding:10px;
+}
+#stills li{
+ float:left;
+ margin:10px;
+}
