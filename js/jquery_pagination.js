@@ -35,6 +35,10 @@ $(document).ready(function(){
    slideshow: {enable: false},
    callbacks: {
     afterImageVisible: function() {
+    if (!$("#btnPlay").attr('disabled')) {
+     $("#btnPlay").attr('disabled', 'disabled');
+     $("#btnPlay").addClass('ui-button-disabled ui-state-disabled');
+    }
 var context = this;
 var src = $('#img_0').attr('src');
 var width = $('#img_0').css('width');
