@@ -4,8 +4,7 @@
  <title>Stills</title>
  <script type="text/javascript" src="../js/jquery-1.4.2.min.js"></script>
  <script type="text/javascript" src="../js/jquery-ui-1.8.custom.min.js"></script>
- <script type="text/javascript" src="../js/jquery.ad-gallery.js"></script>
- <link rel="stylesheet" href="../css/jquery.ad-gallery.css" type="text/css"/>
+ <link rel="stylesheet" href="../css/skin.css" type="text/css"/>
  <script type="text/javascript">
   $(function(){
    var imgs = new Array();
