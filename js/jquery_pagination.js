@@ -26,7 +26,6 @@ $("#btnPlay").click(function(){
  $("#btnPause").css("border", "1px solid #C5DBEC");
  $(this).css('border', "1px solid red");
 });
-z = 0;
 
 function changeClass() {
  if (z<x){
@@ -51,6 +50,7 @@ function changeClass() {
    slideshow: {enable: false},
    callbacks: {
     afterImageVisible: function() {
+     z = 0;
     if (!$("#btnPlay").attr('disabled')) {
      $("#btnPlay").attr('disabled', 'disabled');
      $("#btnPlay").addClass('ui-button-disabled ui-state-disabled');
