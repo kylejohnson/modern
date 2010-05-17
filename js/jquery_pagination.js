@@ -11,18 +11,34 @@ $(document).ready(function(){
   $(".spinner").fadeOut('slow');
  };
 
+ function Next_Results(){
+  Display_Load(); //Show spinner
+  var pageNum = this.id; //Set page number
+  if (!(query == "")) {
+   $(".ad-thumb-list").load("skins/new/views/pagination_data.php?page=" + pageNum + query, function () { Build_Pagination() }); //Load data to page then rebuild Build_Pagination function
+  } else {
+   $(".ad-thumb-list").load("skins/new/views/pagination_data.php?page=" + pageNum + "&filter[terms][0][attr]=MonitorName&filter[terms][0][op]==&filter[terms][0][val]=" + monitorName, function () { Build_Pagination() }); //Load data to page then rebuild Build_Pagination function
+  }
+ };
+
+$("#btnPlay").click(function(){
+ start = setInterval(function(){changeClass()}, 200);
+ $("#btnPause").css("border", "1px solid #C5DBEC");
+ $(this).css('border', "1px solid red");
+});
+z = 0;
+
+function changeClass() {
+ if (z<x){
+  $("#img_" + (z-1)).attr("class", "eventImageHide");
+  $("#img_" + z).attr("class", "eventImage");
+  z++;
+ }
+};
+
  function Build_Pagination() {
   Hide_Load();  //Hide spinner
   var monitorName = $("#inptMonitorName").attr("value"); // Get the currently selected monitor.  This is only needed for the first page load, before any filters are set.
-  $(".pagination li").click(function() { //If page is changed
-   Display_Load(); //Show spinner
-   var pageNum = this.id; //Set page number
-   if (!(query == "")) {
-    $(".ad-thumb-list").load("skins/new/views/pagination_data.php?page=" + pageNum + query, function () { Build_Pagination() }); //Load data to page then rebuild Build_Pagination function
-   } else {
-    $(".ad-thumb-list").load("skins/new/views/pagination_data.php?page=" + pageNum + "&filter[terms][0][attr]=MonitorName&filter[terms][0][op]==&filter[terms][0][val]=" + monitorName, function () { Build_Pagination() }); //Load data to page then rebuild Build_Pagination function
-   }
-  });
 
  // Auto-check the default monitor filter box
  $("#sidebarHistory input").each(function() {
@@ -66,23 +82,6 @@ $.post("skins/new/includes/getFiles.php?path=" + path, function(data){ // Get th
   $(".ad-image").append('<a rel="event" href="'+imgs[i]+'"><img class="eventImageHide" id="img_' + i + '" src="' + imgs[i] + '" style="width:'+width+'; height:'+height+';"/></a>');
  };
 
- // Play the Event //
- 
-$("#btnPlay").click(function(){
- start = setInterval(function(){changeClass()}, 200);
- $("#btnPause").css("border", "1px solid #C5DBEC");
- $(this).css('border', "1px solid red");
-});
-i=0;
-
-function changeClass() {
- if (i<x){
-  $("#img_" + (i - 1)).attr("class", "eventImageHide");
-  $("#img_" + i).attr("class", "eventImage");
-  i++;
- }
-};
- // Play the Event //
  $("#btnStills").colorbox({iframe:true, width:'75%', height:'75%', href:'skins/new/views/stills.php?path='+path});
 });
 
