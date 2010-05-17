@@ -108,12 +108,11 @@ function changeClass() {
  }); 
 
  $('#sidebarHistory li input').change(function() { //When a checkbox is checked
-  if ($(this).attr("checked") == true) {
-   monitorName = this.id;
-   Display_Load();
-   Build_Query();
-   Hide_Load();
-  }});
+  monitorName = this.id;
+  Display_Load();
+  Build_Query();
+  Hide_Load();
+ });
 
 
 
