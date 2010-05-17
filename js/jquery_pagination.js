@@ -91,10 +91,6 @@ $.post("skins/new/includes/getFiles.php?path=" + path, function(data){ // Get th
   });
  };
 
- $("#liSpecificDate").click(function() {
-  $("#filterSpecificDate").css("display", "block");
- });
-
  $("#btnSubmit").click(function() {
   Display_Load();
   Build_Query();
