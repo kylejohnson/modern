@@ -91,6 +91,7 @@ $('.ad-forward').click(function(){
  var left = $('.ad-thumbs').scrollLeft(); // How far Left I am
  if (width == (divwidth + left)){
   page = page + 1;
+  Build_Query();
   $(".ad-thumb-list").load("skins/new/views/pagination_data.php?page=" + page + query, function(data){
    $(".ad-thumb-list").append(data);
    Build_Pagination()
