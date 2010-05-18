@@ -1,4 +1,5 @@
 query = "";
+page = 1;
 $(document).ready(function(){
  url = location.search;
 
@@ -89,7 +90,11 @@ $('.ad-forward').click(function(){
  var width = $('.ad-thumb-list').width(); // Width of <ul>
  var left = $('.ad-thumbs').scrollLeft(); // How far Left I am
  if (width == (divwidth + left)){
-  // Preload next images
+  page = page + 1;
+  $(".ad-thumb-list").load("skins/new/views/pagination_data.php?page=" + page + query, function(data){
+   $(".ad-thumb-list").append(data);
+   Build_Pagination()
+  });
  };
 });
 
