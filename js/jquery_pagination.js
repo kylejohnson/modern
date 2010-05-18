@@ -109,6 +109,7 @@ $('.ad-forward').click(function(){
  $("#btnSubmit").click(function() {
   Display_Load();
   Build_Query();
+   $(".ad-thumb-list").load("skins/new/views/pagination_data.php?page=1" + query, function() { Build_Pagination()}); // Load data into .ad-thumb-list
   Hide_Load();
  });
 
@@ -121,6 +122,7 @@ $('.ad-forward').click(function(){
   monitorName = this.id;
   Display_Load();
   Build_Query();
+   $(".ad-thumb-list").load("skins/new/views/pagination_data.php?page=1" + query, function() { Build_Pagination()}); // Load data into .ad-thumb-list
   Hide_Load();
  });
 
@@ -175,7 +177,7 @@ $('.ad-forward').click(function(){
    query =  "&filter[terms][" + i + "][attr]=Id&filter[terms][" + i + "][op]=%3D&filter[terms][" + i + "][val]=" + eid;
   }
 
-   $(".ad-thumb-list").load("skins/new/views/pagination_data.php?page=1" + query, function() { Build_Pagination()}); // Load data into .ad-thumb-list
+  return(query);
 
  };
 });
