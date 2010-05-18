@@ -83,6 +83,16 @@ $.post("skins/new/includes/getFiles.php?path=" + path, function(data){ // Get th
  };
 
  $("#btnStills").colorbox({iframe:true, width:'75%', height:'75%', href:'skins/new/views/stills.php?path='+path});
+
+$('.ad-forward').click(function(){
+ var divwidth = $('.ad-thumbs').width(); // The width of the continer (how many px are shown at once)
+ var width = $('.ad-thumb-list').width(); // Width of <ul>
+ var left = $('.ad-thumbs').scrollLeft(); // How far Left I am
+ if (width == (divwidth + left)){
+  // Preload next images
+ };
+});
+
 });
 
      
@@ -108,7 +118,6 @@ $.post("skins/new/includes/getFiles.php?path=" + path, function(data){ // Get th
   Build_Query();
   Hide_Load();
  });
-
 
 
 
