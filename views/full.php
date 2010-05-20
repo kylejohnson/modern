@@ -19,6 +19,7 @@ if ( isset( $_REQUEST['scale'] ) )
     $scale = validInt($_REQUEST['scale']);
 else
     $scale = reScale( SCALE_BASE, $monitor['DefaultScale'], ZM_WEB_DEFAULT_SCALE );
+$scale = 100;
 
 $connkey = generateConnKey();
 
