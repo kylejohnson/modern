@@ -104,7 +104,10 @@ $fullpath = "events/$mid/$eid/";
 ?>
 <li>
  <a href="<?= $fullpath ?>001-capture.jpg">
-  <img title="Event <?= $event['Id'] ?>" longdesc="Duration: <?= $event['Length'] ?>  -  Time: <?=$event['StartTime'] ?>" src="<?= $thumbData['Path'] ?>" width="<?= $thumbData['Width'] ?>" height="<?= $thumbData['Height'] ?>" alt="<?= $thumbData['FrameId'].'/'.$event['MaxScore'] ?>" />
+  <img src="<?= $thumbData['Path'] ?>" width="<?= $thumbData['Width'] ?>" height="<?= $thumbData['Height'] ?>" alt="<?= $thumbData['FrameId'].'/'.$event['MaxScore'] ?>" />
+  <p><?=$event['StartTime'] ?></p>
+  <p>Event <?= $event['Id'] ?></p>
+  <p>Duration: <?= $event['Length'] ?></p>
  </a>
 </li>
 <?php
