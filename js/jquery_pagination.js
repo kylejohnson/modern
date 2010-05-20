@@ -92,10 +92,7 @@ $('.ad-forward').click(function(){
  if (width == (divwidth + left)){
   page = page + 1;
   Build_Query();
-  $(".ad-thumb-list").load("skins/new/views/pagination_data.php?page=" + page + query, function(data){
-   $(".ad-thumb-list").append(data);
-   Build_Pagination()
-  });
+  $(".ad-thumb-list").load("skins/new/views/pagination_data.php?page=" + page + query, function(){ Build_Pagination() });
  };
 });
 
