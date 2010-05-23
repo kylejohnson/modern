@@ -527,6 +527,12 @@ padding:0 10px;
  padding:2px 4px;
 }
 
+.pages {
+ margin-top:10px;
+ text-align:center;
+ font-size:115%;
+}
+
 #tblMonitors {
  width:800px;
  margin:0 auto;
@@ -598,3 +604,5 @@ padding:10px;
  float:left;
  margin:10px;
 }
+
+.bold{font-weight:bold;}
