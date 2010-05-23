@@ -102,6 +102,8 @@ $('.ad-forward').click(function(){
     }
    }
   });
+  pages = $("#inptPages").val();
+  $(".pages").html('Page <span class="bold">' + page + '</span> of <span class="bold">' + pages + '</span>'); 
  };
 
  $("#btnSubmit").click(function() {

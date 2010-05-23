@@ -94,6 +94,7 @@ foreach (dbFetchAll($eventsSql) as $event) {
 
 ?>
 <input type="hidden" id="inptMonitorName" value="<?= $event['MonitorName'] ?>"/>
+<input type="hidden" id="inptPages" value="<?= $pages ?>"/>
 <?php
 $count = 0;
 foreach ( $events as $event ){
