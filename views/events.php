@@ -92,8 +92,8 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
   <input value="Submit" type="submit" id="btnSubmit"></input>
  </div>
  
- <div class="spinner">
- </div>
+ <p class="pages"></p>
+ <div class="spinner"></div>
 
 </div>
    <?php require("footer.php"); ?>
