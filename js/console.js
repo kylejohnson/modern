@@ -1,6 +1,7 @@
   $(document).ready(function(){
    var refresh = $("#inptRefresh").val();
    refresh = (refresh * 1000);
+   $("#footer a").colorbox({iframe:true, width:'25%', height:'25%'});
    $("#monitors").load("skins/new/views/monitors.php", function() {cb() });
 
    function cb() {
