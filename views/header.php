@@ -29,7 +29,6 @@ for ( $i = 0; $i < count($monitors); $i++ )
 ?>
 
     <div id="header">
-      <div class="clear"></div>
 <?php
 if ( ZM_OPT_X10 && canView( 'Devices' ) )
 {
@@ -44,6 +43,7 @@ if ( canView( 'System' ) )
 <?php
 }
 ?>
+      <div class="clear"></div>
     </div>
  <div id="nav" class="clearfix">
      <ul>
