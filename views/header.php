@@ -29,9 +29,7 @@ for ( $i = 0; $i < count($monitors); $i++ )
 ?>
 
     <div id="header">
-      <h2 id="title"><a href="http://www.zoneminder.com" target="ZoneMinder">ZoneMinder</a> <?= $SLANG['Console'] ?> - <?= makePopupLink( '?view=state', 'zmState', 'state', $status, canEdit( 'System' ) ) ?></h2>
       <div class="clear"></div>
-      <div id="monitorSummary"><?= makePopupLink( '?view=groups', 'zmGroups', 'groups', sprintf( $CLANG['MonitorCount'], count($displayMonitors), zmVlang( $VLANG['Monitor'], count($displayMonitors) ) ).($group?' ('.$group['Name'].')':''), canView( 'System' ) ); ?></div>
 <?php
 if ( ZM_OPT_X10 && canView( 'Devices' ) )
 {
@@ -46,16 +44,6 @@ if ( canView( 'System' ) )
 <?php
 }
 ?>
-      <h3 id="loginBandwidth"><?php
-if ( ZM_OPT_USE_AUTH )
-{
-?><?= $SLANG['LoggedInAs'] ?> <?= makePopupLink( '?view=logout', 'zmLogout', 'logout', $user['Username'], (ZM_AUTH_TYPE == "builtin") ) ?>, <?= strtolower( $SLANG['ConfiguredFor'] ) ?><?php
-}
-else
-{
-?><?= $SLANG['ConfiguredFor'] ?><?php
-}
-?>&nbsp;<?= makePopupLink( '?view=bandwidth', 'zmBandwidth', 'bandwidth', $bwArray[$_COOKIE['zmBandwidth']], ($user && $user['MaxBandwidth'] != 'low' ) ) ?> <?= $SLANG['Bandwidth'] ?></h3>
     </div>
  <div id="nav" class="clearfix">
      <ul>

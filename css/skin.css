@@ -366,7 +366,7 @@ div.clear {
  border-bottom:2px solid #336699;
  clear:both;
  margin-top:4px;
- padding:4px;
+ padding:4px 8px;
  text-align:right;
 }
 
@@ -441,7 +441,7 @@ div.clear {
 
 #nav ul li{display:inline;}
 #nav ul li a{
- padding:.2em 1em;
+ padding:.5em 1em;
  background-color:#036;
  color:#fff;
  text-decoration:none;
@@ -606,3 +606,19 @@ padding:10px;
 }
 
 .bold{font-weight:bold;}
+.left{
+ float:left;
+ text-align:left;
+ width:25%;
+}
+.center{
+ float:left;
+ text-align:center;
+ margin:0 auto;
+ width:50%;
+}
+.right{
+ display:inline;
+ width:25%;
+ text-align:right;
+}
