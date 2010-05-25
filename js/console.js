@@ -2,10 +2,14 @@
    var refresh = $("#inptRefresh").val();
    refresh = (refresh * 1000);
    $("#footer a").colorbox({iframe:true, width:'25%', height:'25%'});
-   $("#monitors").load("skins/new/views/monitors.php", function() {cb() });
+   $("#monitors").load("skins/new/views/monitors.php", function(){post_load()});
 
-   function cb() {
+   function post_load() {
     $("a[rel='monitor']").colorbox({current:'{current} of {total}'});
+    width = $("#monitors li:first").width() + 20 + 10;
+    count = $("#monitors").children().size();
+    ulwidth = ((width * count) /2);
+    $("#monitors").css("width", ulwidth);
    }
 
   setInterval(function() {
