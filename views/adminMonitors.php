@@ -75,4 +75,3 @@ for ( $i = 0; $i < count($monitors); $i++ )
    </tfoot>
   </table>
  </div> 
- <?php require_once("footer.php"); ?>
