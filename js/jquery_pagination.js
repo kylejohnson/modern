@@ -48,7 +48,6 @@ function changeClass() {
  });
 
   var galleries = $('.ad-gallery').adGallery({
-   slideshow: {enable: false},
    callbacks: {
     afterImageVisible: function() {
      z = 0;
