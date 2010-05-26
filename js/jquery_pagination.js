@@ -118,13 +118,6 @@ $('.ad-forward').click(function(){
    Build_Pagination();
  }); 
 
- $('#sidebarHistory li input').change(function() { //When a checkbox is checked
-  monitorName = this.id;
-  Display_Load();
-  Build_Query();
-   $(".ad-thumb-list").load("skins/new/views/pagination_data.php?page=1" + query, function() { Build_Pagination()}); // Load data into .ad-thumb-list
-  Hide_Load();
- });
 
 
 
