@@ -55,6 +55,10 @@ function changeClass() {
      $("#btnPlay").attr('disabled', 'disabled');
      $("#btnPlay").addClass('ui-button-disabled ui-state-disabled');
     }
+    if (!$("#btnStills").attr('disabled')) {
+     $("#btnStills").attr('disabled', 'disabled');
+     $("#btnStills").addClass('ui-button-disabled ui-state-disabled');
+    }
 var context = this;
 var src = $('#img_0').attr('src');
 var width = $('#img_0').css('width');
@@ -74,9 +78,11 @@ $.post("skins/new/includes/getFiles.php?path=" + path, function(data){ // Get th
    var percent = (y / x);
    var result = Math.round(percent*100);
    $("#progress").html("Loading... " + result + "%");
-   if (x == y){ // All images are loaded; enable btnPlay
+   if (x == y){ // All images are loaded; enable btnPlay and btnStills
     $("#btnPlay").removeAttr('disabled');
     $("#btnPlay").removeClass('ui-button-disabled ui-state-disabled');
+    $("#btnStills").removeAttr('disabled');
+    $("#btnStills").removeClass('ui-button-disabled ui-state-disabled');
    };
   });
   $(".ad-image").append('<a rel="event" href="'+imgs[i]+'"><img class="eventImageHide" id="img_' + i + '" src="' + imgs[i] + '" style="width:'+width+'; height:'+height+';"/></a>');
