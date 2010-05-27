@@ -74,13 +74,13 @@ foreach( $displayMonitors as $monitor ){
 ?>
 <li id="monitor_<?php echo $monitor['Id'] ?>" style="width:<?php echo $width ?>px;">
  <div class="mon">
- <a href="/?view=events&page=1&filter[terms][0][attr]=MonitorId&filter[terms][0][op]==&filter[terms][0][val]=<?php echo $monitor['Id'] ?>" >
+ <a href="?view=events&page=1&filter[terms][0][attr]=MonitorId&filter[terms][0][op]==&filter[terms][0][val]=<?php echo $monitor['Id'] ?>" >
   <?php outputImageStill( "liveStream", $streamSrc, reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ), $monitor['Name'] ); ?>
  </a>
  </div>
  <div class="monfooter">
  <div class="spinner"></div>
  </div>
- <a rel="monitor" href="/?view=full&amp;mid=<?= $monitor['Id']; ?>" title="<?= $monitor['Name']; ?>">View Full</a>
+ <a rel="monitor" href="?view=full&amp;mid=<?= $monitor['Id']; ?>" title="<?= $monitor['Name']; ?>">View Full</a>
 </li>
 <?php } ?>

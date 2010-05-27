@@ -47,10 +47,10 @@ if ( canView( 'System' ) )
     </div>
  <div id="nav" class="clearfix">
      <ul>
-      <li><a href="/">Cameras</a></li>
-      <li><a href="/?view=events&amp;page=1">Events</a></li>
-      <li><a href="/?view=admin">Admin.</a></li>
-      <li><a href="/?view=options">Options</a></li>
-      <li><a href="/?view=system">System</a></li>
+      <li><a href="?view=console">Cameras</a></li>
+      <li><a href="?view=events&amp;page=1">Events</a></li>
+      <li><a href="?view=admin">Admin.</a></li>
+      <li><a href="?view=options">Options</a></li>
+      <li><a href="?view=system">System</a></li>
      </ul>
     </div>

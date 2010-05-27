@@ -69,7 +69,7 @@ for ( $i = 0; $i < count($monitors); $i++ )
    ?>
    </tbody>
    <tfoot>
-    <td colspan="2"><a id="addMonitor" href="/?view=monitor">Add Monitor</a></td>
+    <td colspan="2"><a id="addMonitor" href="?view=monitor">Add Monitor</a></td>
     <td colspan="2"><a id="delMonitor" href="#">Delete Monitor</a></td>
     <td class="spinner"></td>
    </tfoot>
