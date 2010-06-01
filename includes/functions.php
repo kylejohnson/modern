@@ -84,6 +84,13 @@ function xhtmlHeaders( $file, $title )
  }
 ?>
 <?php
+ if ($title == "Full") {
+?>
+<script type="text/javascript" src="skins/new/js/full.js"></script>
+<?php
+ }
+?>
+<?php
  if ($title == "Event") {
 ?>
 <script type="text/javascript" src="skins/new/js/event.js"></script>

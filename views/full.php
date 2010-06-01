@@ -42,11 +42,10 @@ $showDvrControls = ( $streamMode != 'signal' && $monitor['StreamReplayBuffer'] !
 
 noCacheHeaders();
 
-xhtmlHeaders( __FILE__, $monitor['Name']." - ".$SLANG['Feed'] );
+xhtmlHeaders( __FILE__, 'Full');
 ?>
 <body>
 <script type="text/javascript" src="skins/new/views/js/watch.js"></script>
-<script type="text/javascript" src="skins/new/js/full.js"></script>
   <div id="page">
     <div id="content">
           <div id="scaleControl"><?= $SLANG['Scale'] ?>: <?= buildSelect( "scale", $scales  ); ?></div>
