@@ -5,7 +5,14 @@
    $("#monitors").load("skins/new/views/monitors.php", function(){post_load()});
 
    function post_load() {
-    $("a[rel='monitor']").colorbox({current:'{current} of {total}'});
+    $("a[rel='monitor']").colorbox({
+     iframe:true,
+     photo:true,
+     preloading:false,
+     current:'{current} of {total}',
+     width:'85%',
+     height:'75%'
+    });
     width = $("#monitors li:first").width() + 20 + 10;
     count = $("#monitors").children().size();
     ulwidth = ((width * count) /2);
