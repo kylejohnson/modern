@@ -19,7 +19,6 @@ if ( isset( $_REQUEST['scale'] ) )
     $scale = validInt($_REQUEST['scale']);
 else
     $scale = reScale( SCALE_BASE, $monitor['DefaultScale'], ZM_WEB_DEFAULT_SCALE );
-$scale = 100;
 
 $connkey = generateConnKey();
 
@@ -47,9 +46,10 @@ xhtmlHeaders( __FILE__, $monitor['Name']." - ".$SLANG['Feed'] );
 ?>
 <body>
 <script type="text/javascript" src="skins/new/views/js/watch.js"></script>
+<script type="text/javascript" src="skins/new/js/full.js"></script>
   <div id="page">
     <div id="content">
-          <div id="scaleControl"><?= $SLANG['Scale'] ?>: <?= buildSelect( "scale", $scales, "changeScale( this );" ); ?></div>
+          <div id="scaleControl"><?= $SLANG['Scale'] ?>: <?= buildSelect( "scale", $scales  ); ?></div>
       <div id="imageFeed">
 <?php
 if ( $streamMode === "mpeg" )
