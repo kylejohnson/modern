@@ -39,9 +39,11 @@ $(document).ready(function(){
      z = 0;
 var context = this;
 var src = $('#img_0').attr('src');
-var width = $('#img_0').css('width');
-var height = $('#img_0').css('height');
-var style = 'style="width:' + width + '; height:' + height + ';"';
+var height = document.img_0.naturalHeight + "px";
+var width = document.img_0.naturalWidth + "px";
+$(".ad-image-wrapper").css("height", height);
+$(".ad-image").css("height", height);
+$(".ad-image").css("width", width);
 var pos = src.lastIndexOf('/');
 path = src.substr(0,pos+1); // This is the path to the event image directory
 var eid = src.split('/');
