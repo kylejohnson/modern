@@ -11,10 +11,10 @@ if ($action == "video"){
 
 function createVideo2( $event, $p )
 {
-    $command = ZM_PATH_BIN."/zmvideo.pl -e ".$event." -f avi";
+    $command = ZM_PATH_BIN."/zmvideo.pl -e ".$event." -f ogg";
     $result = exec( escapeshellcmd( $command ), $output, $status );
  if ($status == 0) {
-  echo('<a href="' . $p . $result .'">' . $result . '</a>');
+  echo $p . $result;
  } else {
   echo $result;
  }
