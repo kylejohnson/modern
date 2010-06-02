@@ -71,7 +71,6 @@ $('.ad-forward').click(function(){
  
   pages = $("#inptPages").val();
   $(".pages").html('Page <span class="bold">' + page + '</span> of <span class="bold">' + pages + '</span>'); 
-  $(function(){ $('.ad-image img').Jcrop(); });
  };
 
  $("#btnSubmit").click(function() {
