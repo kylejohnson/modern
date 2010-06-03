@@ -49,7 +49,10 @@ path = src.substr(0,pos+1); // This is the path to the event image directory
 var eid = src.split('/');
 eid = eid[2]; // This is the event ID
 $.post("skins/new/includes/createVideo.php?eid=" + eid + "&action=video", function(data){
- $(".ad-image").html('<video src="' + path + data + '" controls></video>');
+ $(".ad-image").append('<div id="ad-video"></div>');
+ $("#ad-video").html('<video src="' + path + data + '" controls></video>');
+ $("#img_0").fadeOut("fast");
+ $("#ad-video").fadeIn("fast");
 });
 
 
