@@ -625,3 +625,7 @@ padding:10px;
 }
 
 #ad-video{display:none;}
+
+.ad-thumb-list li p{
+ font-size:115%;
+}
