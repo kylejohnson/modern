@@ -8,7 +8,7 @@ chdir(ZM_PATH_WEB);
 $start = ($page-1)*$per_page;
 
 $countSql = "select count(E.Id) as EventCount from Monitors as M inner join Events as E on (M.Id = E.MonitorId) where";
-$eventsSql = "select E.Id,E.MonitorId,M.Name As MonitorName,M.Width,M.Height,M.DefaultScale,E.StartTime,E.Length from Monitors as M inner join Events as E on (M.Id = E.MonitorId) where";
+$eventsSql = "select E.Id,E.MonitorId,M.Name As MonitorName,M.Width,M.Height,M.DefaultScale,Date(E.StartTime) as Date, Time(E.StartTime) as Time,E.Length from Monitors as M inner join Events as E on (M.Id = E.MonitorId) where";
 if ( $user['MonitorIds'] )
 {
 $countSql .= " M.Id in (".join( ",", preg_split( '/["\'\s]*,["\'\s]*/', $user['MonitorIds'] ) ).")";
@@ -106,8 +106,9 @@ $fullpath = "events/$mid/$eid/";
 <li>
  <a href="<?= $fullpath ?>001-capture.jpg">
   <img src="<?= $thumbData['Path'] ?>" width="<?= $thumbData['Width'] ?>" height="<?= $thumbData['Height'] ?>" alt="<?= $thumbData['FrameId'].'/'.$event['MaxScore'] ?>" />
-  <p><?=$event['StartTime'] ?></p>
-  <p>Event <?= $event['Id'] ?></p>
+  <p>Date: <?=$event['Date'] ?></p>
+  <p>Time: <?=$event['Time'] ?></p>
+  <p>Event: <?= $event['Id'] ?></p>
   <p>Duration: <?= $event['Length'] ?></p>
  </a>
 </li>
