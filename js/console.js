@@ -13,10 +13,6 @@
      width:'85%',
      height:'75%'
     });
-    width = $("#monitors li:first").width() + 20 + 10;
-    count = $("#monitors").children().size();
-    ulwidth = ((width * count) /2);
-    $("#monitors").css("width", ulwidth);
    }
 
   setInterval(function() {
