@@ -36,12 +36,6 @@ if ( ZM_OPT_X10 && canView( 'Devices' ) )
       <div id="devices"><?= makePopupLink( '?view=devices', 'zmDevices', 'devices', $SLANG['Devices'] ) ?></div>
 <?php
 }
-if ( canView( 'System' ) )
-{
-?>
-      <div id="options"><?= makePopupLink( '?view=options', 'zmOptions', 'options', $SLANG['Options'] ) ?></div>
-<?php
-}
 ?>
       <div class="clear"></div>
     </div>
