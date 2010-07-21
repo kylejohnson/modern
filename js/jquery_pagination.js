@@ -46,7 +46,7 @@ $(".ad-image").css("height", height);
 $(".ad-image").css("width", width);
 var pos = src.lastIndexOf('/');
 path = src.substr(0,pos+1); // This is the path to the event image directory
-var eid = src.split('/');
+eid = src.split('/');
 eid = eid[2]; // This is the event ID
 $.post("skins/new/includes/createVideo.php?eid=" + eid + "&action=video", function(data){
  $(".ad-image").append('<div id="ad-video"></div>');
@@ -83,6 +83,13 @@ $('.ad-forward').click(function(){
   Build_Query();
    $(".ad-thumb-list").load("skins/new/views/pagination_data.php?page=1" + query, function() { Build_Pagination()}); // Load data into .ad-thumb-list
   Hide_Load();
+ });
+
+ $("#btnDelete").click(function() {
+  var answer = confirm("Delete this event?")
+  if (answer){
+   $.post("skins/new/includes/deleteEvent.php?eid=" + eid + "&action=delete");
+  }
  });
 
  Display_Load(); //First thing that happens - display spinner
