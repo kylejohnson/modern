@@ -73,6 +73,9 @@ foreach( $displayMonitors as $monitor ){
  $width = ($monitor['Width'] * ('.' . $scale) + 20);
 ?>
 <li id="monitor_<?php echo $monitor['Id'] ?>" style="width:<?php echo $width ?>px;">
+ <div class="mon_header">
+  <h3><?php echo $monitor['Name'] ?></h3>
+ </div>
  <div class="mon">
  <a href="?view=events&page=1&filter[terms][0][attr]=MonitorId&filter[terms][0][op]==&filter[terms][0][val]=<?php echo $monitor['Id'] ?>" >
   <?php outputImageStill( "liveStream", $streamSrc, reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ), $monitor['Name'] ); ?>
