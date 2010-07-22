@@ -4,6 +4,7 @@
    $("#footer a").colorbox({iframe:true, width:'25%', height:'25%'});
    $("#monitors").load("skins/new/views/monitors.php", function(){post_load()});
    $("#tabs").tabs();
+   
 
    function post_load() {
     $("a[rel='monitor']").colorbox({
@@ -13,6 +14,10 @@
      current:'{current} of {total}',
      width:'85%',
      height:'75%'
+    });
+    
+    $(".minimize").click(function() {
+     $(this).parent().parent().find('.mon').toggle('blind');
     });
    }
 
