@@ -552,6 +552,8 @@ padding:0 10px;
 .mon_header{
  border-bottom:1px solid #000;
  margin-bottom:5px;
+ text-align:left;
+ padding-left:5px;
 }
 .monfooter{
  height:40px;
