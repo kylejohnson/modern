@@ -370,6 +370,14 @@ div.clear {
  text-align:right;
 }
 
+/* TABS */
+
+#tabs{
+ width:95%;
+ margin:0 auto;
+}
+
+/* END TABS */
 
 #monitors{
  margin:0 auto;

@@ -34,8 +34,15 @@ xhtmlHeaders( __FILE__, $SLANG['Console'] );
   <div id="page">
     <?php require_once("header.php"); ?>
     <div id="content" class="clearfix">
-<ul id="monitors">
-</ul>
+     <div id="tabs">
+      <ul>
+       <li><a href="#all">All</a></li>
+      </ul>
+     <div id="all">
+      <ul id="monitors" class="clearfix">
+      </ul>
+     </div>
+     </div>
   </div>
 <?php require_once("footer.php"); ?>
 </div>
