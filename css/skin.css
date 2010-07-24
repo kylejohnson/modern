@@ -553,13 +553,18 @@ padding:0 10px;
  border-bottom:1px solid #000;
  margin-bottom:5px;
  text-align:left;
- padding-left:5px;
+ padding:0 5px 5px 5px;
 }
-.monfooter{
- height:40px;
- display:block;
+.mon_header .right{
+ text-align:right;
+ float:right;
 }
-.monfooter .spinner{text-align:left;}
+.mon_header .spinner{
+ display:inline;
+}
+.mon_header .minimize{
+ display:inline;
+}
 
 /* Filter Sidebar */
 #sidebarHistory fieldset {

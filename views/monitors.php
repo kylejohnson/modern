@@ -75,7 +75,10 @@ foreach( $displayMonitors as $monitor ){
 <li id="monitor_<?php echo $monitor['Id'] ?>" style="width:<?php echo $width ?>px;">
  <div class="mon_header">
   <h3 style="display:inline;"><?php echo $monitor['Name'] ?></h3>
-  <p style="float:right; display:inline;" class="minimize"><img src="skins/new/graphics/minimize.png" style="width:15px;" alt="minimize" /></p>
+  <div class="right">
+   <div class="spinner"></div>
+   <div class="minimize"><img src="skins/new/graphics/minimize.png" style="width:15px;" alt="minimize" /></div>
+  </div>
  </div>
  <div class="mon">
  <a href="?view=events&page=1&filter[terms][0][attr]=MonitorId&filter[terms][0][op]==&filter[terms][0][val]=<?php echo $monitor['Id'] ?>" >
@@ -83,7 +86,6 @@ foreach( $displayMonitors as $monitor ){
  </a>
  </div>
  <div class="monfooter">
- <div class="spinner"></div>
  </div>
  <a rel="monitor" href="?view=full&amp;mid=<?= $monitor['Id']; ?>&amp;scale=<?= $scale ?>" title="<?= $monitor['Name']; ?>">View Full</a>
 </li>

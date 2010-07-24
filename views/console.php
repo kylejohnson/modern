@@ -37,6 +37,7 @@ xhtmlHeaders( __FILE__, $SLANG['Console'] );
      <div id="tabs">
       <ul>
        <li><a href="#all">All</a></li>
+       <li><a href="#" id="add_tab">+</a></li>
       </ul>
      <div id="all">
       <ul id="monitors" class="clearfix">

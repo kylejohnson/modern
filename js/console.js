@@ -4,6 +4,9 @@
    $("#footer a").colorbox({iframe:true, width:'25%', height:'25%'});
    $("#monitors").load("skins/new/views/monitors.php", function(){post_load()});
    $("#tabs").tabs();
+
+   $("#add_tab").click(function() {
+   });
    
 
    function post_load() {
@@ -24,7 +27,7 @@
   setInterval(function() {
    $("#monitors li").each(function() {
    var _this = $(this);
-   $(".spinner",_this).html("<img src='skins/new/graphics/spinner.gif' />");
+   $(".spinner",_this).html("<img width='15px' src='skins/new/graphics/spinner.gif' />");
    var mid = $(this).attr("id");
    mid = mid.split("_");
    $(".mon",this).load("skins/new/views/monitors.php?mid=" + mid[1] + " .mon", function () { 
