@@ -5,11 +5,9 @@ $mids		= $_REQUEST['mids'];
 $action		= $_REQUEST['action'];
 
 if ($action == "insert") {
-
  $existing = mysql_query("select Id from Groups where Name = '" . $groupName . "'");
  if (!$row = mysql_fetch_array($existing)) {
   $query = "insert into Groups (Name, MonitorIds) VALUES ('" . $groupName . "', '" . $mids ."')";
- } else {
  }
 } elseif ($action == "update") {
  $query = "update Groups set Name = '" . $groupName . "'";
