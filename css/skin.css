@@ -437,11 +437,10 @@ div.clear {
  border-bottom:2px solid #336699;
  width:100%;
  font-size:120%;
+ background-repeat:no-repeat;
 }
 
 #nav ul{
- padding-left:0;
- margin-left:0;
  background-color:#036;
  color:#fff;
  float:left;
@@ -450,7 +449,7 @@ div.clear {
 
 #nav ul li{display:inline;}
 #nav ul li a{
- padding:.5em 1em;
+ padding:1em 1em;
  background-color:#036;
  color:#fff;
  text-decoration:none;
@@ -648,3 +647,8 @@ padding:10px;
 .ad-thumb-list li p{
  font-size:115%;
 }
+
+#widget_actions li{
+ display:inline;
+ float:right;
+};

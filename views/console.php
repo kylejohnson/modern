@@ -48,10 +48,15 @@ xhtmlHeaders( __FILE__, $SLANG['Console'] );
 	</select>
         </fieldset>
      </div>
-     <div id="tabs">
+     <div id="widget_actions">
+      <ul>
+       <li><button id="add_tab">Add Tab</button></li>
+       <li><button id="add_widget">Add Widget</button></li>
+      </ul>
+     </div>
+     <div id="tabs" class="clearfix">
       <ul>
        <li><a href="#all">All</a></li>
-       <li><button id="add_tab">+</button>
       </ul>
      <div id="all">
       <ul id="monitors" class="clearfix">
