@@ -33,7 +33,7 @@
     });
     
     $(".minimize").click(function() {
-     $(this).parent().parent().find('.mon').toggle('blind');
+     $(this).parent().parent().parent().find('.mon').toggle('blind');
     });
 
     var $tab_title_input = $('#tab_title'), $tab_content_input = $('#tab_content');
