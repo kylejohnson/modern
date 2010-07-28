@@ -32,12 +32,26 @@ xhtmlHeaders( __FILE__, $SLANG['Console'] );
 <body>
 <input type="hidden" id="inptRefresh" value="<?= ZM_WEB_REFRESH_MAIN ?>"></input>
   <div id="page">
-    <?php require_once("header.php"); ?>
+    <?php require("header.php");  $monitors2 = $monitors?>
     <div id="content" class="clearfix">
+     <div id="dialog" title="Tab Data">
+       <fieldset class="ui-helper-reset">
+        <label for="tab_title">Title:</label> <input type="text" name="tab_title" id="tab_title" value="" class="ui-widget-content ui-corner-all" />
+	<br />
+	<label for="selMonitors">Monitors:</label>
+	<select id="selMonitors" multiple>
+<?php
+ foreach($monitors2 as $monitor){
+  echo "<option value=\"$monitor[Id]\">$monitor[Name]</option>";
+ }
+?>
+	</select>
+        </fieldset>
+     </div>
      <div id="tabs">
       <ul>
        <li><a href="#all">All</a></li>
-       <li><a href="#" id="add_tab">+</a></li>
+       <li><button id="add_tab">+</button>
       </ul>
      <div id="all">
       <ul id="monitors" class="clearfix">
