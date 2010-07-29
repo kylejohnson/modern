@@ -4,61 +4,42 @@ require_once("../includes/config.php");
 require_once("../../../includes/database.php");
 require_once("../../../includes/functions.php");
 $mid = $_REQUEST['mid'];
+$mids = $_REQUEST['mids'];
 $bandwidth = $_COOKIE['zmBandwidth'];
-if ( isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == 'on' )
-{
-    $protocol = 'https';
-}
-else
-{
-    $protocol = 'http';
+if ( isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == 'on' ){
+ $protocol = 'https';
+} else {
+ $protocol = 'http';
 }
 define( "ZM_BASE_URL", $protocol.'://'.$_SERVER['HTTP_HOST'] );
 
 if ($mid) {
  $monitors = dbFetchAll( "select Id, Name, Width, Height from Monitors where Id = " . $mid . " order by Sequence asc" );
+ foreach( $monitors as $monitor ){
+  displayMonitor($monitor);
+ }
+} elseif ($mids){
+ $mids = explode(",", $mids);
+ foreach ($mids as $mid){
+  $query = "select Id, Name, Width, Height from Monitors where Id = " . $mid . " order by Sequence asc";
+  foreach(dbFetchAll($query) as $monitor){
+   displayMonitor($monitor);
+  }
+ }
 } else {
  $monitors = dbFetchAll( "select Id, Name, Width, Height from Monitors order by Sequence asc" );
-}
-$displayMonitors = array();
-for ( $i = 0; $i < count($monitors); $i++ )
-{
-    if ( !visibleMonitor( $monitors[$i]['Id'] ) )
-    {
-        continue;
-    }
-    if ( $group && !empty($groupIds) && !array_key_exists( $monitors[$i]['Id'], $groupIds ) )
-    {
-        continue;
-    }
-    $monitors[$i]['zmc'] = zmcStatus( $monitors[$i] );
-    $monitors[$i]['zma'] = zmaStatus( $monitors[$i] );
-    $displayMonitors[] = $monitors[$i];
+ foreach( $monitors as $monitor ){
+  displayMonitor($monitor);
+ }
 }
 
-if (!defined(ZM_WEB_DEFAULT_SCALE)) {
- $scale = 40;
-} else {
- $scale = ZM_WEB_DEFAULT_SCALE;
-}
-foreach( $displayMonitors as $monitor ){
-    if ( !$monitor['zmc'] )
-        $dclass = "errorText";
-    else
-    {
-        if ( !$monitor['zma'] )
-            $dclass = "warnText";
-        else
-            $dclass = "infoText";
-    }
-    if ( $monitor['Function'] == 'None' )
-        $fclass = "errorText";
-    elseif ( $monitor['Function'] == 'Monitor' )
-        $fclass = "warnText";
-    else
-        $fclass = "infoText";
-    if ( !$monitor['Enabled'] )
-        $fclass .= " disabledText";
+
+function displayMonitor($monitor){
+ if (!defined(ZM_WEB_DEFAULT_SCALE)) {
+  $scale = 40;
+ } else {
+  $scale = ZM_WEB_DEFAULT_SCALE;
+ }
  if (($bandwidth == 'low' || $bandwidth == "medium" || $bandwidth == "") || !($bandwidth)) {
   $streamSrc = getStreamSrc( array( "mode=single", "monitor=".$monitor['Id'], "scale=".$scale ) );
  } elseif ($bandwidth == 'high') {
