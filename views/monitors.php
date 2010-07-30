@@ -18,14 +18,20 @@ if ($mid) {
  foreach( $monitors as $monitor ){
   displayMonitor($monitor);
  }
-} elseif ($mids){
- $mids = explode(",", $mids);
- foreach ($mids as $mid){
+} elseif ($mids){ # If a list of monitors
+?>
+ <ul id="monitors" class="clearfix">
+<?php
+ $mids = explode(",", $mids); # Put them into an array
+ foreach ($mids as $mid){ # Foreach item in the array
   $query = "select Id, Name, Width, Height from Monitors where Id = " . $mid . " order by Sequence asc";
-  foreach(dbFetchAll($query) as $monitor){
-   displayMonitor($monitor);
+  foreach(dbFetchAll($query) as $monitor){ # Query the database
+   displayMonitor($monitor); # And call displayMonitor with the result
   }
  }
+?>
+ </ul>
+<?php
 } else {
  $monitors = dbFetchAll( "select Id, Name, Width, Height from Monitors order by Sequence asc" );
  foreach( $monitors as $monitor ){
