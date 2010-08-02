@@ -34,11 +34,6 @@
      $(this).parent().parent().parent().find('.mon').toggle('blind');
     });
 
-    // Load tab data
-    $("#tabs ul li a").bind("tabshow", function(event, ui){
-     var mids = $.post("skins/new/includes/updateGroups?action=select&groupName="+$(this).text());
-     alert(mids);
-    });
 
     var $tab_title_input = $('#tab_title'), $tab_content_input = $('#tab_content');
 
@@ -69,19 +64,15 @@
 
 		// actual addTab function: adds new tab using the title input from the form above
 		function addTab() {
-			tab_title = $tab_title_input.val();
-			postIt();
-		}
-
-function postIt() {
-var arysel  = [];
-$("#selMonitors :selected").each(function(i, selected) {
- arysel[i] = $(selected).val();
-});
-var mids = arysel.toString();
-$.post("skins/new/includes/updateGroups.php?groupName=" + tab_title + "&mids=" + mids + "&action=insert");
-$("#tabs").tabs('add', '#tabs-'+tab_title, tab_title);
-}
+		 tab_title = $tab_title_input.val(); // groupName
+		 var arysel  = []; // An array for the monitorIds
+		 $("#selMonitors :selected").each(function(i, selected) { // For each selected MonitorId
+		  arysel[i] = $(selected).val(); // Put it into the array
+		 });
+		 var mids = arysel.toString(); // Make a comman-separated list of the select MonitorsIds
+  		 $.post("skins/new/includes/updateGroups.php?groupName=" + tab_title + "&mids=" + mids + "&action=insert"); // Add the new Group
+                 $("#tabs").tabs('add', 'skins/new/views/monitors.php?groupName='+tab_title, tab_title); // Add the actual tab
+	        }
 
 		// addTab button: just opens the dialog
 		$('#add_tab')
