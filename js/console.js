@@ -4,12 +4,10 @@
    $("#footer a").colorbox({iframe:true, width:'25%', height:'25%'});
    $("#monitors").load("skins/new/views/monitors.php", function(){post_load()});
    $("#tabs").tabs({
-
-			tabTemplate: '<li><a href="#{href}">#{label}</a> <span class="ui-icon ui-icon-close">Remove Tab</span></li>'
-
-});
+    tabTemplate: '<li><a href="#{href}">#{label}</a> <span class="ui-icon ui-icon-close">Remove Tab</span></li>'
+   });
    $("#add_widget").button();
-   load_tabs();
+   load_tabs()
 
    function load_tabs() {
     $.post("skins/new/includes/updateGroups.php?action=select", function(data) {
@@ -17,10 +15,10 @@
      saved_tabs.pop();
      var x = saved_tabs.length;
      for (var i=0;i<x;i++){
-      $("#tabs").tabs('add', '#tabs-'+saved_tabs[i], saved_tabs[i]);
+      var name = saved_tabs[i];
+      $("#tabs").tabs('add', 'skins/new/views/monitors.php?groupName='+name, name);
      }
-    });
-   };
+    })};
 
    function post_load() {
     $("a[rel='monitor']").colorbox({
@@ -34,6 +32,12 @@
     
     $(".minimize").click(function() {
      $(this).parent().parent().parent().find('.mon').toggle('blind');
+    });
+
+    // Load tab data
+    $("#tabs ul li a").bind("tabshow", function(event, ui){
+     var mids = $.post("skins/new/includes/updateGroups?action=select&groupName="+$(this).text());
+     alert(mids);
     });
 
     var $tab_title_input = $('#tab_title'), $tab_content_input = $('#tab_content');

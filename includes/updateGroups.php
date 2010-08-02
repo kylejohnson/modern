@@ -14,7 +14,11 @@ if ($action == "insert") { # Insert a new group
 } elseif ($action == "delete") { # Delete a group
  $query = "delete from Groups where Name = '" . $groupName . "'";
 } elseif ($action == "select") { # Select all the tabs to be loaded into the Daskboard
- $query = "select Name from Groups";
+ if (!$groupName){
+  $query = "select Name from Groups";
+ } elseif ($groupName){
+  $query = "select MonitorIds from Groups where Name = '".$groupName."'";
+ }
 } else {
  die('Invalid Action!');
 }

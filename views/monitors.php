@@ -4,7 +4,7 @@ require_once("../includes/config.php");
 require_once("../../../includes/database.php");
 require_once("../../../includes/functions.php");
 $mid = $_REQUEST['mid'];
-$mids = $_REQUEST['mids'];
+$groupName = $_REQUEST['groupName'];
 $bandwidth = $_COOKIE['zmBandwidth'];
 if ( isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == 'on' ){
  $protocol = 'https';
@@ -18,17 +18,20 @@ if ($mid) {
  foreach( $monitors as $monitor ){
   displayMonitor($monitor);
  }
-} elseif ($mids){ # If a list of monitors
+} elseif ($groupName){ # If a list of monitors
 ?>
  <ul id="monitors" class="clearfix">
 <?php
- $mids = explode(",", $mids); # Put them into an array
+ $query = "select MonitorIds from Groups where Name = '".$groupName."'"; // Get all of the mids in a group
+ $result = mysql_query($query); // Get all of the mids in a group
+ $row = mysql_result($result, 0);
+  $mids = explode(",", $row); # Put them into an array
  foreach ($mids as $mid){ # Foreach item in the array
-  $query = "select Id, Name, Width, Height from Monitors where Id = " . $mid . " order by Sequence asc";
+  $query = "select Id, Name, Width, Height from Monitors where Id = ".$mid;
   foreach(dbFetchAll($query) as $monitor){ # Query the database
    displayMonitor($monitor); # And call displayMonitor with the result
-  }
  }
+}
 ?>
  </ul>
 <?php
