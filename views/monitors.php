@@ -77,6 +77,6 @@ function displayMonitor($monitor){
  </div>
  <div class="monfooter">
  </div>
- <a rel="monitor" href="?view=full&amp;mid=<?= $monitor['Id']; ?>&amp;scale=<?= $scale ?>" title="<?= $monitor['Name']; ?>">View Full</a>
+ <a rel="monitor" href="?view=watch&amp;mid=<?= $monitor['Id']; ?>" title="<?= $monitor['Name']; ?>">View Full</a>
 </li>
 <?php } ?>
