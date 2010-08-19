@@ -2,9 +2,10 @@ $(function() {
  $('#inptDateFrom').datepicker();
  $('#inptDateTo').datepicker();
  $('input:submit').button();
+ $("#btnExport").button();
+ $("#btnPause").button();
 
  // Exporting Event to Image //
-$("#btnExport").button();
 $("#btnExport").click(function() { // When btnExport is clicked
  var src = $(".ad-image img").attr('src');
  var pos = src.lastIndexOf('/');
@@ -17,12 +18,18 @@ $("#btnExport").click(function() { // When btnExport is clicked
  });
 });
  // Exporting Event to Image //
- //
-$("#btnPause").button()
+
 $("#btnPause").click(function(){
  clearInterval(start);
  $("#btnPlay").css("border", "1px solid #C5DBEC");
  $(this).css('border', "1px solid red");
+});
+
+$("#btnDelete").click(function(){
+ var src = $(".ad-image img").attr('src');
+ var eid = src.split('/');
+ eid = eid[2];
+ $.post("skins/new/includes/deleteEvent.php?eid="+eid);
 });
 
 $("#btnStills").button();
