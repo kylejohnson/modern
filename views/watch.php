@@ -162,31 +162,8 @@ if ( $showPtzControls )
       </div>
 <?php
 }
-if ( canView( 'Events' ) )
-{
-?>
-      <div id="events"<?= $control?' class="hidden"':'' ?>>
-        <table id="eventList" cellspacing="0">
-          <thead>
-            <tr>
-              <th class="colId"><?= $SLANG['Id'] ?></th>
-              <th class="colName"><?= $SLANG['Name'] ?></th>
-              <th class="colTime"><?= $SLANG['Time'] ?></th>
-              <th class="colSecs"><?= $SLANG['Secs'] ?></th>
-              <th class="colFrames"><?= $SLANG['Frames'] ?></th>
-              <th class="colScore"><?= $SLANG['Score'] ?></th>
-              <th class="colDelete">&nbsp;</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
-      </div>
-<?php
-}
 if ( ZM_WEB_SOUND_ON_ALARM )
 {
-    $soundSrc = ZM_DIR_SOUNDS.'/'.ZM_WEB_ALARM_SOUND;
 ?>
       <div id="alarmSound" class="hidden">
 <?php
@@ -201,22 +178,12 @@ if ( ZM_WEB_SOUND_ON_ALARM )
           <param name="loop" value="1"/>
           <param name=hidden value="1"/>
           <param name="showControls" value="0"/>
-          <embed src="<?= $soundSrc ?>"
-            autostart="true"
-            loop="true"
-            hidden="true">
-          </embed>
         </object>
 <?php
     }
     else
     {
 ?>
-        <embed src="<?= $soundSrc ?>"
-          autostart="true"
-          loop="true"
-          hidden="true">
-        </embed>
 <?php
     }
 ?>
