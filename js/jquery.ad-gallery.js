@@ -317,7 +317,7 @@
       var inter = setInterval(
         function() {
           if(thumb_count == thumbs_loaded) {
-            context.nav.find('.ad-thumb-list').css('width', thumb_wrapper_width +'px');
+            context.nav.find('.ad-thumb-list').css('width', (thumb_wrapper_width+100) +'px');
             clearInterval(inter);
           };
         },
