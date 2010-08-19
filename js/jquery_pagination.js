@@ -22,6 +22,20 @@ $(document).ready(function(){
   }
  };
 
+$("#btnPlay").click(function(){
+ start = setInterval(function(){changeClass()}, 200);
+ $("#btnPause").css("border", "1px solid #C5DBEC");
+ $(this).css('border', "1px solid red");
+});
+
+function changeClass() {
+ if (z<x){
+  $("#img_" + (z-1)).attr("class", "eventImageHide");
+  $("#img_" + z).attr("class", "eventImage");
+  z++;
+ }
+};
+
  function Build_Pagination() {
   Hide_Load();  //Hide spinner
   var monitorName = $("#inptMonitorName").attr("value"); // Get the currently selected monitor.  This is only needed for the first page load, before any filters are set.
@@ -37,24 +51,42 @@ $(document).ready(function(){
    callbacks: {
     afterImageVisible: function() {
      z = 0;
+    if (!$("#btnPlay").attr('disabled')) {
+     $("#btnPlay").attr('disabled', 'disabled');
+     $("#btnPlay").addClass('ui-button-disabled ui-state-disabled');
+    }
+    if (!$("#btnStills").attr('disabled')) {
+     $("#btnStills").attr('disabled', 'disabled');
+     $("#btnStills").addClass('ui-button-disabled ui-state-disabled');
+    }
 var context = this;
 var src = $('#img_0').attr('src');
-var height = document.img_0.naturalHeight + "px";
-var width = document.img_0.naturalWidth + "px";
-$(".ad-image-wrapper").css("height", height);
-$(".ad-image").css("height", height);
-$(".ad-image").css("width", width);
+var width = $('#img_0').css('width');
+var height = $('#img_0').css('height');
+var style = 'style="width:' + width + '; height:' + height + ';"';
 var pos = src.lastIndexOf('/');
 path = src.substr(0,pos+1); // This is the path to the event image directory
-eid = src.split('/');
-eid = eid[2]; // This is the event ID
-$.post("skins/new/includes/createVideo.php?eid=" + eid + "&action=video", function(data){
- $(".ad-image").append('<div id="ad-video"></div>');
- $("#ad-video").html('<video src="' + path + data + '" controls></video>');
- $("#img_0").fadeOut("fast");
- $("#ad-video").fadeIn("fast");
-});
+var imgs = new Array();
 
+$.post("skins/new/includes/getFiles.php?path=" + path, function(data){ // Get the list of files
+ imgs = data.split(" "); // Push the list into the array
+ x = imgs.length -1; // Number of images
+ y = 1; // Loaded image counter
+ for (var i=1;i<x;i++){
+  $.preLoadImages(imgs[i], function(){ // Preload the image, then,
+   y++;
+   var percent = (y / x);
+   var result = Math.round(percent*100);
+   $("#progress").html("Loading... " + result + "%");
+   if (x == y){ // All images are loaded; enable btnPlay and btnStills
+    $("#btnPlay").removeAttr('disabled');
+    $("#btnPlay").removeClass('ui-button-disabled ui-state-disabled');
+    $("#btnStills").removeAttr('disabled');
+    $("#btnStills").removeClass('ui-button-disabled ui-state-disabled');
+   };
+  });
+  $(".ad-image").append('<a rel="event" href="'+imgs[i]+'"><img class="eventImageHide" id="img_' + i + '" src="' + imgs[i] + '" style="width:'+width+'; height:'+height+';"/></a>');
+ };
 
  $("#btnStills").colorbox({iframe:true, width:'75%', height:'75%', href:'skins/new/views/stills.php?path='+path});
 
@@ -68,12 +100,13 @@ $('.ad-forward').click(function(){
   $(".ad-thumb-list").load("skins/new/views/pagination_data.php?page=" + page + query, function(){ Build_Pagination() });
  };
 });
+
+});
+
      
     }
    }
   });
- // END OF GALLERY CALLBACK //
- 
   pages = $("#inptPages").val();
   $(".pages").html('Page <span class="bold">' + page + '</span> of <span class="bold">' + pages + '</span>'); 
  };
@@ -83,13 +116,6 @@ $('.ad-forward').click(function(){
   Build_Query();
    $(".ad-thumb-list").load("skins/new/views/pagination_data.php?page=1" + query, function() { Build_Pagination()}); // Load data into .ad-thumb-list
   Hide_Load();
- });
-
- $("#btnDelete").click(function() {
-  var answer = confirm("Delete this event?")
-  if (answer){
-   $.post("skins/new/includes/deleteEvent.php?eid=" + eid + "&action=delete");
-  }
  });
 
  Display_Load(); //First thing that happens - display spinner
