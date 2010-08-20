@@ -15,7 +15,7 @@ $(function() {
    var x = monitors.length; // Number of monitors
    for (var i=0;i<x;i++){
     var monitor = monitors[i];
-    $("#tabs").tabs('add', monitor, monitor);
+    $("#tabs").tabs('add', "skins/new/includes/getEvents.php?MonitorName="+monitor, monitor);
    }
   });
  };
