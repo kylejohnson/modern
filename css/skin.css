@@ -651,4 +651,31 @@ padding:10px;
 #widget_actions li{
  display:inline;
  float:right;
-};
+}
+
+.thumb{
+ float:right;
+ width:175px;
+ height:190px;
+}
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+ 
+.clearfix {
+	display: inline-block;
+}
+ 
+html[xmlns] .clearfix {
+	display: block;
+}
+ 
+* html .clearfix {
+	height: 1%;
+}
