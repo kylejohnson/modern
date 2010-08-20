@@ -29,29 +29,12 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
   <div id="page">
    <?php require("header.php"); ?>
     <div id="content">
-     <div id="contentcolumn">
-      <div id="gallery" class="ad-gallery">
-       <div class="ad-image-wrapper">
-       </div>
-       <div class="ad-controls">
-	<div id="video-controls">
-	 <span id="progress"></span>
-	 <input type="submit" value="Play" id="btnPlay"></input>
-	 <input type="submit" value="Pause" id="btnPause"></input>
-	 <input type="submit" value="Delete" id="btnDelete"></input>
-	 <input type="submit" value="Stills" id="btnStills" disabled="disabled"></input>
-	 <span id="export"><input type="submit" value="Export" id="btnExport"></input></span>
-	</div>
-       </div>
-       <div class="ad-nav">
-        <div class="ad-thumbs">
-         <ul class="ad-thumb-list">
-         </ul>
-        </div>
-       </div>
-      </div>
-     </div>
-   </div>
+     <div id="tabs">
+      <ul id="tab_monitors">
+
+      </ul>
+     </div>  
+    </div>
 <div id="sidebarHistory">
  <h2>Search</h2>
  <fieldset>
