@@ -71,7 +71,7 @@ function displayMonitor($monitor){
   </div>
  </div>
  <div class="mon">
- <a href="?view=events&page=1&filter[terms][0][attr]=MonitorId&filter[terms][0][op]==&filter[terms][0][val]=<?php echo $monitor['Id'] ?>" >
+ <a href="?view=events&amp;tab=<?= $monitor['Name'] ?>" >
   <?php outputImageStill( "liveStream", $streamSrc, reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ), $monitor['Name'] ); ?>
  </a>
  </div>
