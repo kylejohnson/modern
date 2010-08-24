@@ -40,7 +40,8 @@ $(document).ready(function() {
   var MonitorName = $('li.ui-state-active a span').text();
   $.post("skins/new/includes/getEvents.php?MonitorName="+MonitorName+"&page="+page, function(data){
    if (data != "") {
-   }
+    var ui_tab = $("li.ui-state-active a").attr("href");
+    $(ui_tab).after(data);}
   });
   page = page + 1;
  }
