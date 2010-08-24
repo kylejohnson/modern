@@ -372,9 +372,9 @@ div.clear {
 
 /* TABS */
 
-#tabs{
- width:95%;
- margin:0 auto;
+#tabs_events{
+ float:left;
+ width:80%;
 }
 
 /* END TABS */
@@ -476,10 +476,9 @@ padding:0 10px;
 
 #sidebarHistory{
  width:190px;
- margin-left:-100%;
- float:left;
  text-align:left;
  padding:2px 4px;
+ float:right;
 }
 
 #sidebarHistory h2 {
@@ -653,10 +652,13 @@ padding:10px;
 }
 
 .thumb{
+ background-color:#EEEEEE;
+ border:2px solid #336699;
  float:left;
- padding:5px 0;
- width:250px;
- height:250px;
+ margin:5px;
+ padding:4px;
+ width:205px;
+ height:215px;
 }
 
 .clearfix:after {
