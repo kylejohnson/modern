@@ -103,15 +103,15 @@ $mid = $event['MonitorId'];
 $fullpath = "events/$mid/$eid/";
  if ($thumbData = createListThumbnail($event)) {
 ?>
-<li>
+<div id="<?= $event['Id']?>" class="thumb">
  <a href="<?= $fullpath ?>001-capture.jpg">
   <img src="<?= $thumbData['Path'] ?>" width="<?= $thumbData['Width'] ?>" height="<?= $thumbData['Height'] ?>" alt="<?= $thumbData['FrameId'].'/'.$event['MaxScore'] ?>" />
+ </a>
   <p>Date: <?=$event['Date'] ?></p>
   <p>Time: <?=$event['Time'] ?></p>
   <p>Event: <?= $event['Id'] ?></p>
   <p>Duration: <?= $event['Length'] ?></p>
- </a>
-</li>
+</div>
 <?php
  }
 }
