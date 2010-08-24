@@ -1,10 +1,19 @@
-$(function() {
- $("#tabs").tabs(); // Init tabs
-
- // Add list of monitors
+$(document).ready(function() {
+ $tabs = $("#tabs").tabs({
+  select: function(event, ui) {
+   $(".thumb").remove();
+   page = 1;
+  },
+  load: function(event, ui) {
+   console.log('colorbox');
+   $(".event").colorbox();
+  }
+ });
+ page = 1;
  add_monitors();
+ setup_is();
 
- // Load all events for selected monitor 
+ 
 
 
  //FUNCTIONS//
@@ -15,9 +24,26 @@ $(function() {
    var x = monitors.length; // Number of monitors
    for (var i=0;i<x;i++){
     var monitor = monitors[i];
-    $("#tabs").tabs('add', "skins/new/includes/getEvents.php?MonitorName="+monitor, monitor);
+    $tabs.tabs('add', "skins/new/includes/getEvents.php?MonitorName="+monitor, monitor);
    }
   });
  };
+
+ function setup_is(){
+  $(window).scroll(function(){
+   if ($(window).scrollTop() == $(document).height() - $(window).height()){
+    FetchMore();
+   }
+  });
+ }
+
+ function FetchMore(){
+  var MonitorName = $('li.ui-state-active a span').val();
+  $.post("skins/new/includes/getEvents.php?MonitorName="+MonitorName+"&page="+page, function(data){
+   if (data != "") {
+   }
+  });
+  page = page + 1;
+ }
  //FUNCTIONS//
 });
