@@ -30,7 +30,7 @@ $(document).ready(function() {
 
  function setup_is(){
   $(window).scroll(function(){
-   if ($(window).scrollTop() == $(document).height() - $(window).height()){
+   if ($(window).scrollTop() >= (($(document).height() - $(window).height())-400)){
     FetchMore();
    }
   });
