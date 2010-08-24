@@ -1,5 +1,5 @@
 $(document).ready(function() {
- $tabs = $("#tabs").tabs({
+ $tabs = $("#tabs_events").tabs({
   select: function(event, ui) {
    $(".thumb").remove();
    page = 1;
@@ -11,7 +11,6 @@ $(document).ready(function() {
  page = 1;
  add_monitors();
  setup_is();
-
  
 
 
