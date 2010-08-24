@@ -41,7 +41,7 @@ $(document).ready(function() {
   $.post("skins/new/includes/getEvents.php?MonitorName="+MonitorName+"&page="+page, function(data){
    if (data != "") {
     var ui_tab = $("li.ui-state-active a").attr("href");
-    $(ui_tab).after(data);}
+    $(ui_tab).append(data);}
   });
   page = page + 1;
  }
