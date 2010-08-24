@@ -5,8 +5,7 @@ $(document).ready(function() {
    page = 1;
   },
   load: function(event, ui) {
-   console.log('colorbox');
-   $(".event").colorbox();
+   $(".event").colorbox({width:"50%", height:"50%"});
   }
  });
  page = 1;
@@ -38,7 +37,7 @@ $(document).ready(function() {
  }
 
  function FetchMore(){
-  var MonitorName = $('li.ui-state-active a span').val();
+  var MonitorName = $('li.ui-state-active a span').text();
   $.post("skins/new/includes/getEvents.php?MonitorName="+MonitorName+"&page="+page, function(data){
    if (data != "") {
    }
