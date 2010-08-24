@@ -29,7 +29,39 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
   <div id="page">
    <?php require("header.php"); ?>
     <div id="content">
-     <div id="tabs">
+<div id="sidebarHistory">
+ <h2>Search</h2>
+ <fieldset>
+ <legend>Monitors</legend>
+ <ul id="monitors_search">
+ </ul>
+ </fieldset>
+ 
+ <fieldset>
+  <legend>Date</legend>
+  <ul id="filterSpecificDate" class="filter">
+   <li><label id="lblFrom" for="inptDateFrom">From:</label> <input type="text" id="inptDateFrom" /></li>
+   <li><label id="lblTo" for="inptDateTo">To:</label> <input type="text" id="inptDateTo" /></li>
+  </ul>
+ </fieldset>
+ <fieldset>
+  <legend>Time</legend>
+  <ul id="filterSpecificTime" class="filter">
+   <li><label id="lblTimeFrom" for="inptTimeFrom">From:</label> <input type="text" id="inptTimeFrom" /></li>
+   <li><label id="lblTimeTo" for="inptTimeTo">To:</label> <input type="text" id="inptTimeTo" /></li>
+  </ul>
+ </fieldset>
+ <fieldset>
+  <legend>Event</legend>
+  <ul class="filter">
+   <li><label id="lblEventID" for="inptEventID">Event ID:</label> <input type="text" id="inptEventID" /></li>
+  </ul>
+ </fieldset>
+ <div id="filterSubmit">
+  <input value="Submit" type="submit" id="btnSubmit"></input>
+ </div>
+</div>
+     <div id="tabs_events">
       <ul>
 
       </ul>
