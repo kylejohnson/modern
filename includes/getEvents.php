@@ -15,7 +15,7 @@ while ($event = mysql_fetch_array($result)){
  $thumbData = createListThumbnail($event);
 ?>
  <div class="thumb" style="float:left; padding:4px 0; width:175px; height:190px;" id="<?=$event['Id']?>">
-  <img src="<?= $thumbData['Path'] ?>" alt="<?= $event['Id'] ?> Thumbnail"/>
+  <a class="event" href="?view=event&amp;eid=<?= $event['Id'] ?>"><img src="<?= $thumbData['Path'] ?>" alt="<?= $event['Id'] ?> Thumbnail"/></a>
   <p>Date: <?=$event['Date'] ?></p>
   <p>Time: <?=$event['Time'] ?></p>
   <p>Event: <?= $event['Id'] ?></p>
