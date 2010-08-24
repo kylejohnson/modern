@@ -437,7 +437,7 @@ div.clear {
  border-bottom:2px solid #336699;
  width:100%;
  font-size:120%;
- background-repeat:no-repeat;
+ margin-bottom:10px;
 }
 
 #nav ul{
@@ -650,13 +650,13 @@ padding:10px;
 
 #widget_actions li{
  display:inline;
- float:right;
 }
 
 .thumb{
- float:right;
- width:175px;
- height:190px;
+ float:left;
+ padding:5px 0;
+ width:250px;
+ height:250px;
 }
 
 .clearfix:after {
