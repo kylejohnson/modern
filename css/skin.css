@@ -365,7 +365,7 @@ div.clear {
  border-top:2px solid #336699;
  border-bottom:2px solid #336699;
  clear:both;
- margin-top:4px;
+ margin-top:10px;
  padding:4px 8px;
  text-align:right;
 }
@@ -446,7 +446,6 @@ div.clear {
  color:#fff;
  float:left;
  margin-left:100px;
- width:100%;
 }
 
 #nav ul li{display:inline;}
