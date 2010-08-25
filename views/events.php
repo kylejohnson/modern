@@ -20,12 +20,13 @@
 
 
 
-$focusWindow = true;
+$tab = $_REQUEST['tab'];
 
 xhtmlHeaders(__FILE__, $SLANG['Events'] );
 
 ?>
 <body>
+<input type="hidden" value="<?=$tab?>" />
   <div id="page">
    <?php require("header.php"); ?>
     <div id="content">
