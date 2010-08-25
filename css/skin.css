@@ -434,6 +434,7 @@ div.clear {
 /* Navigation bar */
 
 #nav{
+ background-color:#036;
  border-bottom:2px solid #336699;
  width:100%;
  font-size:120%;
@@ -444,6 +445,7 @@ div.clear {
  background-color:#036;
  color:#fff;
  float:left;
+ margin-left:100px;
  width:100%;
 }
 
