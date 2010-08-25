@@ -1,6 +1,7 @@
 $(document).ready(function(){
 query = "";
 page = 1;
+fnum = 1;
 build_monitors();
 
 $("#inptDateFrom").datepicker();
@@ -78,7 +79,11 @@ function Build_Query() {
    query =  "&filter[terms][" + i + "][attr]=Id&filter[terms][" + i + "][op]=%3D&filter[terms][" + i + "][val]=" + eid;
   }
 
- $tabs = $("#tabs_events").tabs('add', "skins/new/views/pagination_data.php?page=1"+query, 'filter');
+ $tabs = $('#tabs_events').tabs({ // Auto-select new tab
+  add: function(event, ui) { $tabs.tabs('select', '#' + ui.panel.id); }
+  });
+ $tabs = $("#tabs_events").tabs('add', "skins/new/views/pagination_data.php?page=1"+query, 'Search #' + fnum); // Add the tab
+ fnum++;
 
  };
 });
