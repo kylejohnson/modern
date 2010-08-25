@@ -448,9 +448,26 @@ div.clear {
 }
 
 #nav ul li{display:inline;}
-#nav ul li a{
- padding:1em 1em;
+#nav li a#dashboard{
+ background-image:url('../graphics/dashboard.png');
+}
+#nav li a#events{
+ background-image:url('../graphics/events.png');
+}
+#nav li a#administration{
+ background-image:url('../graphics/administration.png');
+}
+#nav li a#options{
+ background-image:url('../graphics/options.png');
+}
+#nav li a#performance{
+ background-image:url('../graphics/performance.png');
+}
+#nav li a{
+ padding:20px 1em 20px 44px;
  background-color:#036;
+ background-repeat:no-repeat;
+ background-position:left center;
  color:#fff;
  text-decoration:none;
  float:left;

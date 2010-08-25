@@ -41,10 +41,10 @@ if ( ZM_OPT_X10 && canView( 'Devices' ) )
     </div>
  <div id="nav" class="clearfix">
      <ul>
-      <li><a href="?view=console">Dashboard</a></li>
-      <li><a href="?view=events">Events</a></li>
-      <li><a href="?view=admin">Admin.</a></li>
-      <li><a href="?view=options">Options</a></li>
-      <li><a href="?view=system">Performance</a></li>
+      <li><a id="dashboard" href="?view=console">Dashboard</a></li>
+      <li><a id="events" href="?view=events">Events</a></li>
+      <li><a id="administration" href="?view=admin">Admin.</a></li>
+      <li><a id="options" href="?view=options">Options</a></li>
+      <li><a id="performance" href="?view=system">Performance</a></li>
      </ul>
     </div>
