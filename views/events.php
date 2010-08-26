@@ -26,7 +26,7 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
 
 ?>
 <body>
-<input type="hidden" value="<?=$tab?>" />
+<input type="hidden" value="<?=$tab?>" id="inptTab"/>
   <div id="page">
    <?php require("header.php"); ?>
     <div id="content">
