@@ -36,11 +36,12 @@ $(document).ready(function() {
  }
 
  function FetchMore(){
-  var MonitorName = $('li.ui-state-active a span').text();
-  $.post("skins/new/includes/getEvents.php?MonitorName="+MonitorName+"&page="+page, function(data){
+  var MonitorName = $('li.ui-state-active a span').text(); // Currently selected monitor
+  $.post("skins/new/includes/getEvents.php?MonitorName="+MonitorName+"&page="+page, function(data){ // Get more events
    if (data != "") {
     var ui_tab = $("li.ui-state-active a").attr("href");
-    $(ui_tab).append(data);}
+    $(".ui-tabs-panel .clearfix").remove(); // Remove the clearfix div so events display correctly
+    $(ui_tab).append(data);} // Append next page of events
   });
   page = page + 1;
  }
