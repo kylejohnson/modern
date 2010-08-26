@@ -28,17 +28,6 @@ for ( $i = 0; $i < count($monitors); $i++ )
 
 ?>
 
-    <div id="header">
-<?php
-if ( ZM_OPT_X10 && canView( 'Devices' ) )
-{
-?>
-      <div id="devices"><?= makePopupLink( '?view=devices', 'zmDevices', 'devices', $SLANG['Devices'] ) ?></div>
-<?php
-}
-?>
-      <div class="clear"></div>
-    </div>
  <div id="nav" class="clearfix">
      <ul>
       <li><a id="dashboard" href="?view=console">Dashboard</a></li>
