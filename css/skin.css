@@ -286,10 +286,6 @@ div.clear {
  * Primary layout styles
  */
 
-#page {
-    width: 100%;
-}
-
 #header {
     background-color:#cccccc;
     border-bottom:2px solid #336699;
@@ -318,11 +314,6 @@ div.clear {
 }
 
 #content {
- float:left;
- width:100%;
-    line-height: 130%;
-    margin:0 auto;
-    text-align: center;
 }
 
 #content p {
@@ -371,10 +362,9 @@ div.clear {
 }
 
 /* TABS */
-
 #tabs_events{
- float:left;
- width:80%;
+float:right;
+width:85%;
 }
 
 /* END TABS */
@@ -492,15 +482,19 @@ padding:0 10px;
  padding:10px;
 }
 
+#sidebar{
+width:180px;
+float:left;
+}
+
 #sidebarHistory{
- width:190px;
  text-align:left;
- padding:2px 4px;
- float:right;
 }
 
 #sidebarHistory h2 {
  text-align:center;
+}
+#inptHideShow{
 }
 
 #sidebarHistory fieldset {
