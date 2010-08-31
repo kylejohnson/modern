@@ -1,4 +1,6 @@
 $(document).ready(function() {
+ tab = $("#inptTab").val();
+
  $tabs = $("#tabs_events").tabs({
   select: function(event, ui) {
    $(".thumb").remove();
@@ -6,13 +8,36 @@ $(document).ready(function() {
   },
   load: function(event, ui) {
    $(".event").colorbox({width:"50%", height:"50%"});
+  },
+  add: function(event, ui) {
+   var name = "#" + ui.panel.id;
+   if (ui.tab.firstChild.textContent == tab) {
+    $tabs.tabs('select', '#' + ui.panel.id);
+   }
   }
- });
+  });
+
  page = 1;
  add_monitors();
  setup_is();
- 
 
+
+ // PAGE STUFF //
+  $("#inptHideShow").click(function(){
+   if ($(this).attr("value") == 'Hide') {
+    $("#sidebarHistory").toggle();
+    $("#sidebar").css("width", "25px");
+    $("#tabs_events").css("width", "95%");
+    $(this).attr("value", "Show"); 
+   } else {
+    $("#sidebarHistory").toggle();
+    $("#sidebar").css("width", "180px");
+    $("#tabs_events").css("width", "85%");
+    $(this).attr("value", "Hide"); 
+   }
+  });
+ // PAGE STUFF //
+ 
 
  //FUNCTIONS//
  function add_monitors(){
