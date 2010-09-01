@@ -7,7 +7,7 @@ $(document).ready(function() {
    page = 1;
   },
   load: function(event, ui) {
-   $(".event").colorbox({width:"50%", height:"50%"});
+   $(".event").colorbox({rel:'event'});
   },
   add: function(event, ui) {
    var name = "#" + ui.panel.id;
@@ -66,7 +66,9 @@ $(document).ready(function() {
    if (data != "") {
     var ui_tab = $("li.ui-state-active a").attr("href");
     $(".ui-tabs-panel .clearfix").remove(); // Remove the clearfix div so events display correctly
-    $(ui_tab).append(data);} // Append next page of events
+    $(ui_tab).append(data); // Append next page of events
+   }
+   $(".event").colorbox({rel:'event'});
   });
   page = page + 1;
  }
