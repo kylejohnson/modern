@@ -32,7 +32,7 @@ if ( $user['MonitorIds'] )
 else
     $midSql = '';
 
-$sql = "select E.*,M.Name as MonitorName,M.Width,M.Height,M.DefaultRate,M.DefaultScale from Events as E inner join Monitors as M on E.MonitorId = M.Id where E.Id = '".dbEscape($eid)."'".$midSql;
+$sql = "select E.*,M.Name as MonitorName,M.Id as mid, M.Width,M.Height,M.DefaultRate,M.DefaultScale from Events as E inner join Monitors as M on E.MonitorId = M.Id where E.Id = '".dbEscape($eid)."'".$midSql;
 $event = dbFetchOne( $sql );
 
 if ( isset( $_REQUEST['rate'] ) )
@@ -66,108 +66,10 @@ $filterQuery = $_REQUEST['filter']['query'];
 
 $connkey = generateConnKey();
 
-$focusWindow = true;
-
-$eventMonitorSQL = "select MonitorID from Events where Id = $eid";
-$eventMonitor = dbFetchOne($eventMonitorSQL);
-$eventMonitor = $eventMonitor['MonitorID']; # Get the Monitor ID
-$cwd = getcwd(); # Get the current working directory (root path to zm install)
-$mainpath = "events/$eventMonitor/$eid/"; # Full path to image directory
-$files = scandir($cwd . "/" . $mainpath); # All of the files inside $path
-array_shift($files); # Delete first 3 entires (.., . and .file);
-array_shift($files);
-array_shift($files);
-$paths = array(); # Create the paths array
-foreach ($files as $file){ # For each file, push the path + file into paths
- if (preg_match("/capture/i", $file)) 
- {
-  $tmp = "/events/$eventMonitor/$eid/" . $file;
-  array_push($paths, $tmp); 
- }
-};
-
 xhtmlHeaders(__FILE__, $SLANG['Event'] );
 ?>
-<script type="text/javascript">
-$(function(){
-
-$("#btnExport").button();
-$("#btnExport").click(function() { // When btnExport is clicked
- $("#spinner").html('<img src="skins/new/graphics/spinner.gif" alt="spinner" />'); // Display the spinner
- $.post("skins/new/includes/createVideo.php?eid=<?= $eid ?>&action=video&path=<?= $mainpath ?>", function(data){ // Create the video file
-  $("#spinner").html(data); // Display the link to the video file (or whatever info. is returned)
- });
-});
-
-$("#btnDelete").button();
-$("#btnDelete").click(function(){
- $.post("skins/new/includes/deleteEvent.php?eid=<?= $eid ?>");
- parent.$.fn.colorbox.close();
-});
-
-
-$("#btnPlay").button()
-$("#btnPlay").click(function(){
- start = setInterval(function(){changeClass()}, 200);
- $("#btnPause").css("border", "1px solid #C5DBEC");
- $(this).css('border', "1px solid red");
-});
-
-$("#btnPause").button()
-$("#btnPause").click(function(){
- clearInterval(start);
- $("#btnPlay").css("border", "1px solid #C5DBEC");
- $(this).css('border', "1px solid red");
-});
-
-var images = new Array(); // Array containing paths to each image
-<?php
- foreach($paths as $key => $value) {
-  echo "images[$key] = \"$value\";\n"; # Fill the array
-  }
-?>
-x = images.length; // Count of images
-y = 0; // Loaded image counter
-
-for (image in images){ // For each image
- $.preLoadImages(images[image], function(){ // Preload the image, then
-  y++; // Increment the loaded image counter
-  var percent = (y / x);
-  var result = Math.round(percent*100)
-  $("#progress").html("Loading... " + result + "%"); // Display the percent of images loaded
-  if (x == y) { // If all images are loaded, make btnPlay clickable
-   $("#btnPlay").removeAttr('disabled');
-   $("#btnPlay").removeClass('ui-button-disabled ui-state-disabled');
-  };
- });
-};
-
-load_images(); // 
-
-function load_images() {
- for (image in images) {
-  if (image == 0) {
-   $("#imageFeed").append('<img src="' + images[image] + '" class="eventImage" id="img_' + image + '" />'); // First image, not hidden
-  } else {
-   $("#imageFeed").append('<img src="' + images[image] + '" class="eventImageHide" id="img_' + image + '" />'); // Rest of images, hidden
-  }
-  var link = '<a href="' + images[image] + '">' + '<img src="' + images[image] + '" class="still" id="still' + image + '" />' + '</a>';
-  $("#eventStills").append(link); // Show the stills
- }
- i = 0;
-}
-
-function changeClass() {
- if (i<x){
-  $("#img_" + (i - 1)).attr("class", "eventImageHide");
-  $("#img_" + i).attr("class", "eventImage");
-  i++;
- }
-};
-
-});
-</script>
 <body>
+ <input type="hidden" value="<?=$eid?>" id="inptEID" />
   <div id="page">
     <div id="content">
       <div id="eventStream">
@@ -177,7 +79,9 @@ function changeClass() {
           <td class="right"><span id="dataDuration" title="<?= $SLANG['Duration'] ?>"><?= $event['Length'] ?></span>s</td>
 	 </tr>
 	</table>
-        <div id="imageFeed"></div>
+        <div id="imageFeed">
+         <img src="events/<?=$event['mid']?>/<?=$eid?>/001-capture.jpg" id="img_0" alt="" />
+        </div>
        <div id="videoExport">
 	<span id="progress"></span>
         <input type="submit" value="Play" id="btnPlay" disabled="disabled"></input>
