@@ -9,10 +9,12 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
 <input type="hidden" value="<?=$tab?>" id="inptTab"/>
    <?php require("header.php"); ?>
  <div id="content">
- <div id="tabs_events">
-  <ul></ul>
-  <div></div>
- </div> <!-- tabs ends -->
+  <div id="yui-b">
+   <div id="tabs_events">
+    <ul></ul>
+    <div></div>
+   </div> <!-- tabs ends -->
+  </div>
   <div id="sidebar">
    <input type="button" value="Hide" id="inptHideShow" style="text-align:left;"/>
    <div id="sidebarHistory">

@@ -362,9 +362,16 @@ div.clear {
 }
 
 /* TABS */
+#yui-b{
+ float:right;
+ margin-left:-25em;
+ width:100%;
+}
 #tabs_events{
-float:right;
-width:85%;
+ margin-left:14.8461em;
+ float:none;
+ width:auto;
+ position: static;
 }
 
 /* END TABS */
@@ -483,8 +490,9 @@ padding:0 10px;
 }
 
 #sidebar{
-width:180px;
 float:left;
+width:13.8461em;
+position:relative;
 }
 
 #sidebarHistory{
@@ -603,7 +611,6 @@ display;block;
 }
 
 .eventImageHide{
-visibility:hidden;
 display:none;
 }
 
