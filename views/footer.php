@@ -1,6 +1,5 @@
 <div id="footer">
-      <div class="left"><a href="?view=groups"><?= count($displayMonitors) ?> Monitors</a></div>
- <div class="center">
+ <div class="left">
   <?= makePopupLink( '?view=state', 'zmState', 'state', $status, canEdit( 'System' ) ) ?> <span>-</span> 
   <?= makePopupLink( '?view=version', 'zmVersion', 'version', "v".ZM_VERSION, canEdit( 'System' ) ) ?>
  </div>
