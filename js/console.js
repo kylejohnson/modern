@@ -1,7 +1,6 @@
   $(document).ready(function(){
    var refresh = $("#inptRefresh").val();
    refresh = (refresh * 1000);
-   $("#footer a").colorbox({iframe:true, width:'25%', height:'25%'});
    $("#monitors").load("skins/new/views/monitors.php", function(){post_load()});
    $("#tabs").tabs({
     tabTemplate: '<li><a href="#{href}">#{label}</a> <span class="ui-icon ui-icon-close">Remove Tab</span></li>'
