@@ -31,7 +31,6 @@ xhtmlHeaders( __FILE__, $SLANG['Console'] );
 ?>
 <body>
 <input type="hidden" id="inptRefresh" value="<?= ZM_WEB_REFRESH_MAIN ?>"></input>
-  <div id="page">
     <?php require("header.php");  $monitors2 = $monitors?>
     <div id="content" class="clearfix">
      <div id="dialog" title="Tab Data">
@@ -65,4 +64,3 @@ xhtmlHeaders( __FILE__, $SLANG['Console'] );
      </div>
   </div>
 <?php require_once("footer.php"); ?>
-</div>

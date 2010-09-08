@@ -23,7 +23,6 @@ noCacheHeaders();
 xhtmlHeaders( __FILE__, $SLANG['System'] );
 ?>
 <body>
-  <div id="page">
    <?php require_once("header.php"); ?>
    <div id="content" class="clearfix">
     <h3 id="systemStats"><?= $SLANG['Load'] ?>: <?= getLoad() ?> / <?= $SLANG['Disk'] ?>: <?= getDiskPercent() ?>%</h3>

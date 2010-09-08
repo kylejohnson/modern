@@ -54,7 +54,6 @@ $focusWindow = true;
 xhtmlHeaders( __FILE__, $SLANG['Options'] );
 ?>
 <body>
-  <div id="page">
     <?php require("header.php"); ?>
     <div id="content">
       <ul class="tabList">
@@ -263,6 +262,5 @@ else
 ?>
     </div>
    <?php require("footer.php"); ?>
-  </div>
 </body>
 </html>
