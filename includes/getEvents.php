@@ -27,6 +27,7 @@ while ($event = mysql_fetch_array($result)){
   <p>Time: <?=$event['Time'] ?></p>
   <p>Event: <?= $event['Id'] ?></p>
   <p>Duration: <?= $event['Length'] ?></p>
+  <input type="checkbox" name="event" value="<?=$event['Id']?>" />
  </div>
 <?php
  }
