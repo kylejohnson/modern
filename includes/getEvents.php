@@ -7,10 +7,17 @@ chdir(ZM_PATH_WEB);
 $MonitorName = $_REQUEST['MonitorName'];
 $page = $_REQUEST['page'];
 $offset = ($page * 25);
+$count = $page * $offset;
 
 $query = "select E.Id,E.MonitorId,M.Name As MonitorName,M.Width,M.Height,M.DefaultScale,Date(E.StartTime) as Date, Time(E.StartTime) as Time,E.Length from Monitors as M inner join Events as E on (M.Id = E.MonitorId) where (M.Name = '$MonitorName') limit $offset,25";
  $result = mysql_query($query) or die('Error, selecting monitors failed.');
-
+ if ($page){
+?>
+ <div class="pagemark">
+  <p><?=$offset+1?> to <?=$offset+25?></p>
+ </div>
+<?php
+ }
 while ($event = mysql_fetch_array($result)){
  $thumbData = createListThumbnail($event);
 ?>

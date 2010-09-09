@@ -60,8 +60,6 @@ h4 {
 p {
     font-family: inherit;
     font-size: 100%;
-    color: #333333;
-    font-weight: normal;
 }
 
 th {
@@ -373,7 +371,11 @@ div.clear {
  width:auto;
  position: static;
 }
-
+.pagemark{
+ background-color:#FAD42E;
+ font-weight:bold;
+ padding:3px 0;
+}
 /* END TABS */
 
 #monitors{
@@ -666,7 +668,7 @@ padding:10px;
 .thumb{
  background-color:#EEEEEE;
  border:2px solid #336699;
- float:left;
+ display:inline-block;
  margin:5px;
  padding:4px;
  width:205px;
