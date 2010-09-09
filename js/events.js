@@ -54,18 +54,30 @@ $(document).ready(function() {
 
  function setup_is(){
   $(window).scroll(function(){
-   if ($(window).scrollTop() >= (($(document).height() - $(window).height())-400)){
+   if ($(window).scrollTop() >= (($(document).height() - $(window).height())-50)){
     FetchMore();
    }
   });
  }
 
+ function display_spinner(){
+  var spinner = '<img class="spinner" src="skins/new/graphics/spinner.gif" alt="Loading..." />';
+  var ui_tab = $("li.ui-state-active a").attr("href");
+  $(ui_tab).append(spinner);
+ };
+
+ function hide_spinner(){
+  $(".spinner").remove();
+ };
+
  function FetchMore(){
+  display_spinner();
   var MonitorName = $('li.ui-state-active a span').text(); // Currently selected monitor
   $.post("skins/new/includes/getEvents.php?MonitorName="+MonitorName+"&page="+page, function(data){ // Get more events
    if (data != "") {
     var ui_tab = $("li.ui-state-active a").attr("href");
     $(".ui-tabs-panel .clearfix").remove(); // Remove the clearfix div so events display correctly
+    hide_spinner();
     $(ui_tab).append(data); // Append next page of events
    }
    $(".event").colorbox({rel:'event'});
