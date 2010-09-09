@@ -82,10 +82,6 @@ a:hover {
     text-decoration: underline;
 }
 
-label {
-    margin-right: 4px;
-}
-
 input,textarea,select {
     border: 1px #7f7fb2 solid;
     font-family: inherit;
@@ -493,7 +489,7 @@ padding:0 10px;
 
 #sidebar{
 float:left;
-width:13.8461em;
+width:14.8461em;
 position:relative;
 }
 
@@ -582,6 +578,12 @@ position:relative;
 /* Filter Sidebar */
 #sidebarHistory fieldset {
  margin-bottom:10px;
+}
+#monitors_search input{
+ margin-left:5px;
+}
+#monitors_search label{
+ margin-left:5px;
 }
 .filter label {
  float:left;
