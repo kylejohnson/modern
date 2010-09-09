@@ -16,7 +16,6 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
    </div> <!-- tabs ends -->
   </div>
   <div id="sidebar">
-   <input type="button" value="Hide" id="inptHideShow" style="text-align:left;"/>
    <div id="sidebarHistory">
     <h2>Search</h2>
     <fieldset>

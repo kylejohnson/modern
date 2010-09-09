@@ -23,19 +23,6 @@ $(document).ready(function() {
 
 
  // PAGE STUFF //
-  $("#inptHideShow").click(function(){
-   if ($(this).attr("value") == 'Hide') {
-    $("#sidebarHistory").toggle();
-    $("#sidebar").css("width", "25px");
-    $("#tabs_events").css("width", "95%");
-    $(this).attr("value", "Show"); 
-   } else {
-    $("#sidebarHistory").toggle();
-    $("#sidebar").css("width", "180px");
-    $("#tabs_events").css("width", "85%");
-    $(this).attr("value", "Hide"); 
-   }
-  });
  // PAGE STUFF //
  
 
