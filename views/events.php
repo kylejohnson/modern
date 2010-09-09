@@ -48,7 +48,10 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
 
     <div id="filterSubmit">
      <input value="Submit" type="submit" id="btnSubmit"></input>
+<br />
+    <input type="submit" id="btnDelete" value="Delete" />
     </div>
+
    </div> <!-- sidebarHistory ends -->
  </div> <!-- Sidebar ends -->
 </div> <!-- Content ends -->

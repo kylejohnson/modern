@@ -23,6 +23,17 @@ $(document).ready(function() {
 
 
  // PAGE STUFF //
+ $("#btnSubmit").button();
+ $("#btnDelete").button();
+ $("#btnDelete").click(function(){
+  var answer = confirm("Are you sure you want to delete these events?");
+  if (answer){
+   $("#tabs_events input:checked").each(function (i){
+    var eid = $(this).attr("value");
+    $.post("skins/new/includes/deleteEvent.php?eid="+eid);
+   });
+  }
+ });
  // PAGE STUFF //
  
 
