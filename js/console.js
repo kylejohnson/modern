@@ -82,7 +82,7 @@
 
 		// close icon: removing the tab on click
 		// note: closable tabs gonna be an option in the future - see http://dev.jqueryui.com/ticket/3924
-		$('#tabs span.ui-icon-close').click(function() {
+		$('#tabs span.ui-icon').click(function() {
 			var index = $('li',$("#tabs")).index($(this).parent());
 			$.post("skins/new/includes/updateGroups.php?action=delete&groupName=" + $(this).parent().find('a').text());
 			$("#tabs").tabs('remove', index);
