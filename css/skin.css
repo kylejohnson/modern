@@ -39,7 +39,7 @@ h1 {
 
 h2 {
     font-family: inherit;
-    font-size: 110%;
+    font-size: 125%;
     color: #000066;
     font-weight: bold;
 }
@@ -308,6 +308,11 @@ div.clear {
 }
 
 #content {
+ padding:0 5px;
+}
+
+#content #infobar {
+ margin:5px 0;
 }
 
 #content p {

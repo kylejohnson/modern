@@ -47,14 +47,16 @@ xhtmlHeaders( __FILE__, $SLANG['Console'] );
 	</select>
         </fieldset>
      </div>
-     <div id="pagetitle" class="left">
-      <h2>Dashboard</h2>
-     </div>
-     <div id="widget_actions" class="right">
-      <ul>
-       <li><button id="add_tab">Add Tab</button></li>
-       <li><button id="add_widget">Add Widget</button></li>
-      </ul>
+     <div id="infobar">
+      <div id="pagetitle" class="left">
+       <h2>Dashboard</h2>
+      </div>
+      <div id="widget_actions" class="right">
+       <ul>
+        <li><button id="add_tab">Add Tab</button></li>
+        <li><button id="add_widget">Add Widget</button></li>
+       </ul>
+      </div>
      </div>
      <div id="tabs">
       <ul>
