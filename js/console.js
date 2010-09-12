@@ -22,11 +22,10 @@
    function post_load() {
     $("a[rel='monitor']").colorbox({
      iframe:true,
-     photo:true,
      preloading:false,
      current:'{current} of {total}',
      width:'85%',
-     height:'75%'
+     height:'95%'
     });
     
     $(".minimize").click(function() {
