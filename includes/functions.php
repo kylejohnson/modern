@@ -62,6 +62,16 @@ function xhtmlHeaders( $file, $title )
  }
 ?>
 <?php
+ if (preg_match("/Feed/", $title)) {
+?>
+  <script type="text/javascript" src="skins/new/views/js/watch.js"></script>
+  <link media="screen" type="text/css" href="skins/classic/views/css/watch.css" rel="stylesheet">
+  <script src="tools/mootools/mootools-1.2.1-core-nc.js" type="text/javascript"></script>
+  <script src="tools/mootools/mootools-1.2-more-nc.js" type="text/javascript"></script>
+<?php
+ }
+?>
+<?php
  if ($title == "Admin") {
 ?>
   <script type="text/javascript" src="skins/new/js/admin.js"></script>
