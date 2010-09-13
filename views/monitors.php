@@ -29,7 +29,7 @@ if ($mid) {
  foreach ($mids as $mid){ # Foreach item in the array
   $query = "select Id, Name, Width, Height from Monitors where Id = ".$mid;
   foreach(dbFetchAll($query) as $monitor){ # Query the database
-   displayMonitor($monitor); # And call displayMonitor with the result
+   displayMonitor($monitor, $bandwidth); # And call displayMonitor with the result
  }
 }
 ?>
@@ -38,27 +38,27 @@ if ($mid) {
 } else {
  $monitors = dbFetchAll( "select Id, Name, Width, Height from Monitors order by Sequence asc" );
  foreach( $monitors as $monitor ){
-  displayMonitor($monitor);
+  displayMonitor($monitor, $bandwidth);
  }
 }
 
 
-function displayMonitor($monitor){
+function displayMonitor($monitor, $bandwidth){
  if (!defined(ZM_WEB_DEFAULT_SCALE)) {
   $scale = 40;
  } else {
   $scale = ZM_WEB_DEFAULT_SCALE;
- }
- if (($bandwidth == 'low' || $bandwidth == "medium" || $bandwidth == "") || !($bandwidth)) {
-  $streamSrc = getStreamSrc( array( "mode=single", "monitor=".$monitor['Id'], "scale=".$scale ) );
- } elseif ($bandwidth == 'high') {
+ } if ($bandwidth == 'high') {
    if ( ZM_STREAM_METHOD == 'mpeg' && ZM_MPEG_LIVE_FORMAT ) {
     $streamMode = "mpeg";
     $streamSrc = getStreamSrc( array( "mode=".$streamMode, "monitor=".$monitor['Id'], "scale=".$scale, "bitrate=".ZM_WEB_VIDEO_BITRATE, "maxfps=".ZM_WEB_VIDEO_MAXFPS, "format=".ZM_MPEG_LIVE_FORMAT, "buffer=".$monitor['StreamReplayBuffer'] ) );
-} elseif ( canStream() ) {
+} if ( canStream() ) {
     $streamMode = "jpeg";
     $streamSrc = getStreamSrc( array( "mode=".$streamMode, "monitor=".$monitor['Id'], "scale=".$scale, "maxfps=".ZM_WEB_VIDEO_MAXFPS, "buffer=".$monitor['StreamReplayBuffer'] ) );
   }
+ }
+ if (($bandwidth == 'low' || $bandwidth == "medium" || $bandwidth == "" || !($bandwidth))) {
+  $streamSrc = getStreamSrc( array( "mode=single", "monitor=".$monitor['Id'], "scale=".$scale ) );
  }
  $width = ($monitor['Width'] * ('.' . $scale) + 20);
 ?>
@@ -72,7 +72,10 @@ function displayMonitor($monitor){
  </div>
  <div class="mon">
  <a href="?view=events&amp;tab=<?= $monitor['Name'] ?>" >
-  <?php outputImageStill( "liveStream", $streamSrc, reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ), $monitor['Name'] ); ?>
+  <?php
+   $name = $monitor['Name'] . "_live";
+   outputImageStill( "$name", $streamSrc, reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ), $monitor['Name'] ); 
+  ?>
  </a>
  </div>
  <div class="monfooter">

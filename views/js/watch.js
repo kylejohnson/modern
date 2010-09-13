@@ -7,7 +7,6 @@ function setButtonState( element, butClass )
 function showEvents()
 {
     $('ptzControls').addClass( 'hidden' );
-    $('events').removeClass( 'hidden' );
     if ( $('eventsControl') )
         $('eventsControl').addClass('hidden');
     if ( $('controlControl') )
@@ -17,7 +16,6 @@ function showEvents()
 
 function showPtzControls()
 {
-    $('events').addClass( 'hidden' );
     $('ptzControls').removeClass( 'hidden' );
     if ( $('eventsControl') )
         $('eventsControl').removeClass('hidden');
@@ -448,11 +446,7 @@ function getEventCmdResponse( respObj, respText )
     if ( respObj.result == 'Ok' )
     {
         var dbEvents = respObj.events.reverse();
-        var eventList = $('eventList');
-        var eventListBody = $(eventList).getElement( 'tbody' );
-        var eventListRows = $(eventListBody).getElements( 'tr' );
 
-        eventListRows.each( function( row ) { row.removeClass( 'updated' ); } );
 
         for ( var i = 0; i < dbEvents.length; i++ )
         {
@@ -515,21 +509,6 @@ function getEventCmdResponse( respObj, respText )
             row.addClass( 'updated' );
         }
 
-        var rows = $(eventListBody).getElements( 'tr' );
-        for ( var i = 0; i < rows.length; i++ )
-        {
-            if ( !rows[i].hasClass( 'updated' ) )
-            {
-                rows[i].destroy();
-                rows.splice( i, 1 );
-                i--;
-            }
-        }
-        while ( rows.length > maxDisplayEvents )
-        {
-            rows[rows.length-1].destroy();
-            rows.length--;
-        }
     }
 	else
 		checkStreamForErrors("getEventCmdResponse",respObj);
