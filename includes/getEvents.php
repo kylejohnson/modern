@@ -10,7 +10,9 @@ $offset = ($page * 25);
 $count = $page * $offset;
 
 $query = "select E.Id,E.MonitorId,M.Name As MonitorName,M.Width,M.Height,M.DefaultScale,Date(E.StartTime) as Date, Time(E.StartTime) as Time,E.Length from Monitors as M inner join Events as E on (M.Id = E.MonitorId) where (M.Name = '$MonitorName') limit $offset,25";
- $result = mysql_query($query) or die('Error, selecting monitors failed.');
+$result = mysql_query($query) or die('Error, selecting monitors failed.');
+$count = mysql_num_rows($result);
+if ($count > 0) {
  if ($page){
 ?>
  <div class="pagemark">
@@ -30,8 +32,9 @@ while ($event = mysql_fetch_array($result)){
   <input type="checkbox" name="event" value="<?=$event['Id']?>" />
  </div>
 <?php
- }
+}
 ?>
 <div class="clearfix"></div>
 <?php
+}
 ?>
