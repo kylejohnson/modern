@@ -75,12 +75,12 @@ $(document).ready(function() {
    if (data != "") {
     var ui_tab = $("li.ui-state-active a").attr("href");
     $(".ui-tabs-panel .clearfix").remove(); // Remove the clearfix div so events display correctly
-    hide_spinner();
     $(ui_tab).append(data); // Append next page of events
    }
    $(".event").colorbox({rel:'event'});
   });
   page = page + 1;
+  hide_spinner();
  }
  //FUNCTIONS//
 });
