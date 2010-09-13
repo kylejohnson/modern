@@ -17,7 +17,7 @@ xhtmlHeaders(__FILE__, $SLANG['Events'] );
   </div>
   <div id="sidebar">
    <div id="sidebarHistory">
-    <h2>Search</h2>
+    <h2>Events</h2>
     <fieldset>
      <legend>Monitors</legend>
      <ul id="monitors_search"></ul>
