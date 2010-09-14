@@ -607,7 +607,7 @@ position:relative;
 /* Filter Sidebar */
 
 .eventImage{
-display;block;
+display:block;
 }
 
 .eventImageHide{
