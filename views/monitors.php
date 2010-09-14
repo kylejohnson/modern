@@ -71,7 +71,7 @@ function displayMonitor($monitor, $bandwidth){
   </div>
  </div>
  <div class="mon">
- <a href="?view=events&amp;tab=<?= $monitor['Name'] ?>" >
+ <a rel="monitor" href="?view=watch&amp;mid=<?= $monitor['Id']; ?>" title="<?= $monitor['Name']; ?>">
   <?php
    $name = $monitor['Name'] . "_live";
    outputImageStill( "$name", $streamSrc, reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ), $monitor['Name'] ); 
@@ -80,6 +80,5 @@ function displayMonitor($monitor, $bandwidth){
  </div>
  <div class="monfooter">
  </div>
- <a rel="monitor" href="?view=watch&amp;mid=<?= $monitor['Id']; ?>" title="<?= $monitor['Name']; ?>">View Full</a>
 </li>
 <?php } ?>
