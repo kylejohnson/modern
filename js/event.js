@@ -21,8 +21,8 @@ $("#btnPause").click(function(){
 $("#btnExport").button();
 $("#btnExport").click(function() { // When btnExport is clicked
  $("#spinner").html('<img src="skins/new/graphics/spinner.gif" alt="spinner" />'); // Display the spinner
- $.post("skins/new/includes/createVideo.php?eid=<?= $eid ?>&action=video&path=<?= $mainpath ?>", function(data){ // Create the video file
-  $("#spinner").html(data); // Display the link to the video file (or whatever info. is returned)
+ $.post("skins/new/includes/createVideo.php?eid="+eid+"&action=video&path="+path, function(data){ // Create the video file
+  $("#spinner").html('<a href="'+path+data+'">'+data+'</a>'); // Display the link to the video file (or whatever info. is returned)
  });
 });
 
