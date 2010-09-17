@@ -68,7 +68,6 @@ xhtmlHeaders( __FILE__, $monitor['Name']." - ".$SLANG['Feed'] );
     <div id="content">
       <div id="menuBar">
         <div id="monitorName"><?= $monitor['Name'] ?></div>
-        <div id="closeControl"><a href="#" onclick="closeWindow(); return( false );"><?= $SLANG['Close'] ?></a></div>
         <div id="menuControls">
 <?php
 if ( $showPtzControls )
