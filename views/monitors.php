@@ -12,16 +12,15 @@ if ( isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == 'on' ){
  $protocol = 'http';
 }
 define( "ZM_BASE_URL", $protocol.'://'.$_SERVER['HTTP_HOST'] );
-
+?>
+ <ul id="monitors" class="clearfix">
+<?php
 if ($mid) {
  $monitors = dbFetchAll( "select Id, Name, Width, Height from Monitors where Id = " . $mid . " order by Sequence asc" );
  foreach( $monitors as $monitor ){
   displayMonitor($monitor);
  }
 } elseif ($groupName){ # If a list of monitors
-?>
- <ul id="monitors" class="clearfix">
-<?php
  $query = "select MonitorIds from Groups where Name = '".$groupName."'"; // Get all of the mids in a group
  $result = mysql_query($query); // Get all of the mids in a group
  $row = mysql_result($result, 0);
@@ -32,15 +31,15 @@ if ($mid) {
    displayMonitor($monitor, $bandwidth); # And call displayMonitor with the result
  }
 }
-?>
- </ul>
-<?php
 } else {
  $monitors = dbFetchAll( "select Id, Name, Width, Height from Monitors order by Sequence asc" );
  foreach( $monitors as $monitor ){
   displayMonitor($monitor, $bandwidth);
  }
 }
+?>
+ </ul>
+<?php
 
 
 function displayMonitor($monitor, $bandwidth){
