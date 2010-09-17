@@ -71,12 +71,11 @@ function displayMonitor($monitor, $bandwidth){
   </div>
  </div>
  <div class="mon">
- <a rel="monitor" href="?view=watch&amp;mid=<?= $monitor['Id']; ?>" title="<?= $monitor['Name']; ?>">
-  <?php
-   $name = $monitor['Name'] . "_live";
-   outputImageStill( "$name", $streamSrc, reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ), $monitor['Name'] ); 
-  ?>
- </a>
+  <a rel="monitor" href="?view=watch&amp;mid=<?= $monitor['Id']; ?>" title="<?= $monitor['Name']; ?>">
+   <?php
+    $name = $monitor['Name'] . "_live";
+    outputImageStill( "$name", $streamSrc, reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ), $monitor['Name'] );   ?>
+  </a>
  </div>
  <div class="monfooter">
  </div>
