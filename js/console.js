@@ -20,12 +20,24 @@ $(document).ready(function(){
    saved_tabs = data.split(",");
    saved_tabs.pop();
    var x = saved_tabs.length;
-   for (var i=0;i<x;i++){
+   for (var i=0;i<x;i++) {
     var name = saved_tabs[i];
     $("#tabs").tabs('add', 'skins/new/views/monitors.php?groupName='+name, name); // Add the tab
+    }
+   init_delete_tab();
    }
-  });
+  );
  };
+
+ function init_delete_tab() {
+  // close icon: removing the tab on click
+  // note: closable tabs gonna be an option in the future - see http://dev.jqueryui.com/ticket/3924
+  $('#tabs .ui-icon-close').click(function() {
+   var index = $('li',$("#tabs")).index($(this).parent());
+   $.post("skins/new/includes/updateGroups.php?action=delete&groupName=" + $(this).parent().find('a').text());
+   $("#tabs").tabs('remove', index);
+  });
+ }
 
  function add_features() {
   // This function is called whenever cameras are loaded (via the tab load event)
@@ -90,6 +102,7 @@ $(document).ready(function(){
    var mids = arysel.toString(); // Make a comman-separated list of the select MonitorsIds
    $.post("skins/new/includes/updateGroups.php?groupName=" + tab_title + "&mids=" + mids + "&action=insert"); // Add the new Group
    $("#tabs").tabs('add', 'skins/new/views/monitors.php?groupName='+tab_title, tab_title); // Add the actual tab
+   init_delete_tab();
   }
 
   // addTab button: just opens the dialog
@@ -97,13 +110,6 @@ $(document).ready(function(){
    $dialog.dialog('open');
   });
 
-  // close icon: removing the tab on click
-  // note: closable tabs gonna be an option in the future - see http://dev.jqueryui.com/ticket/3924
-  $('#tabs span.ui-icon').click(function() {
-   var index = $('li',$("#tabs")).index($(this).parent());
-   $.post("skins/new/includes/updateGroups.php?action=delete&groupName=" + $(this).parent().find('a').text());
-   $("#tabs").tabs('remove', index);
-  });
  } // END ADD_TAB_CLICK() //
 
   setInterval(function() {
