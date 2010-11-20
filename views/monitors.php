@@ -18,7 +18,7 @@ define( "ZM_BASE_URL", $protocol.'://'.$_SERVER['HTTP_HOST'] );
 if ($mid) {
  $monitors = dbFetchAll( "select Id, Name, Width, Height from Monitors where Id = " . $mid . " order by Sequence asc" );
  foreach( $monitors as $monitor ){
-  displayMonitor($monitor);
+  displayMonitor($monitor, $bandwidth);
  }
 } elseif ($groupName){ # If a list of monitors
  $query = "select MonitorIds from Groups where Name = '".$groupName."'"; // Get all of the mids in a group
