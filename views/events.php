@@ -1,7 +1,5 @@
 <?php
 
-$tab = $_REQUEST['tab'];
-
 xhtmlHeaders(__FILE__, $SLANG['Events'] );
 
 ?>
