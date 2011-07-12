@@ -54,7 +54,6 @@ xhtmlHeaders( __FILE__, $SLANG['Console'] );
       <div id="widget_actions" class="right">
        <ul>
         <li><button id="add_tab">Add Tab</button></li>
-        <li><button id="add_widget">Add Widget</button></li>
        </ul>
       </div>
      </div>
