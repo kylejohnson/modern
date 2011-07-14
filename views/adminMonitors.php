@@ -61,7 +61,7 @@ for ( $i = 0; $i < count($monitors); $i++ )
      <?php } else { ?>
       <td class="colSource">&nbsp;</td>
      <?php } ?>
-     <td class="colZones"><?= makePopupLink( '?view=zones&mid='.$monitor['Id'], 'zmZones', array( 'zones', $monitor['Width'], $monitor['Height'] ), $monitor['ZoneCount'] ) ?></td>
+     <td class="colZones"><a href="?view=zones&mid=<?= $monitor['Id'] ?>" rel="zones"><?= $monitor['ZoneCount'] ?></a></td>
      <td class="colMark"><input type="checkbox"  value="<?= $monitor['Id'] ?>"/></td>
     </tr>
    <?php

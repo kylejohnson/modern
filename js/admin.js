@@ -21,6 +21,10 @@ $(function() {
    current:'{current} of {total}',
    width:'250px',
   });
+  $("a[rel='zones']").colorbox({ // Colorbox for Zones links
+   preloading:false,
+   current:'{current} of {total}',
+  });
  }
 
 
