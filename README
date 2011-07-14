@@ -21,3 +21,5 @@ FUTURE
  * Add "netflix-like" bandwidth test to dynamically determine appropriate image streaming settings.
  * Convert to HTML5.
  * Video playback via HTML5?
+ * Add "Take Snapshot" button to event playback
+ * Implement widgets
