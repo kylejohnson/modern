@@ -49,7 +49,7 @@ for ( $i = 0; $i < count($monitors); $i++ )
    ?>
     <tr>
      <td><?= $monitor['Name']; ?></td>
-     <td class="colFunction"><?= makePopupLink( '?view=function&mid='.$monitor['Id'], 'zmFunction', 'function', '<span class="'.$fclass.'">'.$monitor['Function'].'</span>' ) ?></td>
+     <td class="colFunction"><a href="?view=function&amp;mid=<?= $monitor['Id'] ?>" rel="function"><?= $monitor['Function']?></a></td>
      <?php if ( $monitor['Type'] == "Local" ) { ?>
       <td class="colSource"><?= makePopupLink( '?view=monitor&mid='.$monitor['Id'], 'zmMonitor'.$monitor['Id'], 'monitor', '<span class="'.$dclass.'">'.$monitor['Device'].' ('.$monitor['Channel'].')</span>' ) ?></td>
      <?php } elseif ( $monitor['Type'] == "Remote" ) { ?>

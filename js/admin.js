@@ -15,5 +15,13 @@ $(function() {
    $("#content").load("skins/new/views/adminMonitors.php", function() { Load_Monitors() });
   });
  $("#addMonitor").colorbox({iframe:true, innerWidth:340, innerHeight:400});
+
+  $("a[rel='function']").colorbox({ // Colorbox for Function links
+   preloading:false,
+   current:'{current} of {total}',
+   width:'250px',
+  });
  }
+
+
 });
