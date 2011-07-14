@@ -50,7 +50,6 @@ xhtmlHeaders(__FILE__, $SLANG['Zones'] );
 <body>
   <div id="page">
     <div id="header">
-      <div id="headerButtons"><a href="#" onclick="closeWindow();"><?= $SLANG['Close'] ?></a></div>
       <h2><?= $SLANG['Zones'] ?></h2>
     </div>
     <div id="content">
