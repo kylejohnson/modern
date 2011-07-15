@@ -49,7 +49,6 @@ function xhtmlHeaders( $file, $title )
  <link type="text/css" media="screen" rel="stylesheet" href="skins/new/css/jquery/jquery-ui-1.8.custom.css"></link>
 <?php if ($title == "Console") { ?>
  <script type="text/javascript" src="skins/new/js/jquery.colorbox.js"></script>
- <script type="text/javascript" src="skins/new/js/console.colorbox.js"></script>
  <script type="text/javascript" src="skins/new/js/console.js"></script>
 <?php } ?>
 <?php
