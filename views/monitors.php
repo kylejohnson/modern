@@ -3,9 +3,9 @@ require_once("../../../includes/config.php");
 require_once("../includes/config.php");
 require_once("../../../includes/database.php");
 require_once("../../../includes/functions.php");
-$mid = $_REQUEST['mid'];
-$groupName = $_REQUEST['groupName'];
-$bandwidth = $_COOKIE['zmBandwidth'];
+$mid = isset($mid) ? $_REQUEST['mid'] : '';
+$groupName = isset($groupName) ? $_REQUEST['groupName'] : '';
+$bandwidth = isset($bandwidth) ? $_REQUEST['bandwidth'] : '';
 if ( isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == 'on' ){
  $protocol = 'https';
 } else {

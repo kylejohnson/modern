@@ -25,7 +25,7 @@ $rates = array(
     "1000" => "10x",
     "400" => "4x",
     "200" => "2x",
-    "100" => $SLANG['Real'],
+    "100" => 'Real',
     "50" => "1/2x",
     "25" => "1/4x",
 );
@@ -35,7 +35,7 @@ $scales = array(
     "300" => "3x",
     "200" => "2x",
     "150" => "1.5x",
-    "100" => $SLANG['Actual'],
+    "100" => 'Actual',
     "75" => "3/4x",
     "50" => "1/2x",
     "33" => "1/3x",
@@ -43,11 +43,12 @@ $scales = array(
 );
 
 $bwArray = array(
-    "high" => $SLANG['High'],
-    "medium" => $SLANG['Medium'],
-    "low" => $SLANG['Low']
+    "high" => 'High',
+    "medium" => 'Medium',
+    "low" => 'Low'
 );
 
+if (isset($_COOKIE['zmBandwidth'])){
 switch ( $_COOKIE['zmBandwidth'] )
 {
     case "high" :
@@ -104,6 +105,7 @@ switch ( $_COOKIE['zmBandwidth'] )
         define( "ZM_WEB_AJAX_TIMEOUT", ZM_WEB_L_AJAX_TIMEOUT );         // Timeout to use for Ajax requests, no timeout used if unset
         break;
     }
+}
 }
 
 ?>
