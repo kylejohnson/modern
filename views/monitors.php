@@ -5,7 +5,8 @@ require_once("../../../includes/database.php");
 require_once("../../../includes/functions.php");
 $mid = isset($mid) ? $_REQUEST['mid'] : '';
 $groupName = isset($groupName) ? $_REQUEST['groupName'] : '';
-$bandwidth = isset($bandwidth) ? $_REQUEST['bandwidth'] : '';
+#$bandwidth = isset($bandwidth) ? $_REQUEST['bandwidth'] : '';
+$bandwidth = $_COOKIE['zmBandwidth'];
 if ( isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == 'on' ){
  $protocol = 'https';
 } else {
@@ -47,17 +48,20 @@ function displayMonitor($monitor, $bandwidth){
   $scale = 40;
  } else {
   $scale = ZM_WEB_DEFAULT_SCALE;
- } if ($bandwidth == 'high') {
-   if ( ZM_STREAM_METHOD == 'mpeg' && ZM_MPEG_LIVE_FORMAT ) {
+ }
+ 
+ if ($bandwidth == 'high') {
+  if ( ZM_WEB_STREAM_METHOD == 'mpeg' ) {
     $streamMode = "mpeg";
     $streamSrc = getStreamSrc( array( "mode=".$streamMode, "monitor=".$monitor['Id'], "scale=".$scale, "bitrate=".ZM_WEB_VIDEO_BITRATE, "maxfps=".ZM_WEB_VIDEO_MAXFPS, "format=".ZM_MPEG_LIVE_FORMAT, "buffer=".$monitor['StreamReplayBuffer'] ) );
-} if ( canStream() ) {
-    $streamMode = "jpeg";
-    $streamSrc = getStreamSrc( array( "mode=".$streamMode, "monitor=".$monitor['Id'], "scale=".$scale, "maxfps=".ZM_WEB_VIDEO_MAXFPS, "buffer=".$monitor['StreamReplayBuffer'] ) );
+  }
+  if ( canStream() ) {
+   $streamMode = "jpeg";
+   $streamSrc = getStreamSrc( array( "mode=".$streamMode, "monitor=".$monitor['Id'], "scale=".$scale, "maxfps=".ZM_WEB_VIDEO_MAXFPS, "buffer=".$monitor['StreamReplayBuffer'] ) );
   }
  }
- if (($bandwidth == 'low' || $bandwidth == "medium" || $bandwidth == "" || !($bandwidth))) {
-  $streamSrc = getStreamSrc( array( "mode=single", "monitor=".$monitor['Id'], "scale=".$scale ) );
+  elseif (($bandwidth == 'low' || $bandwidth == "medium" || $bandwidth == "" || !($bandwidth))) {
+   $streamSrc = getStreamSrc( array( "mode=single", "monitor=".$monitor['Id'], "scale=".$scale ) );
  }
  $width = ($monitor['Width'] * ('.' . $scale) + 20);
 ?>
