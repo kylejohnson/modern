@@ -1,6 +1,6 @@
 <?php
 //
-// ZoneMinder HTML configuration file, $Date: 2008-07-25 10:48:16 +0100 (Fri, 25 Jul 2008) $, $Revision: 2612 $
+// ZoneMinder HTML configuration file, $Date: 2010-11-03 16:36:03 +0000 (Wed, 03 Nov 2010) $, $Revision: 3166 $
 // Copyright (C) 2001-2008 Philip Coombes
 //
 // This program is free software; you can redistribute it and/or
@@ -25,7 +25,7 @@ $rates = array(
     "1000" => "10x",
     "400" => "4x",
     "200" => "2x",
-    "100" => 'Real',
+    "100" => $SLANG['Real'],
     "50" => "1/2x",
     "25" => "1/4x",
 );
@@ -35,7 +35,7 @@ $scales = array(
     "300" => "3x",
     "200" => "2x",
     "150" => "1.5x",
-    "100" => 'Actual',
+    "100" => $SLANG['Actual'],
     "75" => "3/4x",
     "50" => "1/2x",
     "33" => "1/3x",
@@ -43,12 +43,11 @@ $scales = array(
 );
 
 $bwArray = array(
-    "high" => 'High',
-    "medium" => 'Medium',
-    "low" => 'Low'
+    "high" => $SLANG['High'],
+    "medium" => $SLANG['Medium'],
+    "low" => $SLANG['Low']
 );
 
-if (isset($_COOKIE['zmBandwidth'])){
 switch ( $_COOKIE['zmBandwidth'] )
 {
     case "high" :
@@ -58,12 +57,13 @@ switch ( $_COOKIE['zmBandwidth'] )
         define( "ZM_WEB_REFRESH_IMAGE", ZM_WEB_H_REFRESH_IMAGE );       // How often the watched image is refreshed (if not streaming)
         define( "ZM_WEB_REFRESH_STATUS", ZM_WEB_H_REFRESH_STATUS );     // How often the little status frame refreshes itself in the watch window
         define( "ZM_WEB_REFRESH_EVENTS", ZM_WEB_H_REFRESH_EVENTS );     // How often the event listing is refreshed in the watch window, only for recent events
+        define( "ZM_WEB_CAN_STREAM", ZM_WEB_H_CAN_STREAM );             // Override the automatic detection of browser streaming capability
+        define( "ZM_WEB_STREAM_METHOD", ZM_WEB_H_STREAM_METHOD );       // Which method should be used to send video streams to your browser
         define( "ZM_WEB_DEFAULT_SCALE", ZM_WEB_H_DEFAULT_SCALE );       // What the default scaling factor applied to 'live' or 'event' views is (%)
         define( "ZM_WEB_DEFAULT_RATE", ZM_WEB_H_DEFAULT_RATE );         // What the default replay rate factor applied to 'event' views is (%)
         define( "ZM_WEB_VIDEO_BITRATE", ZM_WEB_H_VIDEO_BITRATE );       // What the bitrate of any streamed video should be
         define( "ZM_WEB_VIDEO_MAXFPS", ZM_WEB_H_VIDEO_MAXFPS );         // What the maximum frame rate of any streamed video should be
         define( "ZM_WEB_SCALE_THUMBS", ZM_WEB_H_SCALE_THUMBS );         // Image scaling for thumbnails, bandwidth versus cpu in rescaling
-        define( "ZM_WEB_USE_STREAMS", ZM_WEB_H_USE_STREAMS );           // Whether to use streaming or stills for live and events views
         define( "ZM_WEB_EVENTS_VIEW", ZM_WEB_H_EVENTS_VIEW );           // What the default view of multiple events should be.
         define( "ZM_WEB_SHOW_PROGRESS", ZM_WEB_H_SHOW_PROGRESS );       // Whether to show the progress of replay in event view.
         define( "ZM_WEB_AJAX_TIMEOUT", ZM_WEB_H_AJAX_TIMEOUT );         // Timeout to use for Ajax requests, no timeout used if unset
@@ -76,12 +76,13 @@ switch ( $_COOKIE['zmBandwidth'] )
         define( "ZM_WEB_REFRESH_IMAGE", ZM_WEB_M_REFRESH_IMAGE );       // How often the watched image is refreshed (if not streaming)
         define( "ZM_WEB_REFRESH_STATUS", ZM_WEB_M_REFRESH_STATUS );     // How often the little status frame refreshes itself in the watch window
         define( "ZM_WEB_REFRESH_EVENTS", ZM_WEB_M_REFRESH_EVENTS );     // How often the event listing is refreshed in the watch window, only for recent events
+        define( "ZM_WEB_CAN_STREAM", ZM_WEB_M_CAN_STREAM );             // Override the automatic detection of browser streaming capability
+        define( "ZM_WEB_STREAM_METHOD", ZM_WEB_M_STREAM_METHOD );       // Which method should be used to send video streams to your browser
         define( "ZM_WEB_DEFAULT_SCALE", ZM_WEB_M_DEFAULT_SCALE );       // What the default scaling factor applied to 'live' or 'event' views is (%)
         define( "ZM_WEB_DEFAULT_RATE", ZM_WEB_M_DEFAULT_RATE );         // What the default replay rate factor applied to 'event' views is (%)
         define( "ZM_WEB_VIDEO_BITRATE", ZM_WEB_M_VIDEO_BITRATE );       // What the bitrate of any streamed video should be
         define( "ZM_WEB_VIDEO_MAXFPS", ZM_WEB_M_VIDEO_MAXFPS );         // What the maximum frame rate of any streamed video should be
         define( "ZM_WEB_SCALE_THUMBS", ZM_WEB_M_SCALE_THUMBS );         // Image scaling for thumbnails, bandwidth versus cpu in rescaling
-        define( "ZM_WEB_USE_STREAMS", ZM_WEB_M_USE_STREAMS );           // Whether to use streaming or stills for live and events views
         define( "ZM_WEB_EVENTS_VIEW", ZM_WEB_M_EVENTS_VIEW );           // What the default view of multiple events should be.
         define( "ZM_WEB_SHOW_PROGRESS", ZM_WEB_M_SHOW_PROGRESS );       // Whether to show the progress of replay in event view.
         define( "ZM_WEB_AJAX_TIMEOUT", ZM_WEB_M_AJAX_TIMEOUT );         // Timeout to use for Ajax requests, no timeout used if unset
@@ -94,18 +95,18 @@ switch ( $_COOKIE['zmBandwidth'] )
         define( "ZM_WEB_REFRESH_IMAGE", ZM_WEB_L_REFRESH_IMAGE );       // How often the watched image is refreshed (if not streaming)
         define( "ZM_WEB_REFRESH_STATUS", ZM_WEB_L_REFRESH_STATUS );     // How often the little status frame refreshes itself in the watch window
         define( "ZM_WEB_REFRESH_EVENTS", ZM_WEB_L_REFRESH_EVENTS );     // How often the event listing is refreshed in the watch window, only for recent events
+        define( "ZM_WEB_CAN_STREAM", ZM_WEB_L_CAN_STREAM );             // Override the automatic detection of browser streaming capability
+        define( "ZM_WEB_STREAM_METHOD", ZM_WEB_L_STREAM_METHOD );       // Which method should be used to send video streams to your browser
         define( "ZM_WEB_DEFAULT_SCALE", ZM_WEB_L_DEFAULT_SCALE );       // What the default scaling factor applied to 'live' or 'event' views is (%)
         define( "ZM_WEB_DEFAULT_RATE", ZM_WEB_L_DEFAULT_RATE );         // What the default replay rate factor applied to 'event' views is (%)
         define( "ZM_WEB_VIDEO_BITRATE", ZM_WEB_L_VIDEO_BITRATE );       // What the bitrate of any streamed video should be
         define( "ZM_WEB_VIDEO_MAXFPS", ZM_WEB_L_VIDEO_MAXFPS );         // What the maximum frame rate of any streamed video should be
         define( "ZM_WEB_SCALE_THUMBS", ZM_WEB_L_SCALE_THUMBS );         // Image scaling for thumbnails, bandwidth versus cpu in rescaling
-        define( "ZM_WEB_USE_STREAMS", ZM_WEB_L_USE_STREAMS );           // Whether to use streaming or stills for live and events views
         define( "ZM_WEB_EVENTS_VIEW", ZM_WEB_L_EVENTS_VIEW );           // What the default view of multiple events should be.
         define( "ZM_WEB_SHOW_PROGRESS", ZM_WEB_L_SHOW_PROGRESS );       // Whether to show the progress of replay in event view.
         define( "ZM_WEB_AJAX_TIMEOUT", ZM_WEB_L_AJAX_TIMEOUT );         // Timeout to use for Ajax requests, no timeout used if unset
         break;
     }
-}
 }
 
 ?>
