@@ -114,13 +114,14 @@ $(document).ready(function(){
 
   setInterval(function() {
    $("#monitors li").each(function() {
-   var _this = $(this);
-   $(".spinner",_this).html("<img width='15px' src='skins/new/graphics/spinner.gif' />");
-   var mid = $(this).attr("id");
-   mid = mid.split("_");
-   $(".mon",this).load("skins/new/views/monitors.php?mid=" + mid[1] + " .mon", function () { 
-    $(".spinner",_this).fadeOut('slow');
-   });
+    var _this = $(this);
+    $(".spinner",_this).html("<img width='15px' src='skins/new/graphics/spinner.gif' />");
+    var mid = $(this).attr("id");
+    mid = mid.split("_");
+
+    $(".mon",this).load("skins/new/views/monitors.php?mid=" + mid[1] + " .mon", function () { 
+     $(".spinner",_this).fadeOut('slow');
+    });
   });
  }, refresh);
 
