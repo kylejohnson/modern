@@ -1,6 +1,6 @@
 <?php
 //
-// ZoneMinder web event view file, $Date: 2009-05-08 12:21:28 +0100 (Fri, 08 May 2009) $, $Revision: 2866 $
+// ZoneMinder web event view file, $Date$, $Revision$
 // Copyright (C) 2001-2008 Philip Coombes
 //
 // This program is free software; you can redistribute it and/or
@@ -32,7 +32,7 @@ if ( $user['MonitorIds'] )
 else
     $midSql = '';
 
-$sql = "select E.*,M.Name as MonitorName,M.Id as mid, M.Width,M.Height,M.DefaultRate,M.DefaultScale from Events as E inner join Monitors as M on E.MonitorId = M.Id where E.Id = '".dbEscape($eid)."'".$midSql;
+$sql = "select E.*,M.Name as MonitorName,M.Width,M.Height,M.DefaultRate,M.DefaultScale from Events as E inner join Monitors as M on E.MonitorId = M.Id where E.Id = '".dbEscape($eid)."'".$midSql;
 $event = dbFetchOne( $sql );
 
 if ( isset( $_REQUEST['rate'] ) )
@@ -57,42 +57,165 @@ else
 
 if ( isset( $_REQUEST['replayMode'] ) )
     $replayMode = validHtmlStr($_REQUEST['replayMode']);
-else
-    $replayMode = array_shift( array_keys( $replayModes ) );
+if ( isset( $_COOKIE['replayMode']) && preg_match('#^[a-z]+$#', $_COOKIE['replayMode']) )
+    $replayMode = validHtmlStr($_COOKIE['replayMode']);
+ else
+     $replayMode = array_shift( array_keys( $replayModes ) );
 
 parseSort();
 parseFilter( $_REQUEST['filter'] );
 $filterQuery = $_REQUEST['filter']['query'];
 
+$panelSections = 40;
+$panelSectionWidth = (int)ceil(reScale($event['Width'],$scale)/$panelSections);
+$panelWidth = ($panelSections*$panelSectionWidth-1);
+
 $connkey = generateConnKey();
+
+$focusWindow = true;
 
 xhtmlHeaders(__FILE__, $SLANG['Event'] );
 ?>
 <body>
- <input type="hidden" value="<?=$eid?>" id="inptEID" />
   <div id="page">
     <div id="content">
-      <div id="eventStream">
-	<table style="width:600px; margin:0 auto;">
-	 <tr>
-	  <td class="left"><span id="dataTime" title="<?= $SLANG['Time'] ?>"><?= strftime( STRF_FMT_DATETIME_SHORT, strtotime($event['StartTime'] ) ) ?></span></td>
-          <td class="right"><span id="dataDuration" title="<?= $SLANG['Duration'] ?>"><?= $event['Length'] ?></span>s</td>
-	 </tr>
-	</table>
-        <div id="imageFeed">
-         <img src="events/<?=$event['mid']?>/<?=$eid?>/001-capture.jpg" id="img_0" alt="" />
-        </div>
-       <div id="videoExport">
-	<span id="progress"></span>
-        <input type="submit" value="Play" id="btnPlay" disabled="disabled"></input>
-        <input type="submit" value="Pause" id="btnPause"></input>
-	<input type="submit" value="Delete" id="btnDelete"></input>
-	<input type="submit" value="Export" id="btnExport"></input>
-	<span id="spinner"></span>
-       </div>
-       <div id="eventStills"></div>
+      <div id="dataBar">
+        <table id="dataTable" class="major" cellspacing="0">
+          <tr>
+            <td><span id="dataId" title="<?= $SLANG['Id'] ?>"><?= $event['Id'] ?></span></td>
+            <td><span id="dataCause" title="<?= $event['Notes']?validHtmlStr($event['Notes']):$SLANG['AttrCause'] ?>"><?= validHtmlStr($event['Cause']) ?></span></td>
+            <td><span id="dataTime" title="<?= $SLANG['Time'] ?>"><?= strftime( STRF_FMT_DATETIME_SHORT, strtotime($event['StartTime'] ) ) ?></span></td>
+            <td><span id="dataDuration" title="<?= $SLANG['Duration'] ?>"><?= $event['Length'] ?></span>s</td>
+            <td><span id="dataFrames" title="<?= $SLANG['AttrFrames']."/".$SLANG['AttrAlarmFrames'] ?>"><?= $event['Frames'] ?>/<?= $event['AlarmFrames'] ?></span></td>
+            <td><span id="dataScore" title="<?= $SLANG['AttrTotalScore']."/".$SLANG['AttrAvgScore']."/".$SLANG['AttrMaxScore'] ?>"><?= $event['TotScore'] ?>/<?= $event['AvgScore'] ?>/<?= $event['MaxScore'] ?></span></td>
+          </tr>
+        </table>
       </div>
-     </div>
+      <div id="menuBar1">
+        <div id="scaleControl"><label for="scale"><?= $SLANG['Scale'] ?></label><?= buildSelect( "scale", $scales, "changeScale();" ); ?></div>
+        <div id="replayControl"><label for="replayMode"><?= $SLANG['Replay'] ?></label><?= buildSelect( "replayMode", $replayModes, "changeReplayMode();" ); ?></div>
+        <div id="nameControl"><input type="text" id="eventName" name="eventName" value="<?= validHtmlStr($event['Name']) ?>" size="16"/><input type="button" value="<?= $SLANG['Rename'] ?>" onclick="renameEvent()"<?php if ( !canEdit( 'Events' ) ) { ?> disabled="disabled"<?php } ?>/></div>
+      </div>
+      <div id="menuBar2">
+        <div id="closeWindow"><a href="#" onclick="closeWindow();"><?= $SLANG['Close'] ?></a></div>
+<?php
+if ( canEdit( 'Events' ) )
+{
+?>
+        <div id="deleteEvent"><a href="#" onclick="deleteEvent()"><?= $SLANG['Delete'] ?></a></div>
+        <div id="editEvent"><a href="#" onclick="editEvent()"><?= $SLANG['Edit'] ?></a></div>
+<?php
+}
+if ( canView( 'Events' ) )
+{
+?>
+        <div id="exportEvent"><a href="#" onclick="exportEvent()"><?= $SLANG['Export'] ?></a></div>
+<?php
+}
+if ( canEdit( 'Events' ) )
+{
+?>
+        <div id="archiveEvent" class="hidden"><a href="#" onclick="archiveEvent()"><?= $SLANG['Archive'] ?></a></div>
+        <div id="unarchiveEvent" class="hidden"><a href="#" onclick="unarchiveEvent()"><?= $SLANG['Unarchive'] ?></a></div>
+<?php
+}
+?>
+        <div id="framesEvent"><a href="#" onclick="showEventFrames()"><?= $SLANG['Frames'] ?></a></div>
+        <div id="streamEvent"<?php if ( $streamMode == 'stream' ) { ?> class="hidden"<?php } ?>><a href="#" onclick="showStream()"><?= $SLANG['Stream'] ?></a></div>
+        <div id="stillsEvent"<?php if ( $streamMode == 'still' ) { ?> class="hidden"<?php } ?>><a href="#" onclick="showStills()"><?= $SLANG['Stills'] ?></a></div>
+<?php
+if ( ZM_OPT_FFMPEG )
+{
+?>
+        <div id="videoEvent"><a href="#" onclick="videoEvent()"><?= $SLANG['Video'] ?></a></div>
+<?php
+}
+?>
+      </div>
+      <div id="eventStream">
+        <div id="imageFeed">
+<?php
+if ( ZM_WEB_STREAM_METHOD == 'mpeg' && ZM_MPEG_LIVE_FORMAT )
+{
+    $streamSrc = getStreamSrc( array( "source=event", "mode=mpeg", "event=".$eid, "frame=".$fid, "scale=".$scale, "rate=".$rate, "bitrate=".ZM_WEB_VIDEO_BITRATE, "maxfps=".ZM_WEB_VIDEO_MAXFPS, "format=".ZM_MPEG_REPLAY_FORMAT, "replay=".$replayMode ) );
+    outputVideoStream( "evtStream", $streamSrc, reScale( $event['Width'], $scale ), reScale( $event['Height'], $scale ), ZM_MPEG_LIVE_FORMAT );
+}
+else
+{
+    $streamSrc = getStreamSrc( array( "source=event", "mode=jpeg", "event=".$eid, "frame=".$fid, "scale=".$scale, "rate=".$rate, "maxfps=".ZM_WEB_VIDEO_MAXFPS, "replay=".$replayMode) );
+    if ( canStreamNative() )
+    {
+        outputImageStream( "evtStream", $streamSrc, reScale( $event['Width'], $scale ), reScale( $event['Height'], $scale ), validHtmlStr($event['Name']) );
+    }
+    else
+    {
+        outputHelperStream( "evtStream", $streamSrc, reScale( $event['Width'], $scale ), reScale( $event['Height'], $scale ) );
+    }
+}
+?>
+        </div>
+        <p id="dvrControls">
+          <input type="button" value="&lt;+" id="prevBtn" title="<?= $SLANG['Prev'] ?>" class="inactive" onclick="streamPrev( true )"/>
+          <input type="button" value="&lt;&lt;" id="fastRevBtn" title="<?= $SLANG['Rewind'] ?>" class="inactive" disabled="disabled" onclick="streamFastRev( true )"/>
+          <input type="button" value="&lt;" id="slowRevBtn" title="<?= $SLANG['StepBack'] ?>" class="unavail" disabled="disabled" onclick="streamSlowRev( true )"/>
+          <input type="button" value="||" id="pauseBtn" title="<?= $SLANG['Pause'] ?>" class="inactive" onclick="streamPause( true )"/>
+          <input type="button" value="|>" id="playBtn" title="<?= $SLANG['Play'] ?>" class="active" disabled="disabled" onclick="streamPlay( true )"/>
+          <input type="button" value="&gt;" id="slowFwdBtn" title="<?= $SLANG['StepForward'] ?>" class="unavail" disabled="disabled" onclick="streamSlowFwd( true )"/>
+          <input type="button" value="&gt;&gt;" id="fastFwdBtn" title="<?= $SLANG['FastForward'] ?>" class="inactive" disabled="disabled" onclick="streamFastFwd( true )"/>
+          <input type="button" value="&ndash;" id="zoomOutBtn" title="<?= $SLANG['ZoomOut'] ?>" class="avail" onclick="streamZoomOut()"/>
+          <input type="button" value="+&gt;" id="nextBtn" title="<?= $SLANG['Next'] ?>" class="inactive" onclick="streamNext( true )"/>
+        </p>
+        <div id="replayStatus">
+          <span id="mode">Mode: <span id="modeValue">&nbsp;</span></span>
+          <span id="rate">Rate: <span id="rateValue"></span>x</span>
+          <span id="progress">Progress: <span id="progressValue"></span>s</span>
+          <span id="zoom">Zoom: <span id="zoomValue"></span>x</span>
+        </div>
+        <div id="progressBar" class="invisible">
+<?php
+        for ( $i = 0; $i < $panelSections; $i++ )
+        {
+?>
+           <div class="progressBox" id="progressBox<?= $i ?>" title=""></div>
+<?php
+        }
+?>
+        </div>
+      </div>
+      <div id="eventStills" class="hidden">
+        <div id="eventThumbsPanel">
+          <div id="eventThumbs">
+          </div>
+        </div>
+        <div id="eventImagePanel" class="hidden">
+          <div id="eventImageFrame">
+            <img id="eventImage" src="graphics/transparent.gif" alt=""/>
+            <div id="eventImageBar">
+              <div id="eventImageClose"><input type="button" value="<?= $SLANG['Close'] ?>" onclick="hideEventImage()"/></div>
+              <div id="eventImageStats" class="hidden"><input type="button" value="<?= $SLANG['Stats'] ?>" onclick="showFrameStats()"/></div>
+              <div id="eventImageData">Frame <span id="eventImageNo"></span></div>
+            </div>
+          </div>
+        </div>
+        <div id="eventImageNav">
+          <div id="eventImageButtons">
+            <div id="prevButtonsPanel">
+              <input id="prevEventBtn" type="button" value="&lt;E" onclick="prevEvent()" disabled="disabled"/>
+              <input id="prevThumbsBtn" type="button" value="&lt;&lt;" onclick="prevThumbs()" disabled="disabled"/>
+              <input id="prevImageBtn" type="button" value="&lt;" onclick="prevImage()" disabled="disabled"/>
+              <input id="nextImageBtn" type="button" value="&gt;" onclick="nextImage()" disabled="disabled"/>
+              <input id="nextThumbsBtn" type="button" value="&gt;&gt;" onclick="nextThumbs()" disabled="disabled"/>
+              <input id="nextEventBtn" type="button" value="E&gt;" onclick="nextEvent()" disabled="disabled"/>
+            </div>
+          </div>
+          <div id="thumbsSliderPanel">
+            <div id="thumbsSlider">
+              <div id="thumbsKnob">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </body>
