@@ -11,9 +11,8 @@
   <?php
    }else{
   ?>
-   <?= $SLANG['ConfiguredFor'] ?>
   <?php }?>
-  <?= makePopupLink( '?view=bandwidth', 'zmBandwidth', 'bandwidth', $bwArray[$_COOKIE['zmBandwidth']], ($user && $user['MaxBandwidth'] != 'low' ) ) ?> <?= $SLANG['Bandwidth'] ?>
+  Configured for <a id="aBandwidth" href="?view=bandwidth" onclick="createPopup( '?view=bandwidth', 'zmBandwidth', 'bandwidth' ); return( false );"><?= $_COOKIE['zmBandwidth'] ?></a> Bandwidth
  </div>
 </div>
 </body>

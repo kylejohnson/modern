@@ -1,5 +1,7 @@
 $(document).ready(function(){
+ var bandwidth = $("#aBandwidth").text();
  var refresh = $("#inptRefresh").val();
+ if (bandwidth == 'high') { refresh = 600000; }
  refresh = (refresh * 1000);
  $("#add_widget").button();
 
