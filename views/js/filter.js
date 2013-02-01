@@ -11,12 +11,10 @@ function updateButtons( element )
             canExecute = true;
         if ( form.elements['autoVideo'].checked )
             canExecute = true;
-        if ( form.elements['autoUpload'].checked )
-            canExecute = true;
+        if ( form.elements['autoUpload']!=undefined ) { if ( form.elements['autoUpload'].checked ) canExecute = true; }
         if ( form.elements['autoEmail'].checked )
             canExecute = true;
-        if ( form.elements['autoMessage'].checked )
-            canExecute = true;
+        if ( form.elements['autoMessage']!=undefined ) { if ( form.elements['autoMessage'].checked ) canExecute = true; }
         if ( form.elements['autoExecute'].checked && form.elements['autoExecuteCmd'].value != '' )
             canExecute = true;
         if ( form.elements['autoDelete'].checked )
@@ -112,9 +110,3 @@ function delTerm( element, line )
     form.submit();
 }
 
-function init()
-{
-    updateButtons( $('executeButton') );
-}
-
-window.addEvent( 'domready', init );

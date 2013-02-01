@@ -1,5 +1,5 @@
 //
-// ZoneMinder base static javascript file, $Date: 2011-06-21 10:19:10 +0100 (Tue, 21 Jun 2011) $, $Revision: 3459 $
+// ZoneMinder base static javascript file, $Date: 2009-05-08 11:04:12 +0100 (Fri, 08 May 2009) $, $Revision: 2865 $
 // Copyright (C) 2001-2008 Philip Coombes
 //
 // This program is free software; you can redistribute it and/or
@@ -21,6 +21,21 @@
 // This file should only contain static JavaScript and no php.
 // Use skin.js.php for JavaScript that need pre-processing
 //
+
+if ( !window.console )
+{
+    window.console =
+    {
+        init:function() {},
+        log:function() {},
+        debug:function() {},
+        info:function() {},
+        warn:function() {},
+        error:function() {}
+    };
+}
+if (! window.console.debug )//IE8 has console but doesn't have console.debug so lets alias it.
+    window.console.debug = console.log;
 
 // Javascript window sizes
 var popupSizes = {
@@ -45,7 +60,6 @@ var popupSizes = {
     'group':        { 'width': 360, 'height': 180 },
     'groups':       { 'width': 400, 'height': 220 },
     'image':        { 'addWidth': 48, 'addHeight': 80 },
-    'log':          { 'width': 980, 'height': 720 },
     'login':        { 'width': 720, 'height': 480 },
     'logout':       { 'width': 240, 'height': 100 },
     'monitor':      { 'width': 380, 'height': 364 },
@@ -53,15 +67,15 @@ var popupSizes = {
     'monitorprobe': { 'width': 500, 'height': 240 },
     'monitorselect':{ 'width': 160, 'height': 200 },
     'montage':      { 'width': -1, 'height': -1 },
-    'optionhelp':   { 'width': 400, 'height': 320 },
-    'options':      { 'width': 920, 'height': 620 },
+    'optionhelp':   { 'width': 320, 'height': 330 },
+    'options':      { 'width': 840, 'height': 620 },
     'preset':       { 'width': 300, 'height': 120 },
     'settings':     { 'width': 200, 'height': 225 },
     'state':        { 'width': 240, 'height': 124 },
     'stats':        { 'width': 740, 'height': 200 },
     'timeline':     { 'width': 760, 'height': 540 },
     'user':         { 'width': 320, 'height': 420 },
-    'version':      { 'width': 360, 'height': 140 },
+    'version':      { 'width': 320, 'height': 140 },
     'video':        { 'width': 420, 'height': 360 },
     'videoview':    { 'addWidth': 48, 'addHeight': 80 },
     'watch':        { 'addWidth': 96, 'minWidth': 420, 'addHeight': 384 },
@@ -77,9 +91,22 @@ function newWindow( url, name, width, height )
     var windowId = window.open( url, name, popupOptions+",width="+width+",height="+height );
 }
 
+function clone( obj )
+{
+    if ( typeof(obj) != 'object' )
+        return( obj );
+    if ( obj == null )
+        return( obj );
+
+    var newObj = new Object();
+    for ( var i in obj )
+        newObj[i] = clone( obj[i] );
+    return( newObj );
+}
+
 function getPopupSize( tag, width, height )
 {
-    var popupSize = Object.clone( popupSizes[tag] );
+    var popupSize = clone( popupSizes[tag] );
     if ( !popupSize )
     {
         console.error( "Can't find window size for tag '"+tag+"'" );
@@ -246,7 +273,11 @@ function secsToTime( seconds )
 
 function submitTab( tab )
 {
-    var form = $('contentForm');
+    //var form = $('contentForm');
+form = document.contentForm;
+t = form.request
+if(t!=undefined) t.parentNode.removeChild(t);
+
     form.action.value = "";
     form.tab.value = tab;
     form.submit();
@@ -287,3 +318,7 @@ if ( focusWindow )
 {
     windowToFront();
 }
+$(function() { 
+	if(jQuery().colorbox) $("a.colorbox").colorbox({iframe:true, innerWidth:340, innerHeight:400});
+});
+

@@ -475,7 +475,7 @@ div.clear {
  border-right:1px solid #fff;
 }
 
-#nav ul li a:hover{
+#nav ul li a:hover, #nav ul li a.active {
  background-color:#369;
  color:#fff;
 }
@@ -574,7 +574,8 @@ position:relative;
 .mon_header .spinner{
  display:inline;
 }
-.mon_header .minimize{
+.mon_header .minimize, .mon_header .maximize
+{
  display:inline;
 }
 
@@ -697,4 +698,13 @@ html[xmlns] .clearfix {
  
 * html .clearfix {
 	height: 1%;
+}
+
+.nameleft {
+	white-space:nowrap;
+	float:left;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	-o-text-overflow: ellipsis;
+	-moz-binding:url('ellipsis.xml#ellipsis');
 }

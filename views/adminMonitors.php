@@ -17,6 +17,14 @@ for ( $i = 0; $i < count($monitors); $i++ )
     $displayMonitors[] = $monitors[$i];
 }
 ?>
+
+
+<script type="text/javascript">
+$(function(){ 
+$('a#zonecolorbox').colorbox({width:'600px', height:'600px', iframe:true});
+});
+</script>
+
   <table id="tblMonitors">
    <thead>
     <th>Name</th>
@@ -47,9 +55,9 @@ for ( $i = 0; $i < count($monitors); $i++ )
         $fclass .= " disabledText";
     $scale = max( reScale( SCALE_BASE, $monitor['DefaultScale'], ZM_WEB_DEFAULT_SCALE ), SCALE_BASE );
    ?>
-    <tr>
+   <!-- <tr>
      <td><?= $monitor['Name']; ?></td>
-     <td class="colFunction"><a href="?view=function&amp;mid=<?= $monitor['Id'] ?>" rel="function"><?= $monitor['Function']?></a></td>
+     <td class="colFunction"><?= makePopupLink( '?view=function&mid='.$monitor['Id'], 'zmFunction', 'function', '<span class="'.$fclass.'">'.$monitor['Function'].'</span>' ) ?></td>
      <?php if ( $monitor['Type'] == "Local" ) { ?>
       <td class="colSource"><?= makePopupLink( '?view=monitor&mid='.$monitor['Id'], 'zmMonitor'.$monitor['Id'], 'monitor', '<span class="'.$dclass.'">'.$monitor['Device'].' ('.$monitor['Channel'].')</span>' ) ?></td>
      <?php } elseif ( $monitor['Type'] == "Remote" ) { ?>
@@ -61,9 +69,35 @@ for ( $i = 0; $i < count($monitors); $i++ )
      <?php } else { ?>
       <td class="colSource">&nbsp;</td>
      <?php } ?>
-     <td class="colZones"><a href="?view=zones&mid=<?= $monitor['Id'] ?>" rel="zones"><?= $monitor['ZoneCount'] ?></a></td>
+     <td class="colZones"><?= makePopupLink( '?view=zones&mid='.$monitor['Id'], 'zmZones', array( 'zones', $monitor['Width'], $monitor['Height'] ), $monitor['ZoneCount'] ) ?></td>
      <td class="colMark"><input type="checkbox"  value="<?= $monitor['Id'] ?>"/></td>
+    </tr>-->
+
+    <tr>
+		<td><?= $monitor['Name']; ?></td>
+		<td class="colFunction"><?= makePopupLink( '?view=function&mid='.$monitor['Id'], 'zmFunction', 'function', '<span class="'.$fclass.'">'.$monitor['Function'].'</span>' ) ?></td>
+	<?php if ( $monitor['Type'] == "Local" ) { ?>
+		<td class="colSource"><a class="colorbox" href="?view=monitor&mid=<?php echo $monitor['Id'] ?>"><span class="<?php echo $dclass?>"><?php echo $monitor['Device'] ?> ( <?php echo $monitor['Channel'] ?>)</span></td>
+     <?php } elseif ( $monitor['Type'] == "Remote" ) { ?>
+		<td class="colSource"><a class="colorbox" href="?view=monitor&mid=<?php echo $monitor['Id'] ?>"><span class="<?php echo $dclass?>"><?php echo preg_replace( '/^.*@/', '', $monitor['Host'] ) ?></span></td>
+     <?php } elseif ( $monitor['Type'] == "File" ) { ?>
+		<td class="colSource"><a class="colorbox" href="?view=monitor&mid=<?php echo $monitor['Id'] ?>"><span class="<?php echo $dclass?>"><?php echo preg_replace( '/^.*\//', '', $monitor['Path'] ) ?></span></td>
+     <?php } elseif ( $monitor['Type'] == "Ffmpeg" ) { ?>
+		<td class="colSource"><a class="colorbox" href="?view=monitor&mid=<?php echo $monitor['Id'] ?>"><span class="<?php echo $dclass?>"><?php echo preg_replace( '/^.*\//', '', $monitor['Path'] ) ?></span></td>
+     <?php } else { ?>
+		<td class="colSource">&nbsp;</td>
+     <?php } ?>
+		<td class="colZones"><a id="zonecolorbox" href="?view=zones&mid=<?=$monitor['Id']?>"><?=$monitor['ZoneCount']?></a></td>
+		<!--<?= makePopupLink( '?view=zones&mid='.$monitor['Id'], 'zmZones', array( 'zones', $monitor['Width'], $monitor['Height'] ), $monitor['ZoneCount'] ) ?></td>-->
+		<td class="colMark"><input type="checkbox" value="<?= $monitor['Id'] ?>"/></td>
     </tr>
+
+
+
+
+
+
+
    <?php
     }
    ?>

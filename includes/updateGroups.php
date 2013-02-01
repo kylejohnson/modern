@@ -1,7 +1,7 @@
 <?php
 require("../../../includes/config.php");
-$groupName = isset($groupName) ? $_REQUEST['groupName'] : '';
-$mids = isset($mods) ? $_REQUEST['mids'] : '';
+$groupName 	= $_REQUEST['groupName'];
+$mids		= $_REQUEST['mids'];
 $action		= $_REQUEST['action'];
 
 if ($action == "insert") { # Insert a new group

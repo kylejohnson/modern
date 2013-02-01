@@ -27,6 +27,7 @@ if ( !canView( 'System' ) )
 $canEdit = canEdit( 'System' );
 
 $tabs = array();
+$tabs['skins'] = $SLANG['Display']; // change me to be supported by SLANG...
 $tabs['system'] = $SLANG['System'];
 $tabs['config'] = $SLANG['Config'];
 $tabs['paths'] = $SLANG['Paths'];
@@ -77,7 +78,62 @@ foreach ( $tabs as $name=>$value )
       </ul>
       <div class="clear"></div>
 <?php 
-if ( $tab == "users" )
+if($tab == 'skins') {
+	$current_skin = $_COOKIE['zmSkin'];
+	$current_aspect = @$_COOKIE['zmAspectRatio'];
+	if(isset($_GET['skin-choice'],$_GET['aspectratio'])) {
+		setcookie('zmSkin',$_GET['skin-choice'],time()+3600*24*30);
+		//header("Location: index.php?view=options&tab=skins&reset_parent=1");
+		//echo '<script type="text/javascript">window.opener.location.reload();window.close();</script>';
+	
+		setCookie('zmAspectRatio',$_GET['aspectratio'],time()+3600*24*30);
+
+		header("Location: index.php");
+		exit;
+	}
+
+?>
+	<form name="optionsForm" method="get" action="<?= $_SERVER['PHP_SELF'] ?>">
+        <input type="hidden" name="view" value="<?= $view ?>"/>
+        <input type="hidden" name="tab" value="<?= $tab ?>"/>
+		<table class="contentTable major optionTable" cellspacing="0">
+		
+			<thead><tr><th><?= $SLANG['Name'] ?></th><th><?= $SLANG['Description'] ?></th> <th><?= $SLANG['Value'] ?></th></tr></thead>
+			<tbody>
+			<tr>
+				<td>ZM_SKIN</td>
+				<td><?php echo $SLANG['SkinDescription']; ?></td>
+				<td><select name="skin-choice">
+					<?php
+						foreach(glob('skins/*',GLOB_ONLYDIR) as $dir) {
+							$dir = basename($dir);
+							echo '<option value="'.$dir.'" '.($current_skin==$dir ? 'SELECTED' : '').'>'.$dir.'</option>';
+						}
+					?>
+					</select>
+				</td>
+			</tr>
+			<tr><td></td>
+				<td>Change the Aspect Ratio.</td>
+				<td><select name="aspectratio">
+						<option value="-" <?php if($current_aspect=='-') echo 'SELECTED'; ?>>free flow</option>
+						<option value="4:3" <?php if($current_aspect=='4:3') echo 'SELECTED'; ?>>4:3</option>
+						<option value="5:4" <?php if($current_aspect=='5:4') echo 'SELECTED'; ?>>5:4</option>
+						<option value="11:9" <?php if($current_aspect=='11:9') echo 'SELECTED'; ?>>11:9</option>
+						<option value="19:16" <?php if($current_aspect=='19:16') echo 'SELECTED'; ?>>19:16</option>
+					</select>
+				</td>
+			</tr>
+		</tbody>
+		</table>
+        <div id="contentButtons">
+          <input type="submit" value="<?= $SLANG['Save'] ?>"<?= $canEdit?'':' disabled="disabled"' ?>/>
+		  <input type="button" value="<?= $SLANG['Cancel'] ?>" onclick="closeWindow();"/>
+        </div>
+     </form>
+	
+	<?php 
+} elseif ( $tab == "users" )
 {
 ?>
       <form name="userForm" method="post" action="<?= $_SERVER['PHP_SELF'] ?>">

@@ -27,4 +27,14 @@ xhtmlHeaders( __FILE__, $SLANG['System'] );
    <div id="content" class="clearfix">
     <h3 id="systemStats"><?= $SLANG['Load'] ?>: <?= getLoad() ?> / <?= $SLANG['Disk'] ?>: <?= getDiskPercent() ?>%</h3>
   </div>
-<?php require_once("footer.php"); ?>
+
+<?php
+exec('/usr/local/bin/zmlog.pl',$output);
+
+$s = '';
+foreach($output as $row)
+	if(!empty($row)) $s .= '<div>'.$row.'</div>';
+echo '<div align="left">'.$s.'</div>';
+
+require_once("footer.php"); 
+

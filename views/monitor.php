@@ -1,4 +1,5 @@
 <?php
+
 //
 // ZoneMinder web monitor view file, $Date: 2009-05-28 09:47:59 +0100 (Thu, 28 May 2009) $, $Revision: 2905 $
 // Copyright (C) 2001-2008 Philip Coombes
@@ -357,7 +358,7 @@ $orientations = array(
 xhtmlHeaders(__FILE__, $SLANG['Monitor']);
 ?>
 <body>
-  <div id="page">
+<div id="page">
     <div id="header">
 <?php
 if ( canEdit( 'Monitors' ) )
@@ -395,6 +396,7 @@ foreach ( $tabs as $name=>$value )
       <div class="clear"></div>
       <form name="contentForm" id="contentForm" method="post" action="<?= $_SERVER['PHP_SELF'] ?>" onsubmit="return validateForm( this )">
         <input type="hidden" name="view" value="<?= $view ?>"/>
+	<input type="hidden" name="request" value="monitor" />
         <input type="hidden" name="tab" value="<?= $tab ?>"/>
         <input type="hidden" name="action" value="monitor"/>
         <input type="hidden" name="mid" value="<?= $monitor['Id'] ?>"/>

@@ -29,6 +29,7 @@ xhtmlHeaders(__FILE__, $SLANG['Logout'] );
     </div>
     <div id="content">
       <form name="contentForm" id="contentForm" method="post" action="<?= $_SERVER['PHP_SELF'] ?>">
+	<input type="hidden" name="request" value="refresh" />
         <input type="hidden" name="action" value="logout"/>
         <input type="hidden" name="view" value="login"/>
         <p><?= sprintf( $CLANG['CurrentLogin'], $user['Username'] ) ?></p>
@@ -42,7 +43,7 @@ if ( ZM_USER_SELF_EDIT )
 <?php
 }
 ?>
-          <input type="button" value="<?= $SLANG['Cancel'] ?>" onclick="closeWindow();"></p>
+          </p>
         </p>
       </form>
     </div>

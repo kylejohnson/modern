@@ -1,6 +1,6 @@
 <?php
 //
-// ZoneMinder web filter view file, $Date: 2009-03-09 12:28:45 +0000 (Mon, 09 Mar 2009) $, $Revision: 2800 $
+// ZoneMinder web filter view file, $Date: 2011-05-23 17:18:18 +0100 (Mon, 23 May 2011) $, $Revision: 3357 $
 // Copyright (C) 2001-2008 Philip Coombes
 //
 // This program is free software; you can redistribute it and/or
@@ -39,7 +39,7 @@ if ( isset($dbFilter) )
 {
     if ( $dbFilter['Background'] ) 
         $backgroundStr = '['.strtolower($SLANG['Background']).']';
-    $_REQUEST['filter'] = unserialize( $dbFilter['Query'] );
+    $_REQUEST['filter'] = jsonDecode( $dbFilter['Query'] );
     $_REQUEST['sort_field'] = isset($_REQUEST['filter']['sort_field'])?$_REQUEST['filter']['sort_field']:"DateTime";
     $_REQUEST['sort_asc'] = isset($_REQUEST['filter']['sort_asc'])?$_REQUEST['filter']['sort_asc']:"1";
     $_REQUEST['limit'] = isset($_REQUEST['filter']['limit'])?$_REQUEST['filter']['limit']:"";
@@ -130,7 +130,7 @@ if ( empty($_REQUEST['sort_field']) )
     $_REQUEST['sort_asc'] = (ZM_WEB_EVENT_SORT_ORDER == "asc");
 }
 
-$hasCal = file_exists( '/skins/new/js/calendar.js' );
+$hasCal = file_exists( 'tools/jscalendar/calendar.js' );
 
 $focusWindow = true;
 
@@ -140,7 +140,6 @@ xhtmlHeaders(__FILE__, $SLANG['EventFilter'] );
   <div id="page">
     <div id="header">
       <div id="headerButtons">
-        <a href="#" onclick="closeWindow();"><?= $SLANG['Close'] ?></a>
       </div>
       <h2><?= $SLANG['EventFilter'] ?></h2>
     </div>
@@ -317,11 +316,6 @@ if ( ZM_OPT_MESSAGE )
         <hr/>
         <div id="contentButtons">
           <input type="submit" value="<?= $SLANG['Submit'] ?>" onclick="submitToEvents( this );"/>
-          <input type="button" name="executeButton" id="executeButton" value="<?= $SLANG['Execute'] ?>" onclick="executeFilter( this );"/>
-<?php if ( canEdit( 'Events' ) ) { ?>
-          <input type="button" value="<?= $SLANG['Save'] ?>" onclick="saveFilter( this );"/><?php } ?>
-<?php if ( canEdit( 'Events' ) && isset($dbFilter) ) { ?>
-          <input type="button" value="<?= $SLANG['Delete'] ?>" onclick="deleteFilter( this, '<?= $dbFilter['Name'] ?>' );"/><?php } ?>
           <input type="button" value="<?= $SLANG['Reset'] ?>" onclick="submitToFilter( this, 1 );"/>
         </div>
       </form>

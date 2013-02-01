@@ -39,5 +39,6 @@ if ( applying )
     {
         $('contentForm').submit();
     }
-    window.addEvent( 'domready', function() { submitForm.delay( 1000 ); } );
+    //window.addEvent( 'domready', function() { submitForm.delay( 1000 ); } );
+	$(document).ready(function() { window.setTimeout(function() { document.contentForm.submit();  }, 1000); });
 }

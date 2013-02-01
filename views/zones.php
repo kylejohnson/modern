@@ -95,7 +95,7 @@ foreach( $zones as $zone )
           </tbody>
         </table>
         <div id="contentButtons">
-          <input type="button" value="<?= $SLANG['AddNewZone'] ?>" onclick="createPopup( '?view=zone&mid=<?= $mid ?>&zid=0', 'zmZone', 'zone', <?= $monitor['Width'] ?>, <?= $monitor['Height'] ?> );"<?php if ( !canEdit( 'Monitors' ) ) { ?> disabled="disabled"<?php } ?>/>
+          <input type="button" value="<?= $SLANG['AddNewZone'] ?>" onclick="location.href='?view=zone&mid=<?= $mid ?>&zid=0', 'zmZone', 'zone', <?= $monitor['Width'] ?>, <?= $monitor['Height'] ?> ;"<?php if ( !canEdit( 'Monitors' ) ) { ?> disabled="disabled"<?php } ?>/>
           <input type="submit" name="deleteBtn" value="<?= $SLANG['Delete'] ?>" disabled="disabled"/>
         </div>
       </form>

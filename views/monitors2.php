@@ -1,0 +1,73 @@
+<?php
+
+$x = get_included_files();
+echo '<pre>'; print_r($x); echo '</pre>';
+ $mid = $_REQUEST['mid']; $groupName = $_REQUEST['groupName']; $bandwidth = $_COOKIE['zmBandwidth']; if ( 
+isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == 'on' ){
+	$protocol = 'https';
+} else {
+	$protocol = 'http';
+}
+define( "ZM_BASE_URL", $protocol.'://'.$_SERVER['HTTP_HOST'] ); ?> <ul id="monitors" class="clearfix"> <?php if ($mid) {
+	$monitors = dbFetchAll( "select Id, Name, Width, Height from Monitors where Id = " . $mid . " order by Sequence asc" );
+	foreach( $monitors as $monitor ){
+		displayMonitor($monitor, $bandwidth);
+	}
+} elseif ($groupName){ # If a list of monitors
+	$query = "select MonitorIds from Groups where Name = '".$groupName."'"; // Get all of the mids in a group
+	$result = mysql_query($query); // Get all of the mids in a group
+	$row = mysql_result($result, 0);
+	$mids = explode(",", $row); # Put them into an array
+	foreach ($mids as $mid){ # Foreach item in the array
+		$query = "select Id, Name, Width, Height from Monitors where Id = ".$mid;
+		foreach(dbFetchAll($query) as $monitor){ # Query the database
+			displayMonitor($monitor, $bandwidth); # And call displayMonitor with the result
+		}
+	}
+} else {
+	$monitors = dbFetchAll( "select Id, Name, Width, Height from Monitors order by Sequence asc" );
+	foreach( $monitors as $monitor ){
+	displayMonitor($monitor, $bandwidth);
+ }
+}
+?>
+ </ul> <?php function displayMonitor($monitor, $bandwidth){
+	if (!defined(ZM_WEB_DEFAULT_SCALE)) {
+		$scale = 40;
+	} else {
+		$scale = ZM_WEB_DEFAULT_SCALE;
+	} if ($bandwidth == 'high') {
+		if ( ZM_STREAM_METHOD == 'mpeg' && ZM_MPEG_LIVE_FORMAT ) {
+			$streamMode = "mpeg";
+			$streamSrc = getStreamSrc( array( "mode=".$streamMode, "monitor=".$monitor['Id'], "scale=".$scale, 
+"bitrate=".ZM_WEB_VIDEO_BITRATE, "maxfps=".ZM_WEB_VIDEO_MAXFPS, "format=".ZM_MPEG_LIVE_FORMAT, 
+"buffer=".$monitor['StreamReplayBuffer'] ) );
+		} 
+		if ( canStream() ) {
+			$streamMode = "jpeg";
+			$streamSrc = getStreamSrc( array( "mode=".$streamMode, "monitor=".$monitor['Id'], "scale=".$scale, 
+"maxfps=".ZM_WEB_VIDEO_MAXFPS, "buffer=".$monitor['StreamReplayBuffer'] ) );
+		}
+	}
+	if (($bandwidth == 'low' || $bandwidth == "medium" || $bandwidth == "" || !($bandwidth))) {
+		$streamSrc = getStreamSrc( array( "mode=single", "monitor=".$monitor['Id'], "scale=".$scale ) );
+	}
+	$width = ($monitor['Width'] * ('.' . $scale) + 20); ?> <li id="monitor_<?php echo $monitor['Id'] ?>" style="width:<?php echo 
+$width ?>px;">
+ <div class="mon_header">
+  <h3 style="display:inline;"><?php echo $monitor['Name'] ?></h3>
+  <div class="right">
+   <div class="spinner"></div>
+   <div class="minimize"><img src="skins/new/graphics/minimize.png" style="width:15px;" alt="minimize" /></div>
+  </div>
+ </div>
+ <div class="mon">
+  <a rel="monitor" href="?view=watch&amp;mid=<?= $monitor['Id']; ?>" title="<?= $monitor['Name']; ?>">
+   <?php
+    $name = $monitor['Name'] . "_live";
+    outputImageStill( "$name", $streamSrc, reScale( $monitor['Width'], $scale ), reScale( $monitor['Height'], $scale ), 
+$monitor['Name'] ); ?>
+  </a>
+ </div>
+ <div class="monfooter">
+ </div> </li> <?php } ?>

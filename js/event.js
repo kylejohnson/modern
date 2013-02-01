@@ -1,9 +1,9 @@
-$(document).ready(function(){
-z = 1;
+ 
+$(document).ready(function(){ 
+z = 1; 
 eid = $("#inptEID").val();
+
 loadImages();
-
-
 
 $("#btnPlay").click(function(){ // When the play button is clicked
 console.log("Playing...");
@@ -11,24 +11,36 @@ console.log("Playing...");
  $("#btnPause").css("border", "1px solid #C5DBEC");
  $(this).css('border', "1px solid red");
 });
- 
+
+
 $("#btnPause").button()
 $("#btnPause").click(function(){
  clearInterval(start);
  $("#btnPlay").css("border", "1px solid #C5DBEC");
  $(this).css('border', "1px solid red");
 });
-$("#btnExport").button();
-$("#btnExport").click(function() { // When btnExport is clicked
- $("#spinner").html('<img src="skins/new/graphics/spinner.gif" alt="spinner" />'); // Display the spinner
- $.post("skins/new/includes/createVideo.php?eid="+eid+"&action=video&path="+path, function(data){ // Create the video file
+$("#btnVideo").button();
+$("#btnVideo").click(function() { // When btnVideo is clicked
+ $("#spinner").html('<img src="skins/modern/graphics/spinner.gif" alt="spinner" />'); // Display the spinner
+ $.post("skins/modern/includes/createVideo.php?eid="+eid+"&action=video&path="+path, function(data){ // Create the video file
   $("#spinner").html('<a href="'+path+data+'">'+data+'</a>'); // Display the link to the video file (or whatever info. is returned)
  });
 });
 
+$("#btnExport").button();
+$("#btnExport").click(function() { // When btnVideo is clicked
+	$("#spinner").html('<img src="skins/modern/graphics/spinner.gif" alt="spinner" />'); // Display the spinner
+	$.post("skins/modern/includes/export_functions.php?eid="+eid, function(data){ // Create the video file
+		//$("#spinner").html('<br /><a href="'+data+'">'+data+'</a>'); // Display the link to the video file (or whatever info. is returned)
+		window.open('skins/modern/includes/download.php?file='+encodeURIComponent(data));
+		$("#spinner").html('');
+	});
+});
+
+
 $("#btnDelete").button();
 $("#btnDelete").click(function(){
- $.post("skins/new/includes/deleteEvent.php?eid=<?= $eid ?>");
+ $.post("skins/modern/includes/deleteEvent.php?eid=<?= $eid ?>");
  parent.$.fn.colorbox.close();
 });
 
@@ -46,7 +58,7 @@ console.log("path: " + path);
 var imgs = new Array();
 
 console.log("Getting files...");
-$.post("skins/new/includes/getFiles.php?path=" + path, function(data){ // Get the list of files
+$.post("skins/modern/includes/getFiles.php?path=" + path, function(data){ // Get the list of files
  imgs = data.split(" "); // Push the list into the array
  x = imgs.length -1; // Number of images
 console.log("Got " +x+ " files...");
@@ -83,3 +95,4 @@ console.log("Changing class...");
 };
 
 });
+

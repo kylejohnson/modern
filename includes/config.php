@@ -1,6 +1,8 @@
 <?php
+ini_set("display_errors", 0);// error_reporting(E_ALL);
+
 //
-// ZoneMinder HTML configuration file, $Date: 2010-11-03 16:36:03 +0000 (Wed, 03 Nov 2010) $, $Revision: 3166 $
+// ZoneMinder HTML configuration file, $Date: 2010-11-03 09:36:03 -0700 (Wed, 03 Nov 2010) $, $Revision: 3166 $
 // Copyright (C) 2001-2008 Philip Coombes
 //
 // This program is free software; you can redistribute it and/or
@@ -17,6 +19,27 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
+
+define('SKIN_PATH',dirname(__FILE__).'/..');
+define('ROOT_PATH',SKIN_PATH.'/../..');
+//exit( ROOT_PATH);
+
+require_once ROOT_PATH.'/includes/config.php';
+//require_once ROOT_PATH.'/includes/lang.php';
+require_once ROOT_PATH.'/includes/functions.php';
+require_once ROOT_PATH.'/includes/database.php';
+
+
+
+
+$fallbackLangFile = ROOT_PATH.'/lang/en_gb.php';
+//$systemLangFile = ROOT_PATH.'/lang/'.ZM_LANG_DEFAULT.'.php';
+//if ( isset($user['Language']) ) $userLangFile = ROOT_PATH.'/'.$user['Language'].'.php';
+
+//if ( isset($userLangFile) && file_exists( $userLangFile ) ) require_once $userLangFile ;
+//elseif ( file_exists( $systemLangFile ) ) require_once $systemLangFile ;
+//elseif ( file_exists( $fallbackLangFile ) ) 
+require_once $fallbackLangFile ;
 
 $rates = array(
     "10000" => "100x",
@@ -48,7 +71,7 @@ $bwArray = array(
     "low" => $SLANG['Low']
 );
 
-switch ( $_COOKIE['zmBandwidth'] )
+switch ( @$_COOKIE['zmBandwidth'] )
 {
     case "high" :
     {
@@ -88,7 +111,7 @@ switch ( $_COOKIE['zmBandwidth'] )
         define( "ZM_WEB_AJAX_TIMEOUT", ZM_WEB_M_AJAX_TIMEOUT );         // Timeout to use for Ajax requests, no timeout used if unset
         break;
     }
-    case "low" :
+    default :
     {
         define( "ZM_WEB_REFRESH_MAIN", ZM_WEB_L_REFRESH_MAIN );         // How often (in seconds) the main console window refreshes
         define( "ZM_WEB_REFRESH_CYCLE", ZM_WEB_L_REFRESH_CYCLE );       // How often the cycle watch windows swaps to the next monitor

@@ -84,14 +84,15 @@ if ( empty($_REQUEST['apply']) )
           <input type="submit" value="<?= $SLANG['Apply'] ?>"/>
           <input type="button" name="saveBtn" value="<?= $SLANG['Save'] ?>" disabled="disabled" onclick="saveState( this );"/>
           <input type="button" name="deleteBtn" value="<?= $SLANG['Delete'] ?>" disabled="disabled" onclick="deleteState( this );"/>
-          <input type="button" value="<?= $SLANG['Cancel'] ?>" onclick="closeWindow()"/>
         </div>
 <?php
 }
 else
 {
 ?>
+<input type="hidden" name="request" value="refresh" />
         <input type="hidden" name="view" value="none"/>
+<input type="hidden" name="apply" value="" />
         <input type="hidden" name="action" value="state"/>
         <input type="hidden" name="runState" value="<?= validHtmlStr($_REQUEST['runState']) ?>"/>
         <p><?= $SLANG['ApplyingStateChange'] ?></p>

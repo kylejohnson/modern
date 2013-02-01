@@ -1,7 +1,8 @@
+fnum = 1;
+
 $(document).ready(function(){
 query = "";
 page = 1;
-fnum = 1;
 build_monitors();
 
 $("#inptDateFrom").datepicker();
@@ -15,7 +16,7 @@ $("#btnSubmit").click(function(){
 
 // FUNCTIONS //
 function build_monitors(){
- $.post("skins/new/includes/getMonitors.php", function(data){
+ $.post("skins/modern/includes/getMonitors.php", function(data){
   var monitors = data.split(",");
   monitors.pop();
   var x = monitors.length;
@@ -82,8 +83,18 @@ function Build_Query() {
  $tabs = $('#tabs_events').tabs({ // Auto-select new tab
   add: function(event, ui) { $tabs.tabs('select', '#' + ui.panel.id); }
   });
- $tabs = $("#tabs_events").tabs('add', "skins/new/views/pagination_data.php?page=1"+query, 'Search #' + fnum); // Add the tab
+ $tabs = $("#tabs_events").tabs('add', "skins/modern/views/pagination_data.php?page=0"+query, 'Search #' + fnum); // Add the tab
  fnum++;
 
  };
+
+
+
 });
+function advancedsearch(query) {
+	$tabs = $('#tabs_events').tabs({ // Auto-select new tab
+		add: function(event, ui) { $tabs.tabs('select', '#' + ui.panel.id); }
+	});
+	$tabs = $("#tabs_events").tabs('add', "skins/modern/views/pagination_data.php?page=0&"+query, 'Search #' + fnum); // Add the tab
+	fnum++;
+}

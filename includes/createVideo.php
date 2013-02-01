@@ -3,6 +3,7 @@ require("../../../includes/config.php");
 require("../../../includes/functions.php");
 $action	= $_REQUEST['action'];
 $eid = $_REQUEST['eid'];
+$path = $_REQUEST['path'];
 
 if ($action == "video"){
  createVideo2($eid, $path);
